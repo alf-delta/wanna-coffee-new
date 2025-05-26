@@ -1,0 +1,35 @@
+.listWrapper {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 280px;
+  max-height: 60vh;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  overflow-y: auto;
+  padding: 16px;
+  transition: max-height 0.3s ease;
+  z-index: 5;
+}
+
+.listWrapper h3 {
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+.listWrapper ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.listWrapper li {
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.listWrapper li:last-child {
+  border-bottom: none;
+}
