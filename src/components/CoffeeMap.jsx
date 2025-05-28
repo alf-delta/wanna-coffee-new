@@ -44,6 +44,16 @@ const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCen
           duration: 1000
         });
       }
+    },
+    flyTo: (center, zoom = 15) => {
+      if (!map.current) return;
+      setIsFlying(true);
+      map.current.flyTo({
+        center,
+        zoom,
+        duration: 1000
+      });
+      setTimeout(() => setIsFlying(false), 1000);
     }
   }));
 

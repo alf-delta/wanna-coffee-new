@@ -482,10 +482,24 @@ const Home = () => {
     }
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        setMapCenter([position.coords.longitude, position.coords.latitude]);
+        const newCenter = [position.coords.longitude, position.coords.latitude];
+        setMapCenter(newCenter);
+        if (mapRef.current) {
+          mapRef.current.flyTo({
+            center: newCenter,
+            zoom: 15,
+            duration: 1000
+          });
+        }
       },
       (error) => {
+        console.error('Geolocation error:', error);
         alert('Unable to retrieve your location');
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
       }
     );
   };
