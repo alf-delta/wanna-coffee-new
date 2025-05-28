@@ -1,164 +1,108 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { filtersConfig } from '../filtersConfig';
 
-const feetOptions = [750, 1500, 2500, 3500, 5000];
-const timeOptions = [3, 5, 8, 10, 15];
+const FilterPanel = ({ filters, setFilters }) => {
+  // Состояние: какие фильтры открыты
+  const [openFilters, setOpenFilters] = useState(() => filtersConfig.map(f => f.key));
 
-const FilterPanel = ({ radiusIdx, setRadiusIdx, filters, setFilters }) => {
-  const featureIcons = {
-    wifi: '📶',
-    'outdoor seating': '🌳',
-    food: '🥐',
-    wine: '🍷',
+  const toggleFilter = (key) => {
+    setOpenFilters(prev => prev.includes(key)
+      ? prev.filter(k => k !== key)
+      : [...prev, key]
+    );
   };
 
-  const handleFeatureChange = (feature) => {
-    const newFeatures = filters.features.includes(feature)
-      ? filters.features.filter(f => f !== feature)
-      : [...filters.features, feature];
-    setFilters({ ...filters, features: newFeatures });
+  // Обработчик для чекбоксов (multi и single)
+  const handleCheckbox = (filterKey, value, multi) => {
+    setFilters(prev => {
+      const prevVal = prev[filterKey] || (multi ? [] : false);
+      if (multi) {
+        if (prevVal.includes(value)) {
+          return { ...prev, [filterKey]: prevVal.filter(v => v !== value) };
+        } else {
+          return { ...prev, [filterKey]: [...prevVal, value] };
+        }
+      } else {
+        return { ...prev, [filterKey]: prevVal === value ? false : value };
+      }
+    });
   };
 
-  const handleSliderChange = (e) => {
-    const newValue = Number(e.target.value);
-    console.log('FilterPanel: handleSliderChange', { newValue });
-    setRadiusIdx(newValue);
+  // Обработчик для select
+  const handleSelect = (filterKey, value) => {
+    setFilters(prev => ({ ...prev, [filterKey]: value }));
   };
-
-  console.log('FilterPanel: render', { radiusIdx });
 
   return (
-    <div style={styles.container}>
-      <h3 style={styles.title}>Filters</h3>
-      <div style={styles.section}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <span style={{ fontSize: 22 }}>🚶‍♂️</span>
-          <span style={{ fontSize: 22 }}>🏃‍♂️</span>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {filtersConfig.map(filter => (
+        <div key={filter.key} style={{ marginBottom: 8, borderBottom: '1px solid #eee', paddingBottom: 6 }}>
+          <div
+            style={{ fontWeight: 600, marginBottom: 6, cursor: 'pointer', display: 'flex', alignItems: 'center', userSelect: 'none' }}
+            onClick={() => toggleFilter(filter.key)}
+          >
+            <span style={{ marginRight: 6 }}>{openFilters.includes(filter.key) ? '▼' : '▶'}</span>
+            {filter.title}
+          </div>
+          {openFilters.includes(filter.key) && (
+            <div>
+              {/* Чекбоксы */}
+              {filter.type.startsWith('checkbox') && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  {filter.options.map(opt => (
+                    <label key={opt.value} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 15 }}>
+                      <input
+                        type="checkbox"
+                        checked={Array.isArray(filters[filter.key])
+                          ? filters[filter.key].includes(opt.value)
+                          : filters[filter.key] === opt.value || filters[filter.key] === true}
+                        onChange={() => handleCheckbox(filter.key, opt.value, filter.multi)}
+                      />
+                      {opt.label}
+                    </label>
+                  ))}
+                </div>
+              )}
+              {/* Вложенный селект для roasting */}
+              {filter.nested && Array.isArray(filters[filter.key]) && filters[filter.key].length > 0 && (
+                <div style={{ marginTop: 8 }}>
+                  <label style={{ fontWeight: 500, fontSize: 14 }}>{filter.nested.title}:</label>
+                  <select
+                    value={filters[filter.nested.key] || ''}
+                    onChange={e => handleSelect(filter.nested.key, e.target.value)}
+                    style={{ marginLeft: 8, padding: 4, fontSize: 14 }}
+                  >
+                    <option value="">Any</option>
+                    {filter.nested.options.map(opt => (
+                      <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
+              {/* Селекты (если появятся в будущем) */}
+              {filter.type === 'select' && (
+                <select
+                  value={filters[filter.key] || ''}
+                  onChange={e => handleSelect(filter.key, e.target.value)}
+                  style={{ marginTop: 6, padding: 4, fontSize: 14 }}
+                >
+                  <option value="">Any</option>
+                  {filter.options.map(opt => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
+              )}
+            </div>
+          )}
         </div>
-        <input
-          type="range"
-          min={0}
-          max={timeOptions.length - 1}
-          step={1}
-          value={radiusIdx}
-          onChange={handleSliderChange}
-          style={{
-            width: '100%',
-            accentColor: '#d3914b',
-            height: 6,
-            borderRadius: 3,
-            marginBottom: 12,
-            marginTop: 0,
-          }}
-        />
-        <div style={{
-          textAlign: 'center',
-          fontWeight: 600,
-          fontSize: 18,
-          color: '#d3914b',
-          marginTop: 0,
-          marginBottom: 0,
-          letterSpacing: 1,
-        }}>
-          ≈ {timeOptions[radiusIdx]} min walk<br />
-          <span style={{ fontSize: 13, color: '#888' }}>{feetOptions[radiusIdx]} ft</span>
-        </div>
-      </div>
-      <div style={styles.section}>
-        <label style={styles.label}>Features:</label>
-        <div style={styles.features}>
-          {['wifi', 'outdoor seating', 'food', 'wine'].map((feature) => (
-            <label key={feature} style={styles.feature}>
-              <input
-                type="checkbox"
-                checked={filters.features.includes(feature)}
-                onChange={() => handleFeatureChange(feature)}
-                style={styles.checkbox}
-              />
-              <span style={{ fontSize: '1.2em', marginRight: 4 }}>{featureIcons[feature]}</span>
-              {feature.charAt(0).toUpperCase() + feature.slice(1).replace(/([A-Z])/g, ' $1')}
-            </label>
-          ))}
-        </div>
-      </div>
+      ))}
     </div>
   );
 };
 
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1.5rem',
-  },
-  title: {
-    margin: '0 0 0.5rem 0',
-    fontSize: '1.2rem',
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  section: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.5rem',
-  },
-  label: {
-    fontSize: '0.9rem',
-    color: '#666',
-    marginBottom: '0.25rem',
-  },
-  slider: {
-    width: '100%',
-    height: '4px',
-    backgroundColor: '#ddd',
-    borderRadius: '2px',
-    outline: 'none',
-    WebkitAppearance: 'none',
-    appearance: 'none',
-    '::-webkit-slider-thumb': {
-      WebkitAppearance: 'none',
-      appearance: 'none',
-      width: '16px',
-      height: '16px',
-      backgroundColor: '#d3914b',
-      borderRadius: '50%',
-      cursor: 'pointer',
-    },
-    '::-moz-range-thumb': {
-      width: '16px',
-      height: '16px',
-      backgroundColor: '#d3914b',
-      borderRadius: '50%',
-      cursor: 'pointer',
-      border: 'none',
-    },
-  },
-  features: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.5rem',
-  },
-  feature: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.5rem',
-    fontSize: '0.9rem',
-    color: '#666',
-    cursor: 'pointer',
-  },
-  checkbox: {
-    width: '16px',
-    height: '16px',
-    cursor: 'pointer',
-  },
-};
-
 FilterPanel.propTypes = {
-  radiusIdx: PropTypes.number.isRequired,
-  setRadiusIdx: PropTypes.func.isRequired,
-  filters: PropTypes.shape({
-    features: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }).isRequired,
+  filters: PropTypes.object.isRequired,
   setFilters: PropTypes.func.isRequired,
 };
 

@@ -25,13 +25,6 @@ const CoffeeList = ({ coffeeShops = [], onShopClick }) => {
           >
             <h4 style={styles.name}>{shop.name}</h4>
             <p style={styles.address}>{shop.address}</p>
-            <div style={styles.features}>
-              {shop.features.map((feature, index) => (
-                <span key={index} style={styles.feature}>
-                  {feature.charAt(0).toUpperCase() + feature.slice(1).replace(/([A-Z])/g, ' $1')}
-                </span>
-              ))}
-            </div>
             <button
               onClick={e => {
                 e.stopPropagation();
@@ -97,18 +90,6 @@ const styles = {
     fontSize: '0.875rem',
     color: '#6c757d',
   },
-  features: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '0.5rem',
-  },
-  feature: {
-    backgroundColor: '#e9ecef',
-    padding: '0.25rem 0.5rem',
-    borderRadius: '4px',
-    fontSize: '0.75rem',
-    color: '#495057',
-  },
   emptyState: {
     textAlign: 'center',
     padding: '2rem',
@@ -123,7 +104,6 @@ CoffeeList.propTypes = {
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       address: PropTypes.string.isRequired,
-      features: PropTypes.arrayOf(PropTypes.string).isRequired,
     })
   ).isRequired,
   onShopClick: PropTypes.func.isRequired,

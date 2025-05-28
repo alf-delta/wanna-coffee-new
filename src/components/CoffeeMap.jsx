@@ -156,15 +156,6 @@ const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCen
             .setHTML(`
               <h3 style="margin: 0 0 8px 0; font-size: 16px;">${shop.name}</h3>
               <p style="margin: 0 0 8px 0; font-size: 14px;">${shop.address}</p>
-              <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; font-size: 20px;">
-                ${shop.features.map(feature =>
-                  feature === 'wifi' ? '📶' :
-                  feature === 'outdoor seating' ? '🌳' :
-                  feature === 'food' ? '🥐' :
-                  feature === 'wine' ? '🍷' :
-                  ''
-                ).join(' ')}
-              </div>
               <button
                 onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${shop.latitude},${shop.longitude}', '_blank')"
                 style="display: flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 6px; border: 1px solid #eee; background: #fff; cursor: pointer; font-size: 14px;"
