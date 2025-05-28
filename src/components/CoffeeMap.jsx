@@ -50,13 +50,22 @@ const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCen
   // Функция для получения центра карты в пикселях
   const getMapCenter = () => {
     if (!map.current) return null;
-    const center = map.current.getCenter();
-    return {
-      lng: center.lng,
-      lat: center.lat,
-      x: map.current.getCanvas().width / 2,
-      y: map.current.getCanvas().height / 2
-    };
+    if (window.innerWidth <= 768) {
+      const offset = 180;
+      const center = map.current.getCenter();
+      const px = map.current.project(center);
+      const centerLngLat = map.current.unproject([px.x, px.y - offset]);
+      return {
+        lng: centerLngLat.lng,
+        lat: centerLngLat.lat
+      };
+    } else {
+      const center = map.current.getCenter();
+      return {
+        lng: center.lng,
+        lat: center.lat
+      };
+    }
   };
 
   // Функция для обновления радиуса и маркеров

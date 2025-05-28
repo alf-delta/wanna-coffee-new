@@ -318,17 +318,41 @@ const styles = {
       display: 'none',
     },
   },
+  desktopTopRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    marginBottom: 12,
+  },
+  geoButton: {
+    background: '#fff',
+    color: '#d3914b',
+    borderRadius: '20px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
+    padding: '8px 16px',
+    fontWeight: 600,
+    fontSize: '1rem',
+    border: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    cursor: 'pointer',
+    '@media (max-width: 768px)': {
+      padding: '8px',
+      fontSize: '1.2rem',
+    },
+  },
 };
 
 const Home = () => {
   const [radiusIdx, setRadiusIdx] = useState(2); // по умолчанию 8 min
   const [mapCenter, setMapCenter] = useState([-73.9459401, 40.8077971]);
   const [filters, setFilters] = useState(() => {
-    // Инициализация фильтров по умолчанию из filtersConfig
+    // Инициализация фильтров всегда пустыми значениями
     const initial = {};
     filtersConfig.forEach(f => {
-      if (f.default) initial[f.key] = f.default;
-      else if (f.multi) initial[f.key] = [];
+      if (f.multi) initial[f.key] = [];
       else initial[f.key] = false;
       if (f.nested) initial[f.nested.key] = '';
     });
@@ -451,6 +475,21 @@ const Home = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const handleUseLocation = () => {
+    if (!navigator.geolocation) {
+      alert('Geolocation is not supported by your browser');
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setMapCenter([position.coords.longitude, position.coords.latitude]);
+      },
+      (error) => {
+        alert('Unable to retrieve your location');
+      }
+    );
+  };
+
   return (
     <div style={styles.home}>
       <div style={styles.content}>
@@ -460,13 +499,21 @@ const Home = () => {
             ...styles.sidebar,
             ...(showSidebar && styles.sidebarVisible)
           }}>
-            {/* Кнопка Filters для десктопа */}
-            <button
-              style={styles.fabFilterDesktop}
-              onClick={() => setIsFilterModalOpen(true)}
-            >
-              <span role="img" aria-label="filter">🔎</span> Filters
-            </button>
+            <div style={styles.desktopTopRow}>
+              <button
+                style={styles.fabFilterDesktop}
+                onClick={() => setIsFilterModalOpen(true)}
+              >
+                <span role="img" aria-label="filter">🔎</span> Filters
+              </button>
+              <button
+                style={styles.geoButton}
+                onClick={handleUseLocation}
+                title="Use my location"
+              >
+                <span role="img" aria-label="location">📍</span> Use my location
+              </button>
+            </div>
             <div style={styles.listBlock}>
               <CoffeeList
                 coffeeShops={filteredShops}
@@ -500,6 +547,13 @@ const Home = () => {
               onClick={() => setIsFilterModalOpen(true)}
             >
               <span role="img" aria-label="filter">🔎</span> Filters
+            </button>
+            <button
+              style={styles.geoButton}
+              onClick={handleUseLocation}
+              title="Use my location"
+            >
+              <span role="img" aria-label="location">📍</span>
             </button>
           </div>
           <div style={styles.mobileListScrollFixed}>

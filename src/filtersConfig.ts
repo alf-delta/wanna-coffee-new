@@ -4,7 +4,6 @@ export const filtersConfig = [
     title: 'Coffee Type',
     type: 'checkbox',
     multi: true,
-    default: ['blend'],
     options: [
       { value: 'blend', label: 'Blend' },
       { value: 'single_origin', label: 'Single Origin' },
