@@ -476,29 +476,46 @@ const Home = () => {
   }, []);
 
   const handleUseLocation = () => {
+    console.log('handleUseLocation called');
     if (!navigator.geolocation) {
+      console.error('Geolocation is not supported by your browser');
       alert('Geolocation is not supported by your browser');
       return;
     }
+
+    console.log('Requesting geolocation...');
     navigator.geolocation.getCurrentPosition(
       (position) => {
+        console.log('Geolocation success:', position);
         const newCenter = [position.coords.longitude, position.coords.latitude];
+        console.log('New center:', newCenter);
         setMapCenter(newCenter);
         if (mapRef.current) {
-          mapRef.current.flyTo({
-            center: newCenter,
-            zoom: 15,
-            duration: 1000
-          });
+          console.log('Flying to new location...');
+          mapRef.current.flyTo(newCenter, 15);
+        } else {
+          console.error('mapRef.current is not available');
         }
       },
       (error) => {
         console.error('Geolocation error:', error);
-        alert('Unable to retrieve your location');
+        let errorMessage = 'Unable to retrieve your location';
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            errorMessage = 'Please allow location access to use this feature';
+            break;
+          case error.POSITION_UNAVAILABLE:
+            errorMessage = 'Location information is unavailable';
+            break;
+          case error.TIMEOUT:
+            errorMessage = 'Location request timed out';
+            break;
+        }
+        alert(errorMessage);
       },
       {
         enableHighAccuracy: true,
-        timeout: 5000,
+        timeout: 10000,
         maximumAge: 0
       }
     );

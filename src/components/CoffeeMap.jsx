@@ -46,12 +46,17 @@ const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCen
       }
     },
     flyTo: (center, zoom = 15) => {
-      if (!map.current) return;
+      console.log('flyTo called with:', { center, zoom });
+      if (!map.current) {
+        console.error('Map is not initialized');
+        return;
+      }
       setIsFlying(true);
       map.current.flyTo({
         center,
         zoom,
-        duration: 1000
+        duration: 1000,
+        essential: true
       });
       setTimeout(() => setIsFlying(false), 1000);
     }
