@@ -5,6 +5,7 @@ import CoffeeList from '../components/CoffeeList';
 import { coffeeShops as coffeeShopsData } from '../utils/coffeeShops';
 import * as turf from '@turf/turf';
 import { filtersConfig } from '../filtersConfig';
+import Modal from '../components/Modal';
 
 const feetOptions = [750, 1500, 2500, 3500, 5000];
 
@@ -19,11 +20,14 @@ const styles = {
     flexDirection: 'row',
     flex: 1,
     minHeight: 0,
+    '@media (max-width: 768px)': {
+      flexDirection: 'column',
+    },
   },
   sidebar: {
-    width: 320,
-    minWidth: 320,
-    maxWidth: 400,
+    width: 280,
+    minWidth: 280,
+    maxWidth: 320,
     flexShrink: 0,
     display: 'flex',
     flexDirection: 'column',
@@ -31,29 +35,289 @@ const styles = {
     boxShadow: '0 2px 4px rgba(0,0,0,0.04)',
     zIndex: 2,
     overflow: 'auto',
-    padding: '1rem',
-    gap: '1rem',
+    padding: '0.75rem',
+    gap: '0.75rem',
+    '@media (max-width: 768px)': {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      bottom: 0,
+      width: '85%',
+      maxWidth: '320px',
+      transform: 'translateX(-100%)',
+      transition: 'transform 0.3s ease-in-out',
+      zIndex: 1000,
+    },
+  },
+  sidebarVisible: {
+    '@media (max-width: 768px)': {
+      transform: 'translateX(0)',
+    },
   },
   mapContainer: {
     flex: 1,
     minWidth: 0,
     height: '100%',
     position: 'relative',
+    '@media (max-width: 768px)': {
+      height: 'calc(100vh - 60px)',
+    },
   },
   filterBlock: {
     backgroundColor: 'white',
-    borderRadius: '8px',
-    padding: '1rem',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+    borderRadius: '6px',
+    padding: '0.75rem',
+    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
   },
   listBlock: {
     backgroundColor: 'white',
-    borderRadius: '8px',
-    padding: '1rem',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+    borderRadius: '6px',
+    padding: '0.75rem',
+    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
     flex: 1,
     overflowY: 'auto',
-  }
+  },
+  mobileControls: {
+    display: 'none',
+    '@media (max-width: 768px)': {
+      display: 'flex',
+      position: 'fixed',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      height: '60px',
+      background: 'white',
+      boxShadow: '0 -2px 4px rgba(0,0,0,0.1)',
+      zIndex: 1000,
+      justifyContent: 'space-around',
+      alignItems: 'center',
+    },
+  },
+  mobileButton: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '4px',
+    padding: '8px',
+    background: 'none',
+    border: 'none',
+    color: '#666',
+    cursor: 'pointer',
+  },
+  mobileButtonActive: {
+    color: '#d3914b',
+  },
+  overlay: {
+    display: 'none',
+    '@media (max-width: 768px)': {
+      display: 'block',
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: 'rgba(0,0,0,0.5)',
+      zIndex: 999,
+    },
+  },
+  fabFilter: {
+    position: 'fixed',
+    bottom: 80,
+    right: 20,
+    zIndex: 1200,
+    background: '#fff',
+    color: '#d3914b',
+    borderRadius: '24px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+    padding: '12px 20px',
+    fontWeight: 600,
+    fontSize: '1rem',
+    border: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    '@media (min-width: 769px)': {
+      display: 'none',
+    },
+  },
+  closeModalBtn: {
+    marginTop: 16,
+    width: '100%',
+    padding: '12px',
+    background: '#d3914b',
+    color: '#fff',
+    border: 'none',
+    borderRadius: 8,
+    fontWeight: 600,
+    fontSize: '1rem',
+    cursor: 'pointer',
+  },
+  mobileListScroll: {
+    display: 'flex',
+    flexDirection: 'row',
+    overflowX: 'auto',
+    gap: 12,
+    padding: '0.5rem 0.5rem 0.5rem 1rem',
+    background: '#fff',
+    borderBottom: '1px solid #eee',
+    position: 'sticky',
+    top: 56,
+    zIndex: 100,
+    '@media (min-width: 769px)': {
+      display: 'none',
+    },
+  },
+  mobileTopBar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '0.5rem 1rem 0.5rem 1rem',
+    background: '#fff',
+    borderBottom: '1px solid #eee',
+    position: 'sticky',
+    top: 0,
+    zIndex: 110,
+    '@media (min-width: 769px)': {
+      display: 'none',
+    },
+  },
+  fabFilterTop: {
+    background: '#fff',
+    color: '#d3914b',
+    borderRadius: '20px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
+    padding: '8px 16px',
+    fontWeight: 600,
+    fontSize: '1rem',
+    border: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+  },
+  coffeeCount: {
+    fontWeight: 500,
+    fontSize: '1rem',
+    color: '#333',
+  },
+  mobileListScrollBottom: {
+    display: 'flex',
+    flexDirection: 'row',
+    overflowX: 'auto',
+    gap: 12,
+    padding: '0.5rem 0.5rem 0.5rem 1rem',
+    background: '#fff',
+    borderTop: '1px solid #eee',
+    borderBottom: 'none',
+    position: 'fixed',
+    left: 0,
+    right: 0,
+    bottom: 60,
+    zIndex: 110,
+    '@media (min-width: 769px)': {
+      display: 'none',
+    },
+  },
+  mobileBottomBar: {
+    position: 'fixed',
+    left: 0,
+    right: 0,
+    bottom: 60,
+    zIndex: 120,
+    background: '#fff',
+    borderTop: '1px solid #eee',
+    boxShadow: '0 -2px 8px rgba(0,0,0,0.06)',
+    '@media (min-width: 769px)': {
+      display: 'none',
+    },
+  },
+  mobileFiltersRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    gap: 12,
+    padding: '0.5rem 1rem 0.25rem 1rem',
+  },
+  fabFilterBottom: {
+    background: '#fff',
+    color: '#d3914b',
+    borderRadius: '20px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
+    padding: '8px 16px',
+    fontWeight: 600,
+    fontSize: '1rem',
+    border: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+  },
+  mobileBottomBarFixed: {
+    position: 'fixed',
+    left: 0,
+    right: 0,
+    bottom: 60,
+    zIndex: 120,
+    background: '#fff',
+    borderTop: '1px solid #eee',
+    boxShadow: '0 -2px 8px rgba(0,0,0,0.06)',
+    '@media (min-width: 769px)': {
+      display: 'none',
+    },
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 0,
+    padding: 0,
+  },
+  mobileFiltersRowFixed: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    gap: 12,
+    padding: '0.5rem 1rem 0.25rem 1rem',
+    borderBottom: '1px solid #f2f2f2',
+  },
+  mobileListScrollFixed: {
+    display: 'flex',
+    flexDirection: 'row',
+    overflowX: 'auto',
+    gap: 12,
+    padding: '0.5rem 0.5rem 0 1rem',
+    background: '#fff',
+    borderTop: 'none',
+    borderBottom: 'none',
+    position: 'static',
+    scrollbarWidth: 'thin',
+    scrollbarColor: '#bbb #f5f5f5',
+  },
+  '@global': {
+    '.mobileListScrollFixed::-webkit-scrollbar': {
+      height: '3px',
+      background: '#f5f5f5',
+    },
+    '.mobileListScrollFixed::-webkit-scrollbar-thumb': {
+      background: '#bbb',
+      borderRadius: '2px',
+    },
+  },
+  fabFilterDesktop: {
+    background: '#fff',
+    color: '#d3914b',
+    borderRadius: '20px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
+    padding: '8px 16px',
+    fontWeight: 600,
+    fontSize: '1rem',
+    border: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8,
+    margin: '0 0 1rem 0',
+    cursor: 'pointer',
+    '@media (max-width: 768px)': {
+      display: 'none',
+    },
+  },
 };
 
 const Home = () => {
@@ -71,6 +335,10 @@ const Home = () => {
     return initial;
   });
   const [selectedShopId, setSelectedShopId] = useState(null);
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [activeView, setActiveView] = useState('map'); // 'map' или 'list'
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
   const mapRef = useRef(null);
 
@@ -169,24 +437,49 @@ const Home = () => {
     window.history.replaceState({}, '', newUrl);
   }, [filters]);
 
+  // Обработчик изменения размера окна
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobileView(mobile);
+      if (!mobile) {
+        setShowSidebar(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div style={styles.home}>
       <div style={styles.content}>
-        <div style={styles.sidebar}>
-          <div style={styles.filterBlock}>
-            <FilterPanel
-              filters={filters}
-              setFilters={setFilters}
-            />
+        {/* Сайдбар и фильтры только для десктопа */}
+        {!isMobileView && (
+          <div style={{
+            ...styles.sidebar,
+            ...(showSidebar && styles.sidebarVisible)
+          }}>
+            {/* Кнопка Filters для десктопа */}
+            <button
+              style={styles.fabFilterDesktop}
+              onClick={() => setIsFilterModalOpen(true)}
+            >
+              <span role="img" aria-label="filter">🔎</span> Filters
+            </button>
+            <div style={styles.listBlock}>
+              <CoffeeList
+                coffeeShops={filteredShops}
+                onShopClick={handleShopClick}
+              />
+            </div>
           </div>
-          <div style={styles.listBlock}>
-            <CoffeeList
-              coffeeShops={filteredShops}
-              onShopClick={handleShopClick}
-            />
-          </div>
-        </div>
-        <div style={styles.mapContainer}>
+        )}
+        {showSidebar && <div style={styles.overlay} onClick={() => setShowSidebar(false)} />}
+        <div style={{
+          ...styles.mapContainer,
+          display: isMobileView && activeView === 'list' ? 'none' : 'block'
+        }}>
           <CoffeeMap
             ref={mapRef}
             coffeeShops={filteredShops}
@@ -197,6 +490,66 @@ const Home = () => {
           />
         </div>
       </div>
+      {/* Фиксированный нижний блок для мобильных: фильтры+счетчик справа, под ними карточки кофеен */}
+      {isMobileView && (
+        <div style={styles.mobileBottomBarFixed}>
+          <div style={styles.mobileFiltersRowFixed}>
+            <span style={styles.coffeeCount}>{filteredShops.length} found</span>
+            <button
+              style={styles.fabFilterBottom}
+              onClick={() => setIsFilterModalOpen(true)}
+            >
+              <span role="img" aria-label="filter">🔎</span> Filters
+            </button>
+          </div>
+          <div style={styles.mobileListScrollFixed}>
+            <CoffeeList
+              coffeeShops={filteredShops}
+              onShopClick={handleShopClick}
+              horizontal
+              showCount={false}
+            />
+          </div>
+        </div>
+      )}
+      {/* Мобильная панель управления */}
+      {isMobileView && (
+        <div style={styles.mobileControls}>
+          <button
+            style={{
+              ...styles.mobileButton,
+              ...(activeView === 'map' && styles.mobileButtonActive)
+            }}
+            onClick={() => {
+              setActiveView('map');
+              setShowSidebar(false);
+            }}
+          >
+            <span role="img" aria-label="map">🗺️</span>
+            <span>Map</span>
+          </button>
+          <button
+            style={{
+              ...styles.mobileButton,
+              ...(activeView === 'list' && styles.mobileButtonActive)
+            }}
+            onClick={() => {
+              setActiveView('list');
+              setShowSidebar(true);
+            }}
+          >
+            <span role="img" aria-label="list">📋</span>
+            <span>List</span>
+          </button>
+        </div>
+      )}
+      {/* Модальное окно фильтров */}
+      {isFilterModalOpen && (
+        <Modal onClose={() => setIsFilterModalOpen(false)}>
+          <FilterPanel filters={filters} setFilters={setFilters} />
+          <button style={styles.closeModalBtn} onClick={() => setIsFilterModalOpen(false)}>Close</button>
+        </Modal>
+      )}
     </div>
   );
 };

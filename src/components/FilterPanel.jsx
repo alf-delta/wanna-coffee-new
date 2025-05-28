@@ -35,29 +35,32 @@ const FilterPanel = ({ filters, setFilters }) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <div style={styles.container}>
       {filtersConfig.map(filter => (
-        <div key={filter.key} style={{ marginBottom: 8, borderBottom: '1px solid #eee', paddingBottom: 6 }}>
+        <div key={filter.key} style={styles.filterGroup}>
           <div
-            style={{ fontWeight: 600, marginBottom: 6, cursor: 'pointer', display: 'flex', alignItems: 'center', userSelect: 'none' }}
+            style={styles.filterHeader}
             onClick={() => toggleFilter(filter.key)}
           >
-            <span style={{ marginRight: 6 }}>{openFilters.includes(filter.key) ? '▼' : '▶'}</span>
+            <span style={styles.toggleIcon}>
+              {openFilters.includes(filter.key) ? '▼' : '▶'}
+            </span>
             {filter.title}
           </div>
           {openFilters.includes(filter.key) && (
-            <div>
+            <div style={styles.filterContent}>
               {/* Чекбоксы */}
               {filter.type.startsWith('checkbox') && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <div style={styles.checkboxGroup}>
                   {filter.options.map(opt => (
-                    <label key={opt.value} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 15 }}>
+                    <label key={opt.value} style={styles.checkboxLabel}>
                       <input
                         type="checkbox"
                         checked={Array.isArray(filters[filter.key])
                           ? filters[filter.key].includes(opt.value)
                           : filters[filter.key] === opt.value || filters[filter.key] === true}
                         onChange={() => handleCheckbox(filter.key, opt.value, filter.multi)}
+                        style={styles.checkbox}
                       />
                       {opt.label}
                     </label>
@@ -66,12 +69,12 @@ const FilterPanel = ({ filters, setFilters }) => {
               )}
               {/* Вложенный селект для roasting */}
               {filter.nested && Array.isArray(filters[filter.key]) && filters[filter.key].length > 0 && (
-                <div style={{ marginTop: 8 }}>
-                  <label style={{ fontWeight: 500, fontSize: 14 }}>{filter.nested.title}:</label>
+                <div style={styles.nestedSelect}>
+                  <label style={styles.nestedLabel}>{filter.nested.title}:</label>
                   <select
                     value={filters[filter.nested.key] || ''}
                     onChange={e => handleSelect(filter.nested.key, e.target.value)}
-                    style={{ marginLeft: 8, padding: 4, fontSize: 14 }}
+                    style={styles.select}
                   >
                     <option value="">Any</option>
                     {filter.nested.options.map(opt => (
@@ -85,7 +88,7 @@ const FilterPanel = ({ filters, setFilters }) => {
                 <select
                   value={filters[filter.key] || ''}
                   onChange={e => handleSelect(filter.key, e.target.value)}
-                  style={{ marginTop: 6, padding: 4, fontSize: 14 }}
+                  style={styles.select}
                 >
                   <option value="">Any</option>
                   {filter.options.map(opt => (
@@ -99,6 +102,96 @@ const FilterPanel = ({ filters, setFilters }) => {
       ))}
     </div>
   );
+};
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 12,
+  },
+  filterGroup: {
+    marginBottom: 6,
+    borderBottom: '1px solid #eee',
+    paddingBottom: 4,
+  },
+  filterHeader: {
+    fontWeight: 600,
+    marginBottom: 4,
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    userSelect: 'none',
+    fontSize: '0.9rem',
+    '@media (max-width: 768px)': {
+      fontSize: '0.85rem',
+      padding: '6px 0',
+    },
+  },
+  toggleIcon: {
+    marginRight: 4,
+    fontSize: '0.7rem',
+    '@media (max-width: 768px)': {
+      marginRight: 6,
+    },
+  },
+  filterContent: {
+    paddingLeft: 16,
+    '@media (max-width: 768px)': {
+      paddingLeft: 20,
+    },
+  },
+  checkboxGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 2,
+  },
+  checkboxLabel: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 6,
+    fontSize: '0.85rem',
+    padding: '2px 0',
+    fontWeight: 400,
+    '@media (max-width: 768px)': {
+      fontSize: '0.8rem',
+      padding: '1.5px 0',
+    },
+  },
+  checkbox: {
+    width: 16,
+    height: 16,
+    accentColor: '#d3914b',
+    marginRight: 6,
+    '@media (max-width: 768px)': {
+      width: 15,
+      height: 15,
+      marginRight: 5,
+    },
+  },
+  nestedSelect: {
+    marginTop: 6,
+  },
+  nestedLabel: {
+    fontWeight: 500,
+    fontSize: '0.8rem',
+    '@media (max-width: 768px)': {
+      fontSize: '0.75rem',
+    },
+  },
+  select: {
+    marginLeft: 6,
+    padding: 3,
+    fontSize: '0.8rem',
+    borderRadius: 3,
+    border: '1px solid #ddd',
+    '@media (max-width: 768px)': {
+      fontSize: '0.75rem',
+      padding: 4,
+      marginTop: 3,
+      width: '100%',
+    },
+  },
 };
 
 FilterPanel.propTypes = {

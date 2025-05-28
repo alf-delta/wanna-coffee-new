@@ -84,3 +84,78 @@ select:focus {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* ===== MOBILE STYLES ===== */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  .container {
+    padding: 0 0.5rem;
+  }
+
+  /* Убираем скроллбар на мобильных */
+  ::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
+
+  /* Оптимизация для тач-устройств */
+  button, 
+  input[type="checkbox"],
+  input[type="radio"],
+  select {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Улучшаем читаемость текста */
+  p, li {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+  h4 { font-size: 1.1rem; }
+  h5, h6 { font-size: 1rem; }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
