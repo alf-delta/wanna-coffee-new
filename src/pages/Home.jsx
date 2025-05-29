@@ -540,9 +540,9 @@ const Home = () => {
               <button
                 style={styles.geoButton}
                 onClick={handleUseLocation}
-                title="Use my location"
+                title="My location"
               >
-                <span role="img" aria-label="location">📍</span> Use my location
+                <span role="img" aria-label="location">📍</span> My location
               </button>
             </div>
             <div style={styles.listBlock}>
@@ -582,7 +582,7 @@ const Home = () => {
             <button
               style={styles.geoButton}
               onClick={handleUseLocation}
-              title="Use my location"
+              title="My location"
             >
               <span role="img" aria-label="location">📍</span>
             </button>
