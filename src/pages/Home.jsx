@@ -255,7 +255,7 @@ const styles = {
     position: 'fixed',
     left: 0,
     right: 0,
-    bottom: 60,
+    bottom: 0,
     zIndex: 120,
     background: '#fff',
     borderTop: '1px solid #eee',
