@@ -355,6 +355,22 @@ const styles = {
       height: 'auto',
     },
   },
+  mobileGeoButton: {
+    background: '#fff',
+    color: '#d3914b',
+    borderRadius: '20px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
+    padding: '8px 12px',
+    fontWeight: 600,
+    fontSize: '1rem',
+    border: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 6,
+    cursor: 'pointer',
+    minWidth: 0,
+    height: 40,
+  },
 };
 
 // SVG иконка pin (location marker)
@@ -622,6 +638,13 @@ const Home = () => {
       {isMobileView && (
         <div style={styles.mobileBottomBarFixed}>
           <div style={styles.mobileFiltersRowFixed}>
+            <button
+              style={styles.mobileGeoButton}
+              onClick={handleUseLocation}
+              title="Моё местоположение"
+            >
+              <LocationIcon size={20} color="#d3914b" />
+            </button>
             <span style={styles.coffeeCount}>{filteredShops.length} found</span>
             <button
               style={styles.fabFilterBottom}

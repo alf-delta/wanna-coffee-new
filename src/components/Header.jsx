@@ -77,9 +77,9 @@ const styles = {
     zIndex: 2,
   },
   logo: {
-    height: '40px',
+    height: '64px',
     '@media (max-width: 768px)': {
-      height: '32px',
+      height: '48px',
     },
   },
   rightControls: {
