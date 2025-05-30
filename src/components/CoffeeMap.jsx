@@ -19,6 +19,8 @@ const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCen
   const [isFlying, setIsFlying] = useState(false);
   const layersCreated = useRef(false);
   const pendingPopupId = useRef(null);
+  // Стартовый zoom для более крупного масштаба (15 — несколько кварталов)
+  const initialZoom = 15;
 
   console.log('CoffeeMap: props changed', { radiusCircle, coffeeShopsCount: coffeeShops.length });
 
@@ -226,10 +228,10 @@ const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCen
 
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
-        style: 'mapbox://styles/mapbox/light-v11',
-        center: [-73.9459401, 40.8077971],
-        zoom: 12,
-        attributionControl: true,
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: mapCenter,
+        zoom: initialZoom,
+        attributionControl: false,
       });
 
       console.log('Map instance created:', map.current);

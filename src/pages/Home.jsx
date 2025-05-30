@@ -25,9 +25,9 @@ const styles = {
     },
   },
   sidebar: {
-    width: 280,
-    minWidth: 280,
-    maxWidth: 320,
+    width: 380,
+    minWidth: 380,
+    maxWidth: 380,
     flexShrink: 0,
     display: 'flex',
     flexDirection: 'column',
@@ -314,6 +314,8 @@ const styles = {
     gap: 8,
     margin: '0 0 1rem 0',
     cursor: 'pointer',
+    minWidth: 160,
+    height: 48,
     '@media (max-width: 768px)': {
       display: 'none',
     },
@@ -335,19 +337,48 @@ const styles = {
     fontSize: '1rem',
     border: 'none',
     display: 'flex',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
     cursor: 'pointer',
+    minWidth: 160,
+    height: 48,
+    position: 'fixed',
+    right: 32,
+    bottom: 32,
+    zIndex: 1201,
     '@media (max-width: 768px)': {
-      padding: '8px',
-      fontSize: '1.2rem',
+      position: 'static',
+      right: 'auto',
+      bottom: 'auto',
+      minWidth: 0,
+      height: 'auto',
     },
   },
 };
 
+// SVG иконка pin (location marker)
+const LocationIcon = ({ size = 22, color = '#d3914b' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: 'block' }}>
+    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill={color}/>
+  </svg>
+);
+
+// Кастомные стили для слайдера радиуса
+const sliderStyle = {
+  width: '100%',
+  accentColor: '#d3914b',
+  height: '4px',
+  borderRadius: '2px',
+  background: '#fff',
+  outline: 'none',
+  margin: '0',
+  marginBottom: '8px',
+};
+
 const Home = () => {
-  const [radiusIdx, setRadiusIdx] = useState(2); // по умолчанию 8 min
-  const [mapCenter, setMapCenter] = useState([-73.9459401, 40.8077971]);
+  const [radiusIdx, setRadiusIdx] = useState(0); // минимальный радиус по умолчанию
+  const [mapCenter, setMapCenter] = useState([-74.009, 40.707]); // Financial District, Manhattan
   const [filters, setFilters] = useState(() => {
     // Инициализация фильтров всегда пустыми значениями
     const initial = {};
@@ -537,13 +568,21 @@ const Home = () => {
               >
                 <span role="img" aria-label="filter">🔎</span> Filters
               </button>
-              <button
-                style={styles.geoButton}
-                onClick={handleUseLocation}
-                title="My location"
-              >
-                <span role="img" aria-label="location">📍</span> My location
-              </button>
+            </div>
+            <div style={{ marginBottom: 16 }}>
+              <label htmlFor="radius-slider" style={{ fontWeight: 500, fontSize: '1rem', color: '#d3914b', display: 'block', marginBottom: 6 }}>
+                Search radius: {feetOptions[radiusIdx]} ft
+              </label>
+              <input
+                id="radius-slider"
+                type="range"
+                min={0}
+                max={feetOptions.length - 1}
+                value={radiusIdx}
+                onChange={e => setRadiusIdx(Number(e.target.value))}
+                style={sliderStyle}
+                className="radius-slider"
+              />
             </div>
             <div style={styles.listBlock}>
               <CoffeeList
@@ -566,6 +605,17 @@ const Home = () => {
             mapCenter={mapCenter}
             selectedShopId={selectedShopId}
           />
+          {/* Плавающая кнопка геолокации только на десктопе */}
+          {!isMobileView && (
+            <button
+              style={styles.geoButton}
+              onClick={handleUseLocation}
+              title="My location"
+            >
+              <LocationIcon size={22} color="#d3914b" />
+              My location
+            </button>
+          )}
         </div>
       </div>
       {/* Фиксированный нижний блок для мобильных: фильтры+счетчик справа, под ними карточки кофеен */}
@@ -579,13 +629,6 @@ const Home = () => {
             >
               <span role="img" aria-label="filter">🔎</span> Filters
             </button>
-            <button
-              style={styles.geoButton}
-              onClick={handleUseLocation}
-              title="My location"
-            >
-              <span role="img" aria-label="location">📍</span>
-            </button>
           </div>
           <div style={styles.mobileListScrollFixed}>
             <CoffeeList
@@ -593,6 +636,21 @@ const Home = () => {
               onShopClick={handleShopClick}
               horizontal
               showCount={false}
+            />
+          </div>
+          <div style={{ padding: '0.5rem 1rem 0.25rem 1rem', background: '#fff' }}>
+            <label htmlFor="radius-slider-mobile" style={{ fontWeight: 500, fontSize: '1rem', color: '#d3914b', display: 'block', marginBottom: 6 }}>
+              Search radius: {feetOptions[radiusIdx]} ft
+            </label>
+            <input
+              id="radius-slider-mobile"
+              type="range"
+              min={0}
+              max={feetOptions.length - 1}
+              value={radiusIdx}
+              onChange={e => setRadiusIdx(Number(e.target.value))}
+              style={sliderStyle}
+              className="radius-slider"
             />
           </div>
         </div>
