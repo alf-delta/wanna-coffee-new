@@ -319,7 +319,7 @@ const styles = {
     scrollbarColor: '#bbb #f5f5f5',
   },
   mobileSliderContainer: {
-    padding: '0.75rem 1rem 0.75rem 1rem',
+    padding: '0.4rem 1rem 1.2rem 1rem',
     background: '#fff',
     borderTop: '1px solid #f2f2f2',
     borderRadius: '0 0 16px 16px',
@@ -645,7 +645,7 @@ const Home = () => {
                 onShopClick={handleShopClick}
               />
             </div>
-          </div>
+      </div>
         )}
         {showSidebar && <div style={styles.overlay} onClick={() => setShowSidebar(false)} />}
         <div style={{
@@ -654,12 +654,12 @@ const Home = () => {
         }}>
           <div style={styles.mapWrapper}>
             <div style={styles.mapWrapperBorder} />
-            <CoffeeMap
+        <CoffeeMap
               ref={mapRef}
               coffeeShops={filteredShops}
-              radiusCircle={radiusCircle}
-              setMapCenter={setMapCenter}
-              mapCenter={mapCenter}
+          radiusCircle={radiusCircle}
+          setMapCenter={setMapCenter}
+          mapCenter={mapCenter}
               selectedShopId={selectedShopId}
             />
           </div>
@@ -705,7 +705,7 @@ const Home = () => {
           </div>
           <div style={styles.mobileSliderContainer}>
             <div style={styles.mobileSliderWrapper}>
-              <label htmlFor="radius-slider-mobile" style={{ fontWeight: 500, fontSize: '1rem', color: '#d3914b', display: 'block', marginBottom: 6 }}>
+              <label htmlFor="radius-slider-mobile" style={{ fontWeight: 500, fontSize: '1rem', color: '#d3914b', display: 'block', marginBottom: 2 }}>
                 Search radius: {feetOptions[radiusIdx]} ft
               </label>
               <input

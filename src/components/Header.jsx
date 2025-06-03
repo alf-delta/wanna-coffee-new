@@ -17,7 +17,7 @@ const Header = () => {
       <nav style={styles.nav}>
         <Link to="/" style={styles.logoLink}>
           <img src={logo} alt="Wanna Coffee Logo" style={styles.logo} />
-        </Link>
+      </Link>
         <div style={styles.rightControls}>
           {isMobile ? (
             <>
@@ -43,10 +43,10 @@ const Header = () => {
               <Link to="/contact" style={styles.link}>Contact</Link>
             </div>
           )}
-        </div>
-      </nav>
-    </header>
-  );
+      </div>
+    </nav>
+  </header>
+);
 };
 
 const styles = {

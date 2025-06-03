@@ -226,13 +226,13 @@ const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCen
         console.warn('Map container has zero dimensions. Map may not be visible.');
       }
 
-      map.current = new mapboxgl.Map({
-        container: mapContainer.current,
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current,
         style: 'mapbox://styles/mapbox/streets-v11',
         center: mapCenter,
         zoom: initialZoom,
         attributionControl: false,
-      });
+    });
 
       console.log('Map instance created:', map.current);
 
@@ -255,15 +255,15 @@ const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCen
             try {
               console.log('Создаю source:', layer.id);
               map.current.addSource(layer.id, {
-                type: 'geojson',
-                data: {
-                  type: 'Feature',
-                  geometry: {
-                    type: 'Point',
-                    coordinates: map.current.getCenter().toArray(),
-                  },
-                },
-              });
+        type: 'geojson',
+        data: {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: map.current.getCenter().toArray(),
+          },
+        },
+      });
               console.log('Source создан:', layer.id);
             } catch (e) {
               console.error('Ошибка при создании source:', layer.id, e);
@@ -284,9 +284,9 @@ const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCen
               if (layer.stroke) {
                 paint['circle-stroke-color'] = '#FFFFFF';
               }
-              map.current.addLayer({
+      map.current.addLayer({
                 id: `${layer.id}-layer`,
-                type: 'circle',
+        type: 'circle',
                 source: layer.id,
                 paint,
               });
@@ -338,7 +338,7 @@ const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCen
     } catch (error) {
       console.error('Error initializing map:', error);
       setError(error.message);
-    }
+        }
 
     return () => {
       window.removeEventListener('resize', updateMap);
