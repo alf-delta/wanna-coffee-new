@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "title": "Latte Art Battle",
+    "datetime": "2024-07-10T18:00:00",
+    "coffeeShopId": 101,
+    "coffeeShopName": "Black Fox Coffee",
+    "description": "Latte art competition among baristas.",
+    "price": 0
+  },
+  {
+    "id": 2,
+    "title": "Cupping: Ethiopia",
+    "datetime": "2024-07-12T19:30:00",
+    "coffeeShopId": 102,
+    "coffeeShopName": "Ten Thousand Coffees",
+    "description": "Tasting of fresh Ethiopian varieties.",
+    "price": 300
+  },
+  {
+    "id": 3,
+    "title": "Lecture: History of Coffee",
+    "datetime": "2024-07-15T17:00:00",
+    "coffeeShopId": 103,
+    "coffeeShopName": "Mermaid Coffee",
+    "description": "Diving into the history of coffee culture.",
+    "price": 200
+  }
+] 

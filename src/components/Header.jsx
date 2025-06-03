@@ -31,6 +31,7 @@ const Header = () => {
               {isMenuOpen && (
                 <div style={styles.mobileMenu}>
                   <Link to="/" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>Home</Link>
+                  <Link to="/events" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>Events</Link>
                   <Link to="/about" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>About</Link>
                   <Link to="/contact" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>Contact</Link>
                 </div>
@@ -39,6 +40,7 @@ const Header = () => {
           ) : (
             <div style={styles.links}>
               <Link to="/" style={styles.link}>Home</Link>
+              <Link to="/events" style={styles.link}>Events</Link>
               <Link to="/about" style={styles.link}>About</Link>
               <Link to="/contact" style={styles.link}>Contact</Link>
             </div>
@@ -79,7 +81,7 @@ const styles = {
   logo: {
     height: '64px',
     '@media (max-width: 768px)': {
-      height: '48px',
+      height: '38px',
     },
   },
   rightControls: {

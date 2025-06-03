@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
 import mapboxgl from 'mapbox-gl';
 import { MAPBOX_TOKEN } from '../assets/mapbox-token';
-import * as turf from '@turf/turf';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 if (!MAPBOX_TOKEN) {
@@ -10,7 +9,7 @@ if (!MAPBOX_TOKEN) {
 
 mapboxgl.accessToken = MAPBOX_TOKEN;
 
-const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCenter, mapCenter, selectedShopId }, ref) => {
+const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCenter, mapCenter, selectedShopId, disableMove = false, mobileOffsetY = -120 }, ref) => {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const markers = useRef([]);
@@ -18,407 +17,271 @@ const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCen
   const [isMapLoaded, setIsMapLoaded] = useState(false);
   const [isFlying, setIsFlying] = useState(false);
   const layersCreated = useRef(false);
-  const pendingPopupId = useRef(null);
-  // Стартовый zoom для более крупного масштаба (15 — несколько кварталов)
   const initialZoom = 15;
+  const isUserInteraction = useRef(false);
+  const programmaticMove = useRef(false);
+  const prevRadius = useRef(radiusCircle);
 
-  console.log('CoffeeMap: props changed', { radiusCircle, coffeeShopsCount: coffeeShops.length });
+  const IS_MOBILE = typeof window !== 'undefined' && window.innerWidth < 768;
+  const MOBILE_VISUAL_OFFSET = [0, mobileOffsetY];
+  const NO_OFFSET = [0, 0];
+  const currentVisualOffset = IS_MOBILE ? MOBILE_VISUAL_OFFSET : NO_OFFSET;
+
+  console.log('CoffeeMap: Render/Props Update', { radiusCircle, mapCenterProp: mapCenter, selectedShopId, isMapLoaded, currentVisualOffset });
+
+  const executeFlyTo = (targetCenter, targetZoom, duration = 600) => {
+    if (!map.current || !targetCenter || targetCenter.length !== 2 || isNaN(targetCenter[0]) || isNaN(targetCenter[1])) {
+      console.warn('[CM] executeFlyTo: Invalid targetCenter or map not ready', { targetCenter, mapReady: !!map.current });
+      return;
+    }
+    console.log('[CM] executeFlyTo:', { targetCenter, targetZoom, offset: currentVisualOffset, duration });
+    programmaticMove.current = true;
+    setIsFlying(true);
+    map.current.flyTo({
+      center: targetCenter,
+      zoom: targetZoom,
+      duration: duration,
+      offset: currentVisualOffset,
+      essential: true,
+    });
+    setTimeout(() => {
+      setIsFlying(false);
+      programmaticMove.current = false;
+      console.log("[CM] executeFlyTo finished, programmaticMove set to false");
+    }, duration + 100); 
+  };
 
   useImperativeHandle(ref, () => ({
     openPopup: (shopId) => {
-      console.log('openPopup called with shopId:', shopId);
-      if (!map.current) return;
-      // Закрываем все попапы
-      markers.current.forEach(marker => {
-        if (marker.getPopup() && marker.getPopup().isOpen()) {
-          marker.getPopup().remove();
-        }
-      });
-      // Открываем попап только у нужного маркера
       const marker = markers.current.find(m => m._shopId === shopId);
-      console.log('Found marker for shopId:', shopId, marker);
       if (marker) {
+        markers.current.forEach(m => { 
+          if (m.getPopup() && m.getPopup().isOpen()) m.getPopup().remove();
+        });
         marker.getPopup().addTo(map.current);
         const lngLat = marker.getLngLat();
-        map.current.flyTo({
-          center: [lngLat.lng, lngLat.lat],
-          zoom: 15,
-          duration: 1000
-        });
+        executeFlyTo([lngLat.lng, lngLat.lat], map.current.getZoom() < 15 ? 15 : map.current.getZoom(), 1000);
       }
     },
-    flyTo: (center, zoom = 15) => {
-      console.log('flyTo called with:', { center, zoom });
-      if (!map.current) {
-        console.error('Map is not initialized');
-        return;
-      }
-      setIsFlying(true);
-      map.current.flyTo({
-        center,
-        zoom,
-        duration: 1000,
-        essential: true
+    highlightMarker: (shopId) => {
+      markers.current.forEach(marker => {
+        marker.getElement().style.filter = marker._shopId === shopId ? 'drop-shadow(0 0 8px #d3914b)' : 'none';
       });
-      setTimeout(() => setIsFlying(false), 1000);
+    },
+    flyTo: (center, zoom = 15) => { 
+      console.log("[CM] Imperative flyTo called with center:", center);
+      if (setMapCenter) {
+        if (!mapCenter || Math.abs(center[0] - mapCenter[0]) > 1e-6 || Math.abs(center[1] - mapCenter[1]) > 1e-6) {
+            setMapCenter(center);
+        } else {
+            executeFlyTo(center, zoom, 1000);
+        }
+      } else {
+          executeFlyTo(center, zoom, 1000);
+      }
     }
   }));
 
-  // Функция для получения центра карты в пикселях
-  const getMapCenter = () => {
-    if (!map.current) return null;
-    if (window.innerWidth <= 768) {
-      const offset = 180;
-      const center = map.current.getCenter();
-      const px = map.current.project(center);
-      const centerLngLat = map.current.unproject([px.x, px.y - offset]);
-      return {
-        lng: centerLngLat.lng,
-        lat: centerLngLat.lat
-      };
-    } else {
-      const center = map.current.getCenter();
-      return {
-        lng: center.lng,
-        lat: center.lat
-      };
-    }
-  };
-
-  // Функция для обновления радиуса и маркеров
-  const updateMap = () => {
-    console.log('updateMap вызван');
-    console.log('filteredShops:', coffeeShops);
-    if (!map.current || !isMapLoaded) {
-      console.log('updateMap прерван: map:', !!map.current, 'isMapLoaded:', isMapLoaded);
+  const updateMapVisuals = () => {
+    if (!map.current || !isMapLoaded || !layersCreated.current || !mapCenter || mapCenter.length !== 2 || isNaN(mapCenter[0]) || isNaN(mapCenter[1])) {
+      console.warn('[CM] updateMapVisuals skipped: conditions not met', {isMapLoaded, layersCreated: layersCreated.current, mapCenter});
       return;
     }
-    // Проверяем, что все нужные слои существуют
-    const requiredLayers = ['radius-outer-layer', 'radius-middle-layer', 'radius-inner-layer', 'center-point-layer'];
-    const allMapLayersExist = requiredLayers.every(id => map.current.getLayer(id));
-    if (!allMapLayersExist) {
-      console.warn('Не все слои существуют, updateMap не будет вызван');
-      return;
-    }
+    console.log('[CM] updateMapVisuals: Drawing GeoJSON at logical mapCenter (prop):', mapCenter);
 
-    const center = getMapCenter();
-    if (!center) return;
-
-    // ЛОГИРОВАНИЕ
-    console.log('updateMap: center', center);
-    console.log('updateMap: radiusCircle', radiusCircle);
-    console.log('updateMap: coffeeShops', coffeeShops.length, coffeeShops.map(s => [s.name, s.longitude, s.latitude]));
-
-    // Обновляем центр в родительском компоненте
-    if (setMapCenter) {
-      setMapCenter([center.lng, center.lat]);
-    }
-
-    // Обновляем радиус
+    const centerForGeoJSON = [mapCenter[0], mapCenter[1]];
     const zoom = map.current.getZoom();
-    const metersPerPixel = 156543.03392 * Math.cos(center.lat * Math.PI / 180) / Math.pow(2, zoom);
+    const metersPerPixel = 156543.03392 * Math.cos(centerForGeoJSON[1] * Math.PI / 180) / Math.pow(2, zoom);
     const radiusInPixels = radiusCircle / metersPerPixel;
-    console.log('radiusInPixels:', radiusInPixels, 'radiusCircle:', radiusCircle, 'metersPerPixel:', metersPerPixel);
 
-    // Обновляем круги радиуса
-    const point = {
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [center.lng, center.lat],
-      },
-    };
-    console.log('updateMap: обновляю geojson для слоёв с центром:', [center.lng, center.lat]);
-
+    const pointFeature = { type: 'Feature', geometry: { type: 'Point', coordinates: centerForGeoJSON } };
     ['radius-inner', 'radius-middle', 'radius-outer', 'center-point'].forEach(sourceId => {
       const source = map.current.getSource(sourceId);
-      if (source) {
-        source.setData(point);
-        console.log('updateMap: обновил source:', sourceId, 'координаты:', [center.lng, center.lat]);
-      } else {
-        console.warn('updateMap: source не найден:', sourceId);
-      }
+      if (source) source.setData(pointFeature);
+      else console.warn(`[CM] Source ${sourceId} not found during updateMapVisuals`);
     });
 
-    // Обновляем размеры кругов
-    const minRadius = 60;
-    const outer = Math.max(radiusInPixels * 2.2, minRadius);
-    const middle = Math.max(radiusInPixels * 1.5, minRadius * 0.8);
-    const inner = Math.max(radiusInPixels * 1.0, minRadius * 0.5);
-    const layers = [
-      { id: 'radius-outer', color: 'rgba(255, 0, 0, 0.12)', radius: outer },
-      { id: 'radius-middle', color: 'rgba(255, 75, 75, 0.18)', radius: middle },
-      { id: 'radius-inner', color: 'rgba(255, 75, 75, 0.28)', radius: inner },
-      { id: 'center-point', radius: 8 }
+    const minRadius = Math.min(mapContainer.current ? mapContainer.current.offsetWidth / 10 : 30, 60);
+    const paintLayers = [
+      { id: 'radius-outer-layer', radius: Math.max(radiusInPixels * 2.2, minRadius * 1.2) },
+      { id: 'radius-middle-layer', radius: Math.max(radiusInPixels * 1.5, minRadius * 0.9) },
+      { id: 'radius-inner-layer', radius: Math.max(radiusInPixels * 1.0, minRadius * 0.6) },
+      { id: 'center-point-layer', radius: Math.max(minRadius * 0.1, 6) }
     ];
-
-    layers.forEach(layer => {
-      const layerId = `${layer.id}-layer`;
-      if (map.current.getLayer(layerId)) {
-        console.log('setPaintProperty:', layerId, 'circle-radius:', layer.radius);
-        map.current.setPaintProperty(layerId, 'circle-radius', layer.radius);
-      }
+    paintLayers.forEach(layer => {
+      if (map.current.getLayer(layer.id)) map.current.setPaintProperty(layer.id, 'circle-radius', layer.radius);
     });
 
-    // Обновляем маркеры
     markers.current.forEach(marker => marker.remove());
     markers.current = [];
-
-    console.log('updateMap: создаю маркеры для кофеен, всего:', coffeeShops.length);
     coffeeShops.forEach(shop => {
-      console.log('updateMap: маркер для', shop.name, [shop.longitude, shop.latitude]);
-      if (isNaN(shop.longitude) || isNaN(shop.latitude)) {
-        console.warn('Некорректные координаты для маркера:', shop);
-        return;
-      }
-      const shopCoords = [shop.longitude, shop.latitude];
-      const markerColor = shop.id === selectedShopId ? 'gold' : '#FF4B4B';
-      const marker = new mapboxgl.Marker({
-        color: markerColor
-      })
-        .setLngLat(shopCoords)
-        .setPopup(
-          new mapboxgl.Popup({ offset: 25 })
-            .setHTML(`
-              <h3 style="margin: 0 0 8px 0; font-size: 16px;">${shop.name}</h3>
-              <p style="margin: 0 0 8px 0; font-size: 14px;">${shop.address}</p>
-              <button
-                onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${shop.latitude},${shop.longitude}', '_blank')"
-                style="display: flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 6px; border: 1px solid #eee; background: #fff; cursor: pointer; font-size: 14px;"
-                title="Open in Google Maps"
-              >
-                <span>🚶‍♂️</span>
-                <span style="font-weight: bold; font-size: 18px;">→</span>
-                <span style="display:inline-flex;vertical-align:middle;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48">
-                    <g>
-                      <path fill="#4285F4" d="M43.6 20.5h-1.9V20H24v8h11.3c-1.6 4.3-5.7 7-11.3 7-6.6 0-12-5.4-12-12s5.4-12 12-12c2.9 0 5.5 1 7.6 2.7l6-6C34.3 5.1 29.4 3 24 3 12.9 3 4 11.9 4 23s8.9 20 20 20c11 0 19.7-8 19.7-20 0-1.3-.1-2.7-.3-4z"/>
-                      <path fill="#34A853" d="M6.3 14.7l6.6 4.8C14.5 16.1 18.9 13 24 13c2.9 0 5.5 1 7.6 2.7l6-6C34.3 5.1 29.4 3 24 3 15.6 3 8.1 8.5 6.3 14.7z"/>
-                      <path fill="#FBBC05" d="M24 43c5.4 0 10.3-1.8 14.1-4.9l-6.5-5.3C29.5 34.9 26.9 36 24 36c-5.6 0-10.3-3.8-12-9l-6.6 5.1C8.1 39.5 15.6 45 24 45z"/>
-                      <path fill="#EA4335" d="M43.6 20.5h-1.9V20H24v8h11.3c-1.1 3-3.6 5.1-6.3 6.1l6.5 5.3C41.2 36.1 44 30.9 44 24c0-1.3-.1-2.7-.4-4z"/>
-                    </g>
-                  </svg>
-                </span>
-              </button>
-            `)
-        );
+      if (isNaN(shop.longitude) || isNaN(shop.latitude)) return;
+      const popupHTML = `<h3>${shop.name}</h3><p>${shop.address}</p><button onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${shop.latitude},${shop.longitude}', '_blank')">Route</button>`;
+      const marker = new mapboxgl.Marker({ color: shop.id === selectedShopId ? 'gold' : '#FF4B4B' })
+        .setLngLat([shop.longitude, shop.latitude])
+        .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(popupHTML)); 
       marker.addTo(map.current);
       marker._shopId = shop.id;
       markers.current.push(marker);
     });
-    console.log('updateMap: маркеры обновлены, всего:', markers.current.length);
+    console.log("[CM] updateMapVisuals completed");
   };
 
   useEffect(() => {
-    if (map.current) return;
-
-    try {
-      console.log('Initializing map...');
-      if (!mapContainer.current) {
-        console.error('Map container is not available');
-        setError('Map container is not available');
-        return;
-      }
-
-      const containerRect = mapContainer.current.getBoundingClientRect();
-      console.log('Map container dimensions:', containerRect.width, containerRect.height);
-      if (containerRect.width === 0 || containerRect.height === 0) {
-        console.warn('Map container has zero dimensions. Map may not be visible.');
-      }
-
+    if (map.current) return; 
+    console.log("[CM] Initializing map with center:", mapCenter);
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: mapCenter,
-        zoom: initialZoom,
-        attributionControl: false,
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: mapCenter || [-74.006, 40.7128], 
+      zoom: initialZoom,
+      attributionControl: false,
     });
 
-      console.log('Map instance created:', map.current);
-
-      const initializeLayers = () => {
-        console.log('=== INITIALIZE LAYERS НАЧАЛО ===');
-        setIsMapLoaded(true);
-        
-        // Создаём слои для радиуса и точки только один раз
-        const layers = [
-          { id: 'radius-outer', color: 'rgba(255, 0, 0, 0.12)', radius: 1.0 },
-          { id: 'radius-middle', color: 'rgba(255, 75, 75, 0.18)', radius: 0.8 },
-          { id: 'radius-inner', color: 'rgba(255, 75, 75, 0.28)', radius: 0.5 },
-          { id: 'center-point', color: '#FF4B4B', radius: 8, stroke: true }
-        ];
-        
-        let allLayersCreated = true;
-        layers.forEach(layer => {
-          // Проверяем, существует ли source
-          if (!map.current.getSource(layer.id)) {
-            try {
-              console.log('Создаю source:', layer.id);
-              map.current.addSource(layer.id, {
-        type: 'geojson',
-        data: {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: map.current.getCenter().toArray(),
-          },
-        },
-      });
-              console.log('Source создан:', layer.id);
-            } catch (e) {
-              console.error('Ошибка при создании source:', layer.id, e);
-              allLayersCreated = false;
-            }
-          } else {
-            console.log('Source уже существует:', layer.id);
-          }
-          // Проверяем, существует ли layer
-          if (!map.current.getLayer(`${layer.id}-layer`)) {
-            try {
-              console.log('Создаю layer:', `${layer.id}-layer`);
-              const paint = {
-                'circle-radius': layer.stroke ? layer.radius : 0,
-                'circle-color': layer.color,
-                'circle-stroke-width': layer.stroke ? 2 : 0,
-              };
-              if (layer.stroke) {
-                paint['circle-stroke-color'] = '#FFFFFF';
-              }
-      map.current.addLayer({
-                id: `${layer.id}-layer`,
-        type: 'circle',
-                source: layer.id,
-                paint,
-              });
-              console.log('Layer created:', `${layer.id}-layer`);
-            } catch (e) {
-              console.error('Ошибка при создании слоя:', `${layer.id}-layer`, e);
-              allLayersCreated = false;
-            }
-          } else {
-            console.log('Layer уже существует:', `${layer.id}-layer`);
+    map.current.on('load', () => {
+      console.log('[CM] Map loaded event.');
+      setIsMapLoaded(true);
+      const layerDefs = [
+        { id: 'radius-outer', color: 'rgba(255,0,0,0.08)' },
+        { id: 'radius-middle', color: 'rgba(255,75,75,0.12)' },
+        { id: 'radius-inner', color: 'rgba(255,75,75,0.18)' },
+        { id: 'center-point', color: '#FF4B4B', strokeColor: '#FFFFFF', strokeWidth: 2 }
+      ];
+      const initialGeoJsonCenter = mapCenter || [-74.006, 40.7128];
+      layerDefs.forEach(def => {
+        map.current.addSource(def.id, { type: 'geojson', data: { type: 'Feature', geometry: { type: 'Point', coordinates: initialGeoJsonCenter } } });
+        map.current.addLayer({
+          id: `${def.id}-layer`,
+          type: 'circle',
+          source: def.id,
+          paint: {
+            'circle-radius': def.id === 'center-point' ? 8 : 0, 
+            'circle-color': def.color,
+            ...(def.strokeColor && { 'circle-stroke-color': def.strokeColor }),
+            ...(def.strokeWidth && { 'circle-stroke-width': def.strokeWidth }),
           }
         });
-
-        layersCreated.current = allLayersCreated;
-        console.log('=== INITIALIZE LAYERS КОНЕЦ, layersCreated:', allLayersCreated, '===');
-        
-        if (allLayersCreated) {
-          updateMap();
-        }
-      };
-
-      // Проверяем, загружена ли карта уже
-      if (map.current.loaded()) {
-        console.log('Карта уже загружена, инициализируем слои сразу');
-        initializeLayers();
-      } else {
-        console.log('Карта ещё не загружена, ждём события load');
-        map.current.on('load', initializeLayers);
+      });
+      layersCreated.current = true;
+      console.log("[CM] Layers created. Initial mapCenter:", mapCenter);
+      if (mapCenter) {
+         console.log('[CM] Initial flyTo after load with offset.');
+         executeFlyTo(mapCenter, initialZoom, 100);
       }
+      updateMapVisuals(); 
+    });
 
-      // Обновляем карту при движении
-      map.current.on('moveend', () => {
+    if (!disableMove) {
+      map.current.on('dragstart', () => {
         if (!isFlying) {
-          const center = map.current.getCenter();
+          console.log('[CM] User dragstart');
+          isUserInteraction.current = true;
+        }
+      });
+      map.current.on('zoomstart', () => {
+        if (!isFlying) {
+            console.log('[CM] User zoomstart');
+            isUserInteraction.current = true;
+        }
+      });
+
+      map.current.on('moveend', () => {
+        console.log('[CM] moveend. Programmatic:', programmaticMove.current, 'UserInteraction:', isUserInteraction.current, 'isFlying:', isFlying);
+        if (programmaticMove.current) {
+            console.log("[CM] moveend after programmatic move. Updating visuals.");
+            updateMapVisuals();
+            return;
+        }
+        
+        if (isUserInteraction.current) {
+          const newGeographicCenter = map.current.getCenter().toArray();
+          console.log('[CM] moveend after UserInteraction: new GeographicCenter from map.getCenter()', newGeographicCenter);
           if (setMapCenter) {
-            setMapCenter([center.lng, center.lat]);
+            if (!mapCenter || Math.abs(newGeographicCenter[0] - mapCenter[0]) > 1e-7 || Math.abs(newGeographicCenter[1] - mapCenter[1]) > 1e-7) {
+              console.log('[CM] moveend: User interaction, calling setMapCenter with new geographic center:', newGeographicCenter);
+              setMapCenter(newGeographicCenter); 
+            } else {
+              console.log('[CM] moveend: User interaction, new center very close to prop, not calling setMapCenter. Updating visuals.');
+              updateMapVisuals();
+            }
+          } else {
+             updateMapVisuals();
           }
-          updateMap();
+          isUserInteraction.current = false; 
+        } else if (!isFlying) {
+            console.log("[CM] moveend: non-flying, non-programmatic, non-user. Updating visuals.");
+            updateMapVisuals();
         }
       });
+    }
 
-      // Обновляем карту при изменении размера окна
-      window.addEventListener('resize', updateMap);
-
-      map.current.on('error', (error) => {
-        console.error('Mapbox error:', error);
-        setError(error.message);
-      });
-    } catch (error) {
-      console.error('Error initializing map:', error);
-      setError(error.message);
+    const handleResize = () => {
+        console.log("[CM] Window resized, re-flying to apply potentially changed offset and updating visuals.");
+        if (map.current && mapCenter && isMapLoaded) {
+            const newIsMobile = (typeof window !== 'undefined' && window.innerWidth < 768);
+            const updatedOffsetBasedOnProp = newIsMobile ? [0, mobileOffsetY] : NO_OFFSET;
+            
+            programmaticMove.current = true;
+            setIsFlying(true);
+            map.current.flyTo({
+                center: mapCenter,
+                zoom: map.current.getZoom(),
+                offset: updatedOffsetBasedOnProp,
+                duration: 200
+            });
+            setTimeout(() => {
+                setIsFlying(false);
+                programmaticMove.current = false;
+                updateMapVisuals();
+            }, 300);
         }
+    }
+    window.addEventListener('resize', handleResize);
+    map.current.on('error', (e) => { console.error('[CM] Mapbox error:', e); setError(e.message); });
 
     return () => {
-      window.removeEventListener('resize', updateMap);
+      window.removeEventListener('resize', handleResize);
       if (map.current) {
         map.current.remove();
         map.current = null;
+        console.log("[CM] Map removed");
       }
     };
   }, []);
 
-  // Обновляем карту при изменении радиуса или кофеен
   useEffect(() => {
-    console.log('CoffeeMap: useEffect radiusCircle', { radiusCircle, layersCreated: layersCreated.current });
-    if (map.current && isMapLoaded && layersCreated.current) {
-      updateMap();
-    }
-  }, [radiusCircle, coffeeShops, isMapLoaded]);
+    console.log("[CM] mapCenter prop changed to:", mapCenter, "isMapLoaded:", isMapLoaded, "layersCreated:", layersCreated.current);
+    if (!map.current || !isMapLoaded || !layersCreated.current || !mapCenter) return;
 
-  // Обработка выбранной кофейни
+    if (!programmaticMove.current) {
+        console.log('[CM] mapCenter prop changed externally, executing flyTo with offset:', mapCenter);
+        executeFlyTo(mapCenter, map.current.getZoom()); 
+    } else {
+        console.log("[CM] mapCenter prop changed, but programmaticMove is true, likely internal feedback. Skipping flyTo, just updating visuals.");
+    }
+    updateMapVisuals(); 
+  }, [mapCenter]); 
+
   useEffect(() => {
-    if (!selectedShopId || !map.current || !isMapLoaded) return;
+    console.log("[CM] radiusCircle prop changed to:", radiusCircle, "isMapLoaded:", isMapLoaded, "layersCreated:", layersCreated.current);
+    if (!map.current || !isMapLoaded || !layersCreated.current || !mapCenter) return;
     
-    console.log('CoffeeMap: selectedShopId changed', { selectedShopId });
-    const marker = markers.current.find(m => m._shopId === selectedShopId);
-    if (marker) {
-      pendingPopupId.current = selectedShopId;
-      setIsFlying(true);
-      // map.current.flyTo({
-      //   center: marker.getLngLat(),
-      //   zoom: 15,
-      //   duration: 1000
-      // });
-    } else {
-      // Если маркер ещё не создан, сохраняем pendingPopupId
-      pendingPopupId.current = selectedShopId;
-    }
-  }, [selectedShopId, isMapLoaded]);
+    updateMapVisuals(); 
+    prevRadius.current = radiusCircle;
+  }, [radiusCircle]); 
 
-  // После завершения анимации (moveend) или обновления маркеров открываем попап, если есть pendingPopupId
   useEffect(() => {
-    console.log('Попытка открыть попап:', { selectedShopId, isFlying, markers: markers.current.length });
-    if (!selectedShopId) return;
-    const marker = markers.current.find(m => m._shopId === selectedShopId);
-    if (marker) {
-      console.log('Маркер найден, открываю попап:', marker._shopId);
-      marker.getPopup().addTo(map.current);
-      pendingPopupId.current = null;
-    } else {
-      console.log('Маркер НЕ найден для:', selectedShopId);
+    console.log("[CM] coffeeShops or selectedShopId changed. Updating visuals.");
+    if (isMapLoaded && layersCreated.current) {
+      updateMapVisuals();
     }
-  }, [coffeeShops, isMapLoaded, selectedShopId]);
+  }, [coffeeShops, selectedShopId]);
 
   if (error) {
-    return (
-      <div style={{ 
-        position: 'relative', 
-        width: '100%', 
-        height: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#f8f9fa',
-        color: '#dc3545'
-      }}>
-        <div style={{ padding: '1rem', textAlign: 'center' }}>
-          <h3>Error loading map</h3>
-          <p>{error}</p>
-        </div>
-      </div>
-    );
+    return <div style={{ padding: '1rem', textAlign: 'center', color: 'red' }}>Error loading map: {error}</div>;
   }
 
-  return (
-    <div style={{ position: 'relative', width: '100%', height: '100vh' }}>
-      <div
-        ref={mapContainer}
-        style={{ width: '100%', height: '100%' }}
-      />
-    </div>
-  );
+  return <div ref={mapContainer} style={{ width: '100%', height: '100%' }} />;
 });
 
 export default CoffeeMap;

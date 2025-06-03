@@ -4,7 +4,7 @@ import { filtersConfig } from '../filtersConfig';
 
 const FilterPanel = ({ filters, setFilters }) => {
   // Состояние: какие фильтры открыты
-  const [openFilters, setOpenFilters] = useState(() => filtersConfig.map(f => f.key));
+  const [openFilters, setOpenFilters] = useState([]);
 
   const toggleFilter = (key) => {
     setOpenFilters(prev => prev.includes(key)

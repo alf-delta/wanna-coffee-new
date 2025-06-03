@@ -455,6 +455,9 @@ const Home = () => {
   // feetOptions[radiusIdx] — радиус в футах, переводим в метры для карты
   const radiusCircle = feetOptions[radiusIdx] / 3.28084;
 
+  // --- вычисляем смещённый центр для мобильных ---
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
   // Новая фильтрация кофеен по filters
   const filteredShops = coffeeShopsData
     .map(shop => {
@@ -660,8 +663,9 @@ const Home = () => {
           radiusCircle={radiusCircle}
           setMapCenter={setMapCenter}
           mapCenter={mapCenter}
-              selectedShopId={selectedShopId}
-            />
+          selectedShopId={selectedShopId}
+          centerOffsetY={isMobile ? 90 : 0}
+        />
           </div>
           {/* Плавающая кнопка геолокации только на десктопе */}
           {!isMobileView && (
@@ -683,7 +687,7 @@ const Home = () => {
             <button
               style={styles.mobileGeoButton}
               onClick={handleUseLocation}
-              title="Моё местоположение"
+              title="My location"
             >
               <LocationIcon size={20} color="#d3914b" />
             </button>
