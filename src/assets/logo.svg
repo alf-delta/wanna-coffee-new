@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="100%" height="100%" viewBox="0 0 1024 400" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-    <g transform="matrix(13.4776,0,0,13.4776,-927.18,-1816.72)">
-        <text x="68.942px" y="154.326px" style="font-family:'Futura-Medium', 'Futura', sans-serif;font-weight:500;font-size:12px;fill:rgb(163,97,58);">W<tspan x="80.96px 88.155px " y="154.326px 154.326px ">an</tspan>naCof<tspan x="128.092px 131.837px 138.475px " y="154.326px 154.326px 154.326px ">fee</tspan></text>
+<svg width="100%" height="100%" viewBox="0 0 2048 400" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(2,0,0,2,0,0)">
+        <g transform="matrix(0.742846,0,0,0.742846,-51.0322,16.9783)">
+            <text x="33.634px" y="177.277px" style="font-family:'Pacifico-Regular', 'Pacifico';font-size:216.092px;fill:rgb(169,120,69);">WannaCoffee</text>
+        </g>
     </g>
 </svg>
