@@ -9,7 +9,36 @@ if (!MAPBOX_TOKEN) {
 
 mapboxgl.accessToken = MAPBOX_TOKEN;
 
-const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCenter, mapCenter, selectedShopId, disableMove = false, mobileOffsetY = -120 }, ref) => {
+// Custom Geolocation Control for Mapbox
+class GeolocationControl {
+  constructor(options) {
+    this._options = options;
+  }
+
+  onAdd(map) {
+    this._map = map;
+    this._container = document.createElement('div');
+    this._container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+    
+    const button = document.createElement('button');
+    button.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-geolocate'; // Use Mapbox's existing geolocate style or make a custom one
+    button.type = 'button';
+    button.title = this._options.title || 'Geolocate';
+    button.setAttribute('aria-label', this._options.title || 'Geolocate');
+    button.innerHTML = this._options.svgIcon; // Expecting SVG string here
+    button.onclick = this._options.onClick;
+
+    this._container.appendChild(button);
+    return this._container;
+  }
+
+  onRemove() {
+    this._container.parentNode.removeChild(this._container);
+    this._map = undefined;
+  }
+}
+
+const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCenter, mapCenter, selectedShopId, disableMove = false, mobileOffsetY = -120, geolocationControl }, ref) => {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const markers = useRef([]);
@@ -137,6 +166,18 @@ const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCen
       zoom: initialZoom,
       attributionControl: false,
     });
+
+    // Add geolocation control if provided
+    if (geolocationControl && geolocationControl.onClick && geolocationControl.svgIcon) {
+      map.current.addControl(
+        new GeolocationControl({
+          onClick: geolocationControl.onClick,
+          svgIcon: geolocationControl.svgIcon,
+          title: geolocationControl.title || 'My Location'
+        }), 
+        'bottom-right'
+      );
+    }
 
     map.current.on('load', () => {
       console.log('[CM] Map loaded event.');

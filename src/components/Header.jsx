@@ -15,9 +15,16 @@ const Header = () => {
   return (
     <header style={styles.header}>
       <nav style={styles.nav}>
-        <Link to="/" style={styles.logoLink}>
-          <img src={logo} alt="Wanna Coffee Logo" style={styles.logo} />
-      </Link>
+        <Link 
+          to="/" 
+          style={isMobile ? {...styles.logoLink, ...styles.logoLinkMobile} : styles.logoLink}
+        >
+          <img 
+            src={logo} 
+            alt="Wanna Coffee Logo" 
+            style={isMobile ? {...styles.logo, ...styles.logoMobile} : styles.logo} 
+          />
+        </Link>
         <div style={styles.rightControls}>
           {isMobile ? (
             <>
@@ -27,11 +34,12 @@ const Header = () => {
                 aria-label="Toggle menu"
               >
                 <span style={styles.menuIcon}>{isMenuOpen ? '✕' : '☰'}</span>
+                {!isMenuOpen && <span style={styles.notificationDot}></span>}
               </button>
               {isMenuOpen && (
                 <div style={styles.mobileMenu}>
                   <Link to="/" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>Home</Link>
-                  <Link to="/events" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>Events</Link>
+                  <Link to="/events" style={{...styles.mobileMenuLink, ...styles.mobileMenuLinkAccent}} onClick={() => setIsMenuOpen(false)}>Events</Link>
                   <Link to="/about" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>About</Link>
                   <Link to="/contact" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>Contact</Link>
                 </div>
@@ -39,8 +47,8 @@ const Header = () => {
             </>
           ) : (
             <div style={styles.links}>
+              <Link to="/events" style={styles.accentLinkEvents}>Events</Link>
               <Link to="/" style={styles.link}>Home</Link>
-              <Link to="/events" style={styles.link}>Events</Link>
               <Link to="/about" style={styles.link}>About</Link>
               <Link to="/contact" style={styles.link}>Contact</Link>
             </div>
@@ -78,11 +86,16 @@ const styles = {
     position: 'relative',
     zIndex: 2,
   },
+  logoLinkMobile: {
+    height: '42px',
+  },
   logo: {
     height: '64px',
-    '@media (max-width: 768px)': {
-      height: '38px',
-    },
+    display: 'block',
+  },
+  logoMobile: {
+    height: '100%',
+    width: 'auto',
   },
   rightControls: {
     display: 'flex',
@@ -118,6 +131,22 @@ const styles = {
       backgroundColor: '#eee',
     },
   },
+  accentLinkEvents: {
+    color: '#ffffff',
+    backgroundColor: '#d3914b',
+    padding: '0.5rem 1rem',
+    borderRadius: '20px',
+    textDecoration: 'none',
+    fontWeight: 500,
+    transition: 'background-color 0.2s, color 0.2s',
+    display: 'inline-flex',
+    alignItems: 'center',
+    '&:hover': {
+      backgroundColor: '#b97a36',
+      color: '#ffffff',
+      textDecoration: 'none',
+    },
+  },
   spacer: {
     flex: 1,
   },
@@ -127,10 +156,21 @@ const styles = {
     padding: '0.5rem',
     cursor: 'pointer',
     zIndex: 2002,
+    position: 'relative',
   },
   menuIcon: {
     fontSize: '1.5rem',
     color: '#333',
+  },
+  notificationDot: {
+    position: 'absolute',
+    top: '8px',
+    right: '8px',
+    width: '8px',
+    height: '8px',
+    backgroundColor: '#d3914b',
+    borderRadius: '50%',
+    border: '1px solid #f7f7f7',
   },
   mobileMenu: {
     position: 'fixed',
@@ -145,9 +185,6 @@ const styles = {
     flexDirection: 'column',
     gap: 0,
     padding: '0.5rem 0',
-    '@media (min-width: 769px)': {
-      display: 'none',
-    },
   },
   mobileMenuLink: {
     padding: '1rem',
@@ -155,14 +192,30 @@ const styles = {
     textDecoration: 'none',
     fontWeight: 500,
     fontSize: '1.1rem',
-    borderBottom: '1px solid #eee',
+    borderBottom: 'none',
     transition: 'background 0.2s',
-    ':last-child': {
-      borderBottom: 'none',
-    },
     ':hover': {
       background: '#f7f7f7',
     },
+  },
+  mobileMenuLinkAccent: {
+    backgroundColor: '#c8a17a',
+    color: '#ffffff',
+    fontWeight: 'bold',
+    borderRadius: '20px',
+    padding: '0.25rem 1rem',
+    display: 'inline-block',
+    textAlign: 'left',
+    textDecoration: 'none',
+    transition: 'background-color 0.2s, color 0.2s',
+    minWidth: '100px',
+    margin: '0.75rem 5px',
+
+    ':hover': {
+      backgroundColor: '#b8916a',
+      color: '#ffffff',
+      textDecoration: 'none',
+    }
   },
 };
 

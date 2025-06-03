@@ -86,6 +86,23 @@ const EventsPage = () => {
   // --- вычисляем смещённый центр для мобильных ---
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
+  const geoSvgIcon = `
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="#fff"/>
+  <circle cx="12" cy="12" r="3" fill="currentColor"/>
+  <path d="M12 2L12 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <path d="M12 22L12 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <path d="M2 12L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <path d="M22 12L20 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
+  `;
+
+  const geolocationControlProps = {
+    onClick: handleGeoClick,
+    svgIcon: geoSvgIcon,
+    title: "My location"
+  };
+
   return (
     <div className="events-root">
       <div className="events-map-sticky">
@@ -97,6 +114,7 @@ const EventsPage = () => {
           setMapCenter={setMapCenter}
           highlightShopId={highlightedEventId ? filteredEvents.find(ev => ev.id === highlightedEventId)?.coffeeShopId : null}
           mobileOffsetY={isMobile ? 0 : 0}
+          geolocationControl={geolocationControlProps}
         />
       </div>
       {/* Панель управления под картой */}
@@ -116,12 +134,6 @@ const EventsPage = () => {
             style={{ width: '100%' }}
           />
         </div>
-        <button className="events-geo-btn" onClick={handleGeoClick} title="My location">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="10" stroke="#d3914b" strokeWidth="2" fill="#fff"/>
-            <path d="M12 7v5l4 2" stroke="#d3914b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
       </div>
       <div className="events-columns">
         <div className="events-calendar-col">
