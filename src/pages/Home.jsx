@@ -32,11 +32,14 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     background: '#fff',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.04)',
+    borderRadius: '16px',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
     zIndex: 2,
     overflow: 'auto',
-    padding: '0.75rem',
+    padding: '1rem',
     gap: '0.75rem',
+    margin: '12px',
+    height: 'calc(100vh - 24px)',
     '@media (max-width: 768px)': {
       position: 'fixed',
       top: 0,
@@ -47,6 +50,9 @@ const styles = {
       transform: 'translateX(-100%)',
       transition: 'transform 0.3s ease-in-out',
       zIndex: 1000,
+      margin: 0,
+      borderRadius: 0,
+      height: '100vh',
     },
   },
   sidebarVisible: {
@@ -63,6 +69,28 @@ const styles = {
       height: 'calc(100vh - 60px)',
     },
   },
+  mapWrapper: {
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden',
+    borderRadius: '16px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+    position: 'relative',
+    '@media (max-width: 768px)': {
+      borderRadius: '12px',
+    },
+  },
+  mapWrapperBorder: {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    border: '1px solid rgba(0,0,0,0.1)',
+    borderRadius: 'inherit',
+    pointerEvents: 'none',
+  },
   filterBlock: {
     backgroundColor: 'white',
     borderRadius: '6px',
@@ -71,8 +99,8 @@ const styles = {
   },
   listBlock: {
     backgroundColor: 'white',
-    borderRadius: '6px',
-    padding: '0.75rem',
+    borderRadius: '12px',
+    padding: '1rem',
     boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
     flex: 1,
     overflowY: 'auto',
@@ -253,13 +281,13 @@ const styles = {
   },
   mobileBottomBarFixed: {
     position: 'fixed',
-    left: 0,
-    right: 0,
-    bottom: 0,
+    left: 12,
+    right: 12,
+    bottom: 12,
     zIndex: 120,
     background: '#fff',
-    borderTop: '1px solid #eee',
-    boxShadow: '0 -2px 8px rgba(0,0,0,0.06)',
+    borderRadius: '16px',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
     '@media (min-width: 769px)': {
       display: 'none',
     },
@@ -271,10 +299,10 @@ const styles = {
   mobileFiltersRowFixed: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
     gap: 12,
-    padding: '0.5rem 1rem 0.25rem 1rem',
+    padding: '0.75rem 1rem 0.5rem 0.5rem',
     borderBottom: '1px solid #f2f2f2',
   },
   mobileListScrollFixed: {
@@ -282,13 +310,23 @@ const styles = {
     flexDirection: 'row',
     overflowX: 'auto',
     gap: 12,
-    padding: '0.5rem 0.5rem 0 1rem',
+    padding: '0.75rem 0.75rem 0 1rem',
     background: '#fff',
     borderTop: 'none',
     borderBottom: 'none',
     position: 'static',
     scrollbarWidth: 'thin',
     scrollbarColor: '#bbb #f5f5f5',
+  },
+  mobileSliderContainer: {
+    padding: '0.75rem 1rem 0.75rem 1rem',
+    background: '#fff',
+    borderTop: '1px solid #f2f2f2',
+    borderRadius: '0 0 16px 16px',
+  },
+  mobileSliderWrapper: {
+    width: '85%',
+    margin: '0 auto',
   },
   '@global': {
     '.mobileListScrollFixed::-webkit-scrollbar': {
@@ -370,6 +408,7 @@ const styles = {
     cursor: 'pointer',
     minWidth: 0,
     height: 40,
+    marginLeft: 0,
   },
 };
 
@@ -613,14 +652,17 @@ const Home = () => {
           ...styles.mapContainer,
           display: isMobileView && activeView === 'list' ? 'none' : 'block'
         }}>
-          <CoffeeMap
-            ref={mapRef}
-            coffeeShops={filteredShops}
-            radiusCircle={radiusCircle}
-            setMapCenter={setMapCenter}
-            mapCenter={mapCenter}
-            selectedShopId={selectedShopId}
-          />
+          <div style={styles.mapWrapper}>
+            <div style={styles.mapWrapperBorder} />
+            <CoffeeMap
+              ref={mapRef}
+              coffeeShops={filteredShops}
+              radiusCircle={radiusCircle}
+              setMapCenter={setMapCenter}
+              mapCenter={mapCenter}
+              selectedShopId={selectedShopId}
+            />
+          </div>
           {/* Плавающая кнопка геолокации только на десктопе */}
           {!isMobileView && (
             <button
@@ -661,20 +703,22 @@ const Home = () => {
               showCount={false}
             />
           </div>
-          <div style={{ padding: '0.5rem 1rem 0.25rem 1rem', background: '#fff' }}>
-            <label htmlFor="radius-slider-mobile" style={{ fontWeight: 500, fontSize: '1rem', color: '#d3914b', display: 'block', marginBottom: 6 }}>
-              Search radius: {feetOptions[radiusIdx]} ft
-            </label>
-            <input
-              id="radius-slider-mobile"
-              type="range"
-              min={0}
-              max={feetOptions.length - 1}
-              value={radiusIdx}
-              onChange={e => setRadiusIdx(Number(e.target.value))}
-              style={sliderStyle}
-              className="radius-slider"
-            />
+          <div style={styles.mobileSliderContainer}>
+            <div style={styles.mobileSliderWrapper}>
+              <label htmlFor="radius-slider-mobile" style={{ fontWeight: 500, fontSize: '1rem', color: '#d3914b', display: 'block', marginBottom: 6 }}>
+                Search radius: {feetOptions[radiusIdx]} ft
+              </label>
+              <input
+                id="radius-slider-mobile"
+                type="range"
+                min={0}
+                max={feetOptions.length - 1}
+                value={radiusIdx}
+                onChange={e => setRadiusIdx(Number(e.target.value))}
+                style={sliderStyle}
+                className="radius-slider"
+              />
+            </div>
           </div>
         </div>
       )}
