@@ -121,6 +121,14 @@ select:focus {
   h3 { font-size: 1.25rem; }
   h4 { font-size: 1.1rem; }
   h5, h6 { font-size: 1rem; }
+
+  .header-logo {
+    height: 32px;
+  }
+
+  .logo-link {
+    max-width: 120px;
+  }
 }
 
 /* ===== ANIMATIONS ===== */
@@ -254,4 +262,18 @@ select:focus {
 
 .radius-slider:focus {
   outline: none !important;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  max-width: 220px;
+  width: 100%;
+}
+
+.header-logo {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
 }

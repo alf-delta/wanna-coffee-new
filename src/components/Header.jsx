@@ -15,8 +15,8 @@ const Header = () => {
   return (
     <header style={styles.header}>
       <nav style={styles.nav}>
-        <Link to="/" style={styles.logoLink}>
-          <img src={logo} alt="Wanna Coffee Logo" style={styles.logo} />
+        <Link to="/" className="logo-link">
+          <img src={logo} alt="Wanna Coffee Logo" className="header-logo" />
         </Link>
         <div style={styles.rightControls}>
           {isMobile ? (
@@ -79,7 +79,7 @@ const styles = {
   logo: {
     height: '64px',
     '@media (max-width: 768px)': {
-      height: '48px',
+      height: '32px',
     },
   },
   rightControls: {
@@ -160,6 +160,11 @@ const styles = {
     },
     ':hover': {
       background: '#f7f7f7',
+    },
+  },
+  '@media (max-width: 768px)': {
+    logoLink: {
+      maxWidth: '70vw',
     },
   },
 };
