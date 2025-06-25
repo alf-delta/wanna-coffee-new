@@ -5,6 +5,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import EventsPage from './pages/EventsPage';
 import Header from './components/Header';
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/events" element={<EventsPage />} />
       </Routes>
+      <SpeedInsights />
     </>
   );
 };

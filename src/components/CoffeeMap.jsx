@@ -32,6 +32,7 @@ const DISTRICT_CENTERS = {
   'Brooklyn': { center: [-73.9480, 40.6500], zoom: 11 },
   'Manhattan': { center: [-73.9650, 40.7500], zoom: 12 },
   'Queens': { center: [-73.8250, 40.7250], zoom: 11 },
+  'Financial District': { center: [-74.009, 40.715], zoom: 14 },
   'New York City': { center: [-74.006, 40.7128], zoom: 10 }
 };
 
@@ -77,6 +78,8 @@ const CoffeeMap = forwardRef(({
   const mapContainer = useRef(null);
   const map = useRef(null);
   const markers = useRef([]);
+  const programmaticMove = useRef(false);
+  const isUserInteraction = useRef(false);
   const [error, setError] = useState(null);
   const [isMapLoaded, setIsMapLoaded] = useState(false);
   const [isFlying, setIsFlying] = useState(false);
@@ -153,7 +156,14 @@ const CoffeeMap = forwardRef(({
 
   useEffect(() => {
     if (map.current) return; 
-    const initialConfig = DISTRICT_CENTERS['New York City'];
+    let initialConfig = DISTRICT_CENTERS['Financial District'];
+    // Для мобильных увеличиваем latitude (точка выше)
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      initialConfig = {
+        ...initialConfig,
+        center: [initialConfig.center[0], initialConfig.center[1] + 0.012]
+      };
+    }
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
@@ -216,7 +226,6 @@ const CoffeeMap = forwardRef(({
             updateMapVisuals();
             return;
         }
-        
         if (isUserInteraction.current) {
           const newGeographicCenter = map.current.getCenter().toArray();
           console.log('[CM] moveend after UserInteraction: new GeographicCenter from map.getCenter()', newGeographicCenter);
@@ -293,6 +302,34 @@ const CoffeeMap = forwardRef(({
       }
     };
   }, [setMapCenter]);
+
+  // Автоматический flyTo с offset при изменении mapCenter на мобильных
+  // useEffect с flyTo по mapCenter временно удалён для устранения багов
+
+  // Возвращает координаты точки выше центра карты на offsetY пикселей (только для мобильных)
+  const getVisualCenter = (offsetY = 60) => {
+    if (!map.current) return mapCenter;
+    if (!IS_MOBILE) return mapCenter;
+    const container = map.current.getContainer();
+    const rect = container.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    // Экранные координаты точки выше центра
+    const screenX = width / 2;
+    const screenY = height / 2 - offsetY;
+    const lngLat = map.current.unproject([screenX, screenY]);
+    return [lngLat.lng, lngLat.lat];
+  };
+
+  // Делаем функцию доступной через ref
+  useImperativeHandle(ref, () => ({
+    getVisualCenter,
+    flyTo: (center, zoom) => {
+      if (map.current) {
+        map.current.flyTo({ center, zoom: zoom || map.current.getZoom() });
+      }
+    }
+  }));
 
   if (error) {
     return <div style={{ padding: '1rem', textAlign: 'center', color: 'red' }}>Error loading map: {error}</div>;

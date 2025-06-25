@@ -455,12 +455,21 @@ const Home = () => {
   // feetOptions[radiusIdx] — радиус в футах, переводим в метры для карты
   const radiusCircle = feetOptions[radiusIdx] / 3.28084;
 
+  // Получаем смещённый центр для мобильных
+  const getVisualCenter = () => {
+    if (mapRef.current && typeof window !== 'undefined' && window.innerWidth <= 768) {
+      return mapRef.current.getVisualCenter ? mapRef.current.getVisualCenter(100) : mapCenter;
+    }
+    return mapCenter;
+  };
+  const visualCenter = getVisualCenter();
+
   // Новая фильтрация кофеен по filters
   const filteredShops = useMemo(() => {
     return coffeeShopsData
       .map(shop => {
         const shopCoords = [shop.longitude, shop.latitude];
-        const centerPoint = turf.point(mapCenter);
+        const centerPoint = turf.point(visualCenter);
         const shopPoint = turf.point(shopCoords);
         const distance = turf.distance(centerPoint, shopPoint, { units: 'meters' });
         return { ...shop, distance };
@@ -498,7 +507,7 @@ const Home = () => {
         return true;
       })
       .sort((a, b) => a.distance - b.distance);
-  }, [coffeeShopsData, mapCenter, radiusCircle, filters]);
+  }, [coffeeShopsData, visualCenter, radiusCircle, filters]);
 
   const handleShopClick = useCallback((shopId) => {
     setSelectedShopId(shopId);
@@ -645,7 +654,7 @@ const Home = () => {
               <CoffeeList
                 coffeeShops={filteredShops}
                 onShopClick={handleShopClick}
-                center={mapCenter}
+                center={visualCenter}
                 radiusCircle={radiusCircle}
               />
             </div>
@@ -663,8 +672,9 @@ const Home = () => {
               coffeeShops={filteredShops}
               radiusCircle={radiusCircle}
               setMapCenter={setMapCenter}
-              mapCenter={mapCenter}
+              mapCenter={visualCenter}
               selectedShopId={selectedShopId}
+              mobileOffsetY={-400}
             />
           </div>
           {/* Плавающая кнопка геолокации только на десктопе */}
@@ -705,7 +715,7 @@ const Home = () => {
               onShopClick={handleShopClick}
               horizontal
               showCount={false}
-              center={mapCenter}
+              center={visualCenter}
               radiusCircle={radiusCircle}
             />
           </div>
