@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import CoffeeMap from '../components/CoffeeMap';
 import FilterPanel from '../components/FilterPanel';
 import CoffeeList from '../components/CoffeeList';
@@ -456,47 +456,49 @@ const Home = () => {
   const radiusCircle = feetOptions[radiusIdx] / 3.28084;
 
   // Новая фильтрация кофеен по filters
-  const filteredShops = coffeeShopsData
-    .map(shop => {
-      const shopCoords = [shop.longitude, shop.latitude];
-      const centerPoint = turf.point(mapCenter);
-      const shopPoint = turf.point(shopCoords);
-      const distance = turf.distance(centerPoint, shopPoint, { units: 'meters' });
-      return { ...shop, distance };
-    })
-    .filter(shop => shop.distance <= radiusCircle)
-    .filter(shop => {
-      // Coffee Type
-      if (filters.coffeeType && filters.coffeeType.length > 0) {
-        if (!shop.coffeeType || !filters.coffeeType.some(type => shop.coffeeType.includes(type))) return false;
-      }
-      // Roasting
-      if (filters.roasting && filters.roasting.length > 0) {
-        if (!shop.roasting || !filters.roasting.some(type => shop.roasting.includes(type))) return false;
-      }
-      // Roast Level (nested)
-      if (filters.roast_level && filters.roast_level !== '') {
-        if (!shop.roast_level || shop.roast_level !== filters.roast_level) return false;
-      }
-      // Brew Methods
-      if (filters.brewMethods && filters.brewMethods.length > 0) {
-        if (!shop.brewMethods || !filters.brewMethods.some(method => shop.brewMethods.includes(method))) return false;
-      }
-      // Barista
-      if (filters.barista) {
-        if (!shop.barista || !shop.barista.includes('sca_certified')) return false;
-      }
-      // Menu
-      if (filters.menu && filters.menu.length > 0) {
-        if (!shop.menu || !filters.menu.some(m => shop.menu.includes(m))) return false;
-      }
-      // Recognition
-      if (filters.recognition) {
-        if (!shop.recognition || !shop.recognition.includes('featured_guide')) return false;
-      }
-      return true;
-    })
-    .sort((a, b) => a.distance - b.distance);
+  const filteredShops = useMemo(() => {
+    return coffeeShopsData
+      .map(shop => {
+        const shopCoords = [shop.longitude, shop.latitude];
+        const centerPoint = turf.point(mapCenter);
+        const shopPoint = turf.point(shopCoords);
+        const distance = turf.distance(centerPoint, shopPoint, { units: 'meters' });
+        return { ...shop, distance };
+      })
+      .filter(shop => shop.distance <= radiusCircle)
+      .filter(shop => {
+        // Coffee Type
+        if (filters.coffeeType && filters.coffeeType.length > 0) {
+          if (!shop.coffeeType || !filters.coffeeType.some(type => shop.coffeeType.includes(type))) return false;
+        }
+        // Roasting
+        if (filters.roasting && filters.roasting.length > 0) {
+          if (!shop.roasting || !filters.roasting.some(type => shop.roasting.includes(type))) return false;
+        }
+        // Roast Level (nested)
+        if (filters.roast_level && filters.roast_level !== '') {
+          if (!shop.roast_level || shop.roast_level !== filters.roast_level) return false;
+        }
+        // Brew Methods
+        if (filters.brewMethods && filters.brewMethods.length > 0) {
+          if (!shop.brewMethods || !filters.brewMethods.some(method => shop.brewMethods.includes(method))) return false;
+        }
+        // Barista
+        if (filters.barista) {
+          if (!shop.barista || !shop.barista.includes('sca_certified')) return false;
+        }
+        // Menu
+        if (filters.menu && filters.menu.length > 0) {
+          if (!shop.menu || !filters.menu.some(m => shop.menu.includes(m))) return false;
+        }
+        // Recognition
+        if (filters.recognition) {
+          if (!shop.recognition || !shop.recognition.includes('featured_guide')) return false;
+        }
+        return true;
+      })
+      .sort((a, b) => a.distance - b.distance);
+  }, [coffeeShopsData, mapCenter, radiusCircle, filters]);
 
   const handleShopClick = useCallback((shopId) => {
     setSelectedShopId(shopId);
@@ -643,6 +645,8 @@ const Home = () => {
               <CoffeeList
                 coffeeShops={filteredShops}
                 onShopClick={handleShopClick}
+                center={mapCenter}
+                radiusCircle={radiusCircle}
               />
             </div>
           </div>
@@ -701,6 +705,8 @@ const Home = () => {
               onShopClick={handleShopClick}
               horizontal
               showCount={false}
+              center={mapCenter}
+              radiusCircle={radiusCircle}
             />
           </div>
           <div style={styles.mobileSliderContainer}>

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as turf from '@turf/turf';
 
-const CoffeeList = ({ coffeeShops = [], onShopClick, horizontal = false, showCount = true }) => {
+const CoffeeList = ({ coffeeShops = [], onShopClick, horizontal = false, showCount = true, center, radiusCircle }) => {
   console.log('CoffeeList received shops:', coffeeShops.length);
   
   if (!coffeeShops || coffeeShops.length === 0) {
@@ -12,11 +13,25 @@ const CoffeeList = ({ coffeeShops = [], onShopClick, horizontal = false, showCou
     );
   }
 
+  // Функция фильтрации кофеен по радиусу (должна совпадать с CoffeeMap)
+  function getShopsInRadius(center, radius, shops) {
+    return shops.filter(shop => {
+      if (isNaN(shop.longitude) || isNaN(shop.latitude)) return false;
+      const from = turf.point(center);
+      const to = turf.point([shop.longitude, shop.latitude]);
+      const dist = turf.distance(from, to, { units: 'meters' });
+      return dist <= radius;
+    });
+  }
+
+  // Вместо старой фильтрации используем getShopsInRadius
+  const filteredShops = getShopsInRadius(center, radiusCircle, coffeeShops);
+
   return (
     <div style={horizontal ? styles.horizontalList : styles.container}>
       {showCount && !horizontal && <h3 style={styles.title}>Coffee Shops ({coffeeShops.length})</h3>}
       <div style={horizontal ? styles.horizontalCards : styles.list}>
-        {coffeeShops.map((shop) => (
+        {filteredShops.map((shop) => (
           <div 
             key={shop.id} 
             className="coffee-card"
