@@ -458,7 +458,7 @@ const Home = () => {
   // Получаем смещённый центр для мобильных
   const getVisualCenter = () => {
     if (mapRef.current && typeof window !== 'undefined' && window.innerWidth <= 768) {
-      return mapRef.current.getVisualCenter ? mapRef.current.getVisualCenter(100) : mapCenter;
+      return mapRef.current.getVisualCenter ? mapRef.current.getVisualCenter(180) : mapCenter;
     }
     return mapCenter;
   };
