@@ -147,152 +147,196 @@ const Couponator = () => {
   const [openFaqUser, setOpenFaqUser] = useState(null);
   const [openFaqShop, setOpenFaqShop] = useState(null);
 
+  // Адаптивные стили через media queries
+  const mobileStyles = `
+  @media (max-width: 700px) {
+    .couponator-hero-logo {
+      height: 120px !important;
+      max-width: 90vw !important;
+      margin-bottom: 1.2rem !important;
+    }
+    .couponator-hero-title {
+      font-size: 1.3rem !important;
+      margin-bottom: 0.7rem !important;
+    }
+    .couponator-hero-desc {
+      font-size: 1rem !important;
+      padding: 0 0.5rem !important;
+    }
+    .couponator-roadmap-grid {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 1.2rem !important;
+      align-items: stretch !important;
+    }
+    .couponator-roadmap-step, .couponator-roadmap-final {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      width: 100% !important;
+      padding: 1.2rem 0.7rem !important;
+      font-size: 1rem !important;
+    }
+    .couponator-roadmap-final {
+      margin-top: 0.5rem !important;
+      padding: 1.5rem 0.7rem !important;
+    }
+    .couponator-faq-block {
+      padding: 1rem 0.5rem !important;
+      font-size: 1rem !important;
+    }
+    .couponator-section-narrow, .couponator-section {
+      padding: 1.5rem 0.3rem 1.2rem 0.3rem !important;
+    }
+  }
+  `;
+
   return (
-    <div style={styles.container}>
-      {/* Hero / Concept */}
-      <div style={styles.hero}>
-        <img src={WCTicketsLogo} alt="Wanna Coffee Couponator Logo" style={styles.heroLogo} />
-        <h1 style={styles.heroTitle}>Wanna Coffee Tickets</h1>
-        <p style={styles.heroSubtitle}>Your all-access pass to better coffee.</p>
-        <p style={styles.heroDesc}>
-          Wanna Coffee Tickets isn't about discounts — it's about making coffee culture more open, convenient, and rewarding. With a single purchase, you unlock a flexible digital wallet of coffee "tickets" that can be used at any participating café across the city. It's freedom in your pocket — no punch cards, no small change, no guesswork.
-        </p>
+    <>
+      <style>{mobileStyles}</style>
+      <div style={styles.container}>
+        {/* Hero / Concept */}
+        <div style={styles.hero}>
+          <img src={WCTicketsLogo} alt="Wanna Coffee Couponator Logo" style={styles.heroLogo} className="couponator-hero-logo" />
+          <p style={styles.heroDesc} className="couponator-hero-desc">
+            Wanna Coffee Tickets isn't about discounts — it's about making coffee culture more open, convenient, and rewarding. With a single purchase, you unlock a flexible digital wallet of coffee "tickets" that can be used at any participating café across the city. It's freedom in your pocket — no punch cards, no small change, no guesswork.
+          </p>
+        </div>
+
+        {/* For Coffee Lovers */}
+        <section style={styles.section}>
+          <h2 style={styles.sectionTitle}>For Coffee Lovers</h2>
+          <div style={styles.benefitsGrid}>
+            {loversBenefits.map(b => (
+              <div key={b.title} style={styles.benefitCard}>
+                <span style={styles.benefitIcon}>{b.icon}</span>
+                <h3 style={styles.benefitTitle}>{b.title}</h3>
+                <p style={styles.benefitDesc}>{b.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* How It Works — For Coffee Lovers */}
+        <section style={styles.roadmapSection}>
+          <h2 style={styles.roadmapTitle}>☕️ How It Works — For Coffee Lovers</h2>
+          <div style={styles.roadmapGrid34final} className="couponator-roadmap-grid">
+            <div style={styles.roadmapStepCard2x2} className="couponator-roadmap-step">
+              <div style={styles.roadmapStepIcon2x2}>1</div>
+              <div style={styles.roadmapStepTitle2x2}>Buy your ticket pack</div>
+              <div style={styles.roadmapStepDesc2x2}>Choose a bundle of 5, 10, 20, 45, or 100 tickets in the app. One secure payment via Apple Pay, Google Pay, or card — and you're set for weeks of coffee.</div>
+            </div>
+            <div style={styles.roadmapStepCard2x2} className="couponator-roadmap-step">
+              <div style={styles.roadmapStepIcon2x2}>2</div>
+              <div style={styles.roadmapStepTitle2x2}>Explore and discover</div>
+              <div style={styles.roadmapStepDesc2x2}>Browse the map of participating cafés — each one marked with a 'Wanna Tickets accepted' badge. Try a favorite or discover something new.</div>
+            </div>
+            <div style={styles.roadmapStepCard2x2} className="couponator-roadmap-step">
+              <div style={styles.roadmapStepIcon2x2}>3</div>
+              <div style={styles.roadmapStepTitle2x2}>Redeem with one tap</div>
+              <div style={styles.roadmapStepDesc2x2}>Order your drink, open the app, and tap 'Redeem.' A 90-second QR code appears — show it to the barista, and your ticket is instantly deducted.</div>
+            </div>
+            <div style={styles.roadmapStepCard2x2} className="couponator-roadmap-step">
+              <div style={styles.roadmapStepIcon2x2}>4</div>
+              <div style={styles.roadmapStepTitle2x2}>Track and repeat</div>
+              <div style={styles.roadmapStepDesc2x2}>See your balance in the Wallet tab, earn badges as you sip, and reload your ticket pack when you're ready for more.</div>
+            </div>
+            <div style={styles.roadmapFinalCard34} className="couponator-roadmap-final">
+              <div style={styles.roadmapFinalTitle}>Coffee freedom, finally.</div>
+              <div style={styles.roadmapFinalDesc}>Your ticket isn't just a way to pay — it's a mindset. No stamps, no change, no awkward moments at the register. Just real coffee, real people, and a smoother, more rewarding way to enjoy it all.<br/><br/>Use it your way. Refill when you're ready. Share with someone. Explore more. Coffee's never felt this good.</div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ for Users */}
+        <section style={styles.sectionNarrow} className="couponator-section-narrow">
+          <h2 style={styles.sectionTitle}>☕️ FAQ — For Coffee Lovers</h2>
+          <div style={styles.faqGrid}>
+            {faqsUsers.map((faq, i) => (
+              <div key={i} style={styles.faqBlock} className="couponator-faq-block">
+                <button
+                  style={styles.faqQBtn}
+                  onClick={() => setOpenFaqUser(openFaqUser === i ? null : i)}
+                  aria-expanded={openFaqUser === i}
+                >
+                  {faq.q}
+                  <span style={styles.faqArrow}>{openFaqUser === i ? '▲' : '▼'}</span>
+                </button>
+                {openFaqUser === i && (
+                  <div style={styles.faqA}>{faq.a}</div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* For Coffee Shops */}
+        <section style={styles.section}>
+          <h2 style={styles.sectionTitle}>For Coffee Shops</h2>
+          <div style={styles.benefitsGrid}>
+            {shopBenefits.map(b => (
+              <div key={b.title} style={styles.benefitCard}>
+                <span style={styles.benefitIcon}>{b.icon}</span>
+                <h3 style={styles.benefitTitle}>{b.title}</h3>
+                <p style={styles.benefitDesc}>{b.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* How It Works — For Coffee Shops */}
+        <section style={styles.roadmapSection}>
+          <h2 style={styles.roadmapTitle}>🏪 How It Works — For Coffee Shops</h2>
+          <div style={styles.roadmapGrid34final} className="couponator-roadmap-grid">
+            <div style={styles.roadmapStepCard2x2} className="couponator-roadmap-step">
+              <div style={styles.roadmapStepIcon2x2}>1</div>
+              <div style={styles.roadmapStepTitle2x2}>Apply to join</div>
+              <div style={styles.roadmapStepDesc2x2}>Submit your café through the Partner Portal. Once approved, you'll appear in the app as a 'Ticket Partner' with a badge and boosted visibility.</div>
+            </div>
+            <div style={styles.roadmapStepCard2x2} className="couponator-roadmap-step">
+              <div style={styles.roadmapStepIcon2x2}>2</div>
+              <div style={styles.roadmapStepTitle2x2}>Set up your ticket rules</div>
+              <div style={styles.roadmapStepDesc2x2}>In your dashboard, define how many tickets each drink requires — typically 1 for basics, 2–3 for premium drinks. You stay in control.</div>
+            </div>
+            <div style={styles.roadmapStepCard2x2} className="couponator-roadmap-step">
+              <div style={styles.roadmapStepIcon2x2}>3</div>
+              <div style={styles.roadmapStepTitle2x2}>Accept redemptions easily</div>
+              <div style={styles.roadmapStepDesc2x2}>Use any phone, tablet, or laptop with a camera to scan ticket QR codes — or enter a 6-digit code manually. No hardware or POS changes needed.</div>
+            </div>
+            <div style={styles.roadmapStepCard2x2} className="couponator-roadmap-step">
+              <div style={styles.roadmapStepIcon2x2}>4</div>
+              <div style={styles.roadmapStepTitle2x2}>Get paid & track insights</div>
+              <div style={styles.roadmapStepDesc2x2}>Receive 80% of each sale weekly through our payment partner. Monitor impressions, taps, redemptions, and customer return rates via your dashboard.</div>
+            </div>
+            <div style={styles.roadmapFinalCard34} className="couponator-roadmap-final">
+              <div style={styles.roadmapFinalTitle}>Built to spotlight what makes you special.</div>
+              <div style={styles.roadmapFinalDesc}>We know how hard it is for independent cafés to stand out in a crowded city. That's exactly why we're here. Wanna Coffee helps showcase your individuality, attract the right audience, and turn every visit into a relationship — without changing your workflow or giving up control. You set the rules, we amplify your story.</div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ for Shops */}
+        <section style={styles.sectionNarrow} className="couponator-section-narrow">
+          <h2 style={styles.sectionTitle}>🏪 FAQ — For Coffee Shops</h2>
+          <div style={styles.faqGrid}>
+            {faqsShops.map((faq, i) => (
+              <div key={i} style={styles.faqBlock} className="couponator-faq-block">
+                <button
+                  style={styles.faqQBtn}
+                  onClick={() => setOpenFaqShop(openFaqShop === i ? null : i)}
+                  aria-expanded={openFaqShop === i}
+                >
+                  {faq.q}
+                  <span style={styles.faqArrow}>{openFaqShop === i ? '▲' : '▼'}</span>
+                </button>
+                {openFaqShop === i && (
+                  <div style={styles.faqA}>{faq.a}</div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
-
-      {/* For Coffee Lovers */}
-      <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>For Coffee Lovers</h2>
-        <div style={styles.benefitsGrid}>
-          {loversBenefits.map(b => (
-            <div key={b.title} style={styles.benefitCard}>
-              <span style={styles.benefitIcon}>{b.icon}</span>
-              <h3 style={styles.benefitTitle}>{b.title}</h3>
-              <p style={styles.benefitDesc}>{b.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* How It Works — For Coffee Lovers */}
-      <section style={styles.roadmapSection}>
-        <h2 style={styles.roadmapTitle}>☕️ How It Works — For Coffee Lovers</h2>
-        <div style={styles.roadmapGrid34final}>
-          <div style={styles.roadmapStepCard2x2}>
-            <div style={styles.roadmapStepIcon2x2}>1</div>
-            <div style={styles.roadmapStepTitle2x2}>Buy your ticket pack</div>
-            <div style={styles.roadmapStepDesc2x2}>Choose a bundle of 5, 10, 20, 45, or 100 tickets in the app. One secure payment via Apple Pay, Google Pay, or card — and you're set for weeks of coffee.</div>
-          </div>
-          <div style={styles.roadmapStepCard2x2}>
-            <div style={styles.roadmapStepIcon2x2}>2</div>
-            <div style={styles.roadmapStepTitle2x2}>Explore and discover</div>
-            <div style={styles.roadmapStepDesc2x2}>Browse the map of participating cafés — each one marked with a 'Wanna Tickets accepted' badge. Try a favorite or discover something new.</div>
-          </div>
-          <div style={styles.roadmapStepCard2x2}>
-            <div style={styles.roadmapStepIcon2x2}>3</div>
-            <div style={styles.roadmapStepTitle2x2}>Redeem with one tap</div>
-            <div style={styles.roadmapStepDesc2x2}>Order your drink, open the app, and tap 'Redeem.' A 90-second QR code appears — show it to the barista, and your ticket is instantly deducted.</div>
-          </div>
-          <div style={styles.roadmapStepCard2x2}>
-            <div style={styles.roadmapStepIcon2x2}>4</div>
-            <div style={styles.roadmapStepTitle2x2}>Track and repeat</div>
-            <div style={styles.roadmapStepDesc2x2}>See your balance in the Wallet tab, earn badges as you sip, and reload your ticket pack when you're ready for more.</div>
-          </div>
-          <div style={styles.roadmapFinalCard34}>
-            <div style={styles.roadmapFinalTitle}>Coffee freedom, finally.</div>
-            <div style={styles.roadmapFinalDesc}>Your ticket isn't just a way to pay — it's a mindset. No stamps, no change, no awkward moments at the register. Just real coffee, real people, and a smoother, more rewarding way to enjoy it all.<br/><br/>Use it your way. Refill when you're ready. Share with someone. Explore more. Coffee's never felt this good.</div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ for Users */}
-      <section style={styles.sectionNarrow}>
-        <h2 style={styles.sectionTitle}>☕️ FAQ — For Coffee Lovers</h2>
-        <div style={styles.faqGrid}>
-          {faqsUsers.map((faq, i) => (
-            <div key={i} style={styles.faqBlock}>
-              <button
-                style={styles.faqQBtn}
-                onClick={() => setOpenFaqUser(openFaqUser === i ? null : i)}
-                aria-expanded={openFaqUser === i}
-              >
-                {faq.q}
-                <span style={styles.faqArrow}>{openFaqUser === i ? '▲' : '▼'}</span>
-              </button>
-              {openFaqUser === i && (
-                <div style={styles.faqA}>{faq.a}</div>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* For Coffee Shops */}
-      <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>For Coffee Shops</h2>
-        <div style={styles.benefitsGrid}>
-          {shopBenefits.map(b => (
-            <div key={b.title} style={styles.benefitCard}>
-              <span style={styles.benefitIcon}>{b.icon}</span>
-              <h3 style={styles.benefitTitle}>{b.title}</h3>
-              <p style={styles.benefitDesc}>{b.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* How It Works — For Coffee Shops */}
-      <section style={styles.roadmapSection}>
-        <h2 style={styles.roadmapTitle}>🏪 How It Works — For Coffee Shops</h2>
-        <div style={styles.roadmapGrid34final}>
-          <div style={styles.roadmapStepCard2x2}>
-            <div style={styles.roadmapStepIcon2x2}>1</div>
-            <div style={styles.roadmapStepTitle2x2}>Apply to join</div>
-            <div style={styles.roadmapStepDesc2x2}>Submit your café through the Partner Portal. Once approved, you'll appear in the app as a 'Ticket Partner' with a badge and boosted visibility.</div>
-          </div>
-          <div style={styles.roadmapStepCard2x2}>
-            <div style={styles.roadmapStepIcon2x2}>2</div>
-            <div style={styles.roadmapStepTitle2x2}>Set up your ticket rules</div>
-            <div style={styles.roadmapStepDesc2x2}>In your dashboard, define how many tickets each drink requires — typically 1 for basics, 2–3 for premium drinks. You stay in control.</div>
-          </div>
-          <div style={styles.roadmapStepCard2x2}>
-            <div style={styles.roadmapStepIcon2x2}>3</div>
-            <div style={styles.roadmapStepTitle2x2}>Accept redemptions easily</div>
-            <div style={styles.roadmapStepDesc2x2}>Use any phone, tablet, or laptop with a camera to scan ticket QR codes — or enter a 6-digit code manually. No hardware or POS changes needed.</div>
-          </div>
-          <div style={styles.roadmapStepCard2x2}>
-            <div style={styles.roadmapStepIcon2x2}>4</div>
-            <div style={styles.roadmapStepTitle2x2}>Get paid & track insights</div>
-            <div style={styles.roadmapStepDesc2x2}>Receive 80% of each sale weekly through our payment partner. Monitor impressions, taps, redemptions, and customer return rates via your dashboard.</div>
-          </div>
-          <div style={styles.roadmapFinalCard34}>
-            <div style={styles.roadmapFinalTitle}>Built to spotlight what makes you special.</div>
-            <div style={styles.roadmapFinalDesc}>We know how hard it is for independent cafés to stand out in a crowded city. That's exactly why we're here. Wanna Coffee helps showcase your individuality, attract the right audience, and turn every visit into a relationship — without changing your workflow or giving up control. You set the rules, we amplify your story.</div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ for Shops */}
-      <section style={styles.sectionNarrow}>
-        <h2 style={styles.sectionTitle}>🏪 FAQ — For Coffee Shops</h2>
-        <div style={styles.faqGrid}>
-          {faqsShops.map((faq, i) => (
-            <div key={i} style={styles.faqBlock}>
-              <button
-                style={styles.faqQBtn}
-                onClick={() => setOpenFaqShop(openFaqShop === i ? null : i)}
-                aria-expanded={openFaqShop === i}
-              >
-                {faq.q}
-                <span style={styles.faqArrow}>{openFaqShop === i ? '▲' : '▼'}</span>
-              </button>
-              {openFaqShop === i && (
-                <div style={styles.faqA}>{faq.a}</div>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
-    </div>
+    </>
   );
 };
 
@@ -318,13 +362,6 @@ const styles = {
     display: 'block',
     maxWidth: 640,
     marginBottom: 0,
-  },
-  heroTitle: {
-    fontSize: '1.7rem',
-    fontWeight: 800,
-    color: '#b87333',
-    marginBottom: '1.2rem',
-    textAlign: 'center',
   },
   heroSubtitle: {
     fontSize: '1.25rem',

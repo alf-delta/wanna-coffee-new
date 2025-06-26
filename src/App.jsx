@@ -5,7 +5,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import EventsPage from './pages/EventsPage';
 import Couponator from './pages/Couponator';
-import LoyaltyProgram from './pages/LoyaltyProgram';
+import Events from './pages/Events';
 import CoffeeSubscription from './pages/CoffeeSubscription';
 import Header from './components/Header';
 import { SpeedInsights } from "@vercel/speed-insights/react";
@@ -18,9 +18,8 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/events" element={<EventsPage />} />
+        <Route path="/events" element={<Events />} />
         <Route path="/couponator" element={<Couponator />} />
-        <Route path="/loyalty" element={<LoyaltyProgram />} />
         <Route path="/subscription" element={<CoffeeSubscription />} />
       </Routes>
       <SpeedInsights />

@@ -59,7 +59,7 @@ const About = () => {
 
             <div style={styles.featureCard}>
               <div style={styles.featureIcon}>🏆</div>
-              <h3 style={styles.featureTitle}>Loyalty Program</h3>
+              <h3 style={styles.featureTitle}>Events</h3>
               <p style={styles.featureDescription}>
                 Earn points with every purchase and unlock exclusive benefits. 
                 Bronze, Silver, and Gold membership tiers.
@@ -67,7 +67,7 @@ const About = () => {
               <div style={styles.statusBadge}>
                 <span style={styles.comingSoonBadge}>Coming Soon</span>
               </div>
-              <Link to="/loyalty" style={styles.previewLink}>
+              <Link to="/events" style={styles.previewLink}>
                 Preview Interface →
               </Link>
             </div>

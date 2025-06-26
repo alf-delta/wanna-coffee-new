@@ -28,16 +28,19 @@ const Header = () => {
 
   const soonBadge = {
     position: 'absolute',
-    top: '-8px',
-    right: '-8px',
+    top: -4,
+    right: 8,
     background: '#e53935',
     color: '#fff',
+    fontSize: '0.85rem',
     fontWeight: 700,
-    fontSize: '0.75rem',
-    borderRadius: '8px',
-    padding: '2px 8px',
-    boxShadow: '0 1px 4px rgba(204,144,66,0.10)',
-    zIndex: 2,
+    borderRadius: '12px',
+    padding: '2px 12px',
+    zIndex: 10,
+    boxShadow: '0 2px 8px rgba(204,144,66,0.10)',
+    '@media (min-width: 769px)': {
+      top: -14,
+    },
   };
 
   return (
@@ -55,15 +58,25 @@ const Header = () => {
                 aria-label="Toggle menu"
               >
                 <span style={styles.menuIcon}>{isMenuOpen ? '✕' : '☰'}</span>
+                <span style={styles.burgerDot}></span>
               </button>
               {isMenuOpen && (
                 <div style={styles.mobileMenu}>
-                  <Link to="/" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>Home</Link>
-                  <Link to="/about" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>About</Link>
-                  <Link to="/contact" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>Contact</Link>
-                  <Link to="/couponator" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>Couponator</Link>
-                  <Link to="/loyalty" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>Loyalty</Link>
-                  <Link to="/subscription" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>Subscription</Link>
+                  <Link to="/" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>Home</Link>
+                  <Link to="/about" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>About</Link>
+                  <Link to="/contact" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>Contact</Link>
+                  <span style={{ position: 'relative', display: 'block' }}>
+                    <Link to="/couponator" style={{ ...accentButton, ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Coffee Pass</Link>
+                    <span style={soonBadge}>Soon</span>
+                  </span>
+                  <span style={{ position: 'relative', display: 'block' }}>
+                    <Link to="/events" style={{ ...accentButton, ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Events</Link>
+                    <span style={soonBadge}>Soon</span>
+                  </span>
+                  <span style={{ position: 'relative', display: 'block' }}>
+                    <Link to="/subscription" style={{ ...accentButton, ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Shop</Link>
+                    <span style={soonBadge}>Soon</span>
+                  </span>
                 </div>
               )}
             </>
@@ -77,7 +90,7 @@ const Header = () => {
                 <span style={soonBadge}>Soon</span>
               </span>
               <span style={{ position: 'relative', display: 'inline-block' }}>
-                <Link to="/loyalty" style={accentButton}>Loyalty</Link>
+                <Link to="/events" style={accentButton}>Events</Link>
                 <span style={soonBadge}>Soon</span>
               </span>
               <span style={{ position: 'relative', display: 'inline-block' }}>
@@ -209,6 +222,34 @@ const styles = {
     logoLink: {
       maxWidth: '70vw',
     },
+  },
+  mobileAccentBtn: {
+    width: 'calc(100% - 32px)',
+    margin: '0.5rem 16px',
+    display: 'block',
+    textAlign: 'center',
+    fontSize: '1.13rem',
+    padding: '0.9rem 1.5rem',
+    borderRadius: '18px',
+    background: 'linear-gradient(90deg, #cc9042 60%, #b87333 100%)',
+    color: '#fff',
+    fontWeight: 700,
+    boxShadow: '0 2px 8px rgba(204,144,66,0.13)',
+    border: 'none',
+  },
+  burgerDot: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    width: 12,
+    height: 12,
+    borderRadius: '50%',
+    background: '#e53935',
+    boxShadow: '0 1px 4px rgba(204,144,66,0.10)',
+    zIndex: 10,
+    border: '2px solid #fff',
+    display: 'inline-block',
+    pointerEvents: 'none',
   },
 };
 
