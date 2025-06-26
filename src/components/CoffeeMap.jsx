@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } f
 import mapboxgl from 'mapbox-gl';
 import { MAPBOX_TOKEN } from '../assets/mapbox-token';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import * as turf from '@turf/turf';
 
 if (!MAPBOX_TOKEN) {
   console.error('Mapbox token is missing!');
@@ -9,186 +10,229 @@ if (!MAPBOX_TOKEN) {
 
 mapboxgl.accessToken = MAPBOX_TOKEN;
 
-// Custom Geolocation Control for Mapbox
-class GeolocationControl {
-  constructor(options) {
-    this._options = options;
+// Определение района по координатам
+const getDistrictByCoordinates = (lat, lng) => {
+  // Brooklyn boundaries
+  if (lat >= 40.5700 && lat <= 40.7390 && lng >= -74.0410 && lng <= -73.8550) {
+    return 'Brooklyn';
   }
-
-  onAdd(map) {
-    this._map = map;
-    this._container = document.createElement('div');
-    this._container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
-    
-    const button = document.createElement('button');
-    button.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-geolocate'; // Use Mapbox's existing geolocate style or make a custom one
-    button.type = 'button';
-    button.title = this._options.title || 'Geolocate';
-    button.setAttribute('aria-label', this._options.title || 'Geolocate');
-    button.innerHTML = this._options.svgIcon; // Expecting SVG string here
-    button.onclick = this._options.onClick;
-
-    this._container.appendChild(button);
-    return this._container;
+  // Manhattan boundaries  
+  if (lat >= 40.7000 && lat <= 40.8800 && lng >= -74.0300 && lng <= -73.9000) {
+    return 'Manhattan';
   }
-
-  onRemove() {
-    this._container.parentNode.removeChild(this._container);
-    this._map = undefined;
+  // Queens boundaries
+  if (lat >= 40.5500 && lat <= 40.8000 && lng >= -73.9500 && lng <= -73.7000) {
+    return 'Queens';
   }
+  return 'New York City'; // fallback
+};
+
+// Центры и зум для районов
+const DISTRICT_CENTERS = {
+  'Brooklyn': { center: [-73.9480, 40.6500], zoom: 11 },
+  'Manhattan': { center: [-73.9650, 40.7500], zoom: 12 },
+  'Queens': { center: [-73.8250, 40.7250], zoom: 11 },
+  'Financial District': { center: [-74.009, 40.715], zoom: 14 },
+  'New York City': { center: [-74.006, 40.7128], zoom: 10 }
+};
+
+function throttle(fn, wait) {
+  let lastTime = 0;
+  let timeout;
+  return function(...args) {
+    const now = Date.now();
+    if (now - lastTime >= wait) {
+      lastTime = now;
+      fn.apply(this, args);
+    } else {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        lastTime = Date.now();
+        fn.apply(this, args);
+      }, wait - (now - lastTime));
+    }
+  };
 }
 
-const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCenter, mapCenter, selectedShopId, disableMove = false, mobileOffsetY = -120, geolocationControl }, ref) => {
+// Функция фильтрации кофеен по радиусу
+function getShopsInRadius(center, radius, shops) {
+  return shops.filter(shop => {
+    if (isNaN(shop.longitude) || isNaN(shop.latitude)) return false;
+    const from = turf.point(center);
+    const to = turf.point([shop.longitude, shop.latitude]);
+    const dist = turf.distance(from, to, { units: 'meters' });
+    return dist <= radius;
+  });
+}
+
+const CoffeeMap = forwardRef(({ 
+  coffeeShops = [], 
+  radiusCircle = 1000, 
+  selectedShopId, 
+  disableMove = false, 
+  mobileOffsetY = -120,
+  highlightShopId = null,
+  mapCenter,
+  setMapCenter
+}, ref) => {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const markers = useRef([]);
+  const programmaticMove = useRef(false);
+  const isUserInteraction = useRef(false);
   const [error, setError] = useState(null);
   const [isMapLoaded, setIsMapLoaded] = useState(false);
   const [isFlying, setIsFlying] = useState(false);
   const layersCreated = useRef(false);
-  const initialZoom = 15;
-  const isUserInteraction = useRef(false);
-  const programmaticMove = useRef(false);
-  const prevRadius = useRef(radiusCircle);
 
   const IS_MOBILE = typeof window !== 'undefined' && window.innerWidth < 768;
   const MOBILE_VISUAL_OFFSET = [0, mobileOffsetY];
   const NO_OFFSET = [0, 0];
   const currentVisualOffset = IS_MOBILE ? MOBILE_VISUAL_OFFSET : NO_OFFSET;
 
-  console.log('CoffeeMap: Render/Props Update', { radiusCircle, mapCenterProp: mapCenter, selectedShopId, isMapLoaded, currentVisualOffset });
-
-  const executeFlyTo = (targetCenter, targetZoom, duration = 600) => {
-    if (!map.current || !targetCenter || targetCenter.length !== 2 || isNaN(targetCenter[0]) || isNaN(targetCenter[1])) {
-      console.warn('[CM] executeFlyTo: Invalid targetCenter or map not ready', { targetCenter, mapReady: !!map.current });
-      return;
-    }
-    console.log('[CM] executeFlyTo:', { targetCenter, targetZoom, offset: currentVisualOffset, duration });
-    programmaticMove.current = true;
-    setIsFlying(true);
-    map.current.flyTo({
-      center: targetCenter,
-      zoom: targetZoom,
-      duration: duration,
-      offset: currentVisualOffset,
-      essential: true,
-    });
-    setTimeout(() => {
-      setIsFlying(false);
-      programmaticMove.current = false;
-      console.log("[CM] executeFlyTo finished, programmaticMove set to false");
-    }, duration + 100); 
-  };
-
-  useImperativeHandle(ref, () => ({
-    openPopup: (shopId) => {
-      const marker = markers.current.find(m => m._shopId === shopId);
-      if (marker) {
-        markers.current.forEach(m => { 
-          if (m.getPopup() && m.getPopup().isOpen()) m.getPopup().remove();
-        });
-        marker.getPopup().addTo(map.current);
-        const lngLat = marker.getLngLat();
-        executeFlyTo([lngLat.lng, lngLat.lat], map.current.getZoom() < 15 ? 15 : map.current.getZoom(), 1000);
-      }
-    },
-    highlightMarker: (shopId) => {
-      markers.current.forEach(marker => {
-        marker.getElement().style.filter = marker._shopId === shopId ? 'drop-shadow(0 0 8px #d3914b)' : 'none';
-      });
-    },
-    flyTo: (center, zoom = 15) => { 
-      console.log("[CM] Imperative flyTo called with center:", center);
-      if (setMapCenter) {
-        if (!mapCenter || Math.abs(center[0] - mapCenter[0]) > 1e-6 || Math.abs(center[1] - mapCenter[1]) > 1e-6) {
-            setMapCenter(center);
-        } else {
-            executeFlyTo(center, zoom, 1000);
-        }
-      } else {
-          executeFlyTo(center, zoom, 1000);
-      }
-    }
-  }));
+  console.log('CoffeeMap: Render/Props Update', { 
+    radiusCircle, 
+    selectedShopId, 
+    isMapLoaded, 
+    currentVisualOffset
+  });
 
   const updateMapVisuals = () => {
     if (!map.current || !isMapLoaded || !layersCreated.current || !mapCenter || mapCenter.length !== 2 || isNaN(mapCenter[0]) || isNaN(mapCenter[1])) {
-      console.warn('[CM] updateMapVisuals skipped: conditions not met', {isMapLoaded, layersCreated: layersCreated.current, mapCenter});
       return;
     }
-    console.log('[CM] updateMapVisuals: Drawing GeoJSON at logical mapCenter (prop):', mapCenter);
-
-    const centerForGeoJSON = [mapCenter[0], mapCenter[1]];
-    const zoom = map.current.getZoom();
-    const metersPerPixel = 156543.03392 * Math.cos(centerForGeoJSON[1] * Math.PI / 180) / Math.pow(2, zoom);
-    const radiusInPixels = radiusCircle / metersPerPixel;
-
-    const pointFeature = { type: 'Feature', geometry: { type: 'Point', coordinates: centerForGeoJSON } };
-    ['radius-inner', 'radius-middle', 'radius-outer', 'center-point'].forEach(sourceId => {
-      const source = map.current.getSource(sourceId);
-      if (source) source.setData(pointFeature);
-      else console.warn(`[CM] Source ${sourceId} not found during updateMapVisuals`);
+    // Градиентные концентрические круги
+    const radii = [radiusCircle, radiusCircle * 0.7, radiusCircle * 0.4];
+    const opacities = [0.13, 0.07, 0.03];
+    radii.forEach((r, i) => {
+      const id = `radius-gradient-${i}`;
+      const circleGeoJson = turf.circle(mapCenter, r / 1000, { steps: 64, units: 'kilometers' });
+      if (map.current.getSource(id)) {
+        map.current.getSource(id).setData(circleGeoJson);
+      } else {
+        map.current.addSource(id, { type: 'geojson', data: circleGeoJson });
+        map.current.addLayer({
+          id: `${id}-layer`,
+          type: 'fill',
+          source: id,
+          paint: {
+            'fill-color': '#d3914b',
+            'fill-opacity': opacities[i]
+          }
+        });
+      }
     });
-
-    const minRadius = Math.min(mapContainer.current ? mapContainer.current.offsetWidth / 10 : 30, 60);
-    const paintLayers = [
-      { id: 'radius-outer-layer', radius: Math.max(radiusInPixels * 2.2, minRadius * 1.2) },
-      { id: 'radius-middle-layer', radius: Math.max(radiusInPixels * 1.5, minRadius * 0.9) },
-      { id: 'radius-inner-layer', radius: Math.max(radiusInPixels * 1.0, minRadius * 0.6) },
-      { id: 'center-point-layer', radius: Math.max(minRadius * 0.1, 6) }
-    ];
-    paintLayers.forEach(layer => {
-      if (map.current.getLayer(layer.id)) map.current.setPaintProperty(layer.id, 'circle-radius', layer.radius);
-    });
-
+    // Центр как geojson точка
+    const centerPoint = { type: 'Feature', geometry: { type: 'Point', coordinates: mapCenter } };
+    if (map.current.getSource('center-point')) {
+      map.current.getSource('center-point').setData(centerPoint);
+    } else {
+      map.current.addSource('center-point', { type: 'geojson', data: centerPoint });
+      map.current.addLayer({
+        id: 'center-point-layer',
+        type: 'circle',
+        source: 'center-point',
+        paint: {
+          'circle-radius': 8,
+          'circle-color': '#d3914b',
+          'circle-stroke-color': '#fff',
+          'circle-stroke-width': 2
+        }
+      });
+    }
+    // Маркеры кофеен
     markers.current.forEach(marker => marker.remove());
     markers.current = [];
     coffeeShops.forEach(shop => {
-      if (isNaN(shop.longitude) || isNaN(shop.latitude)) return;
-      const popupHTML = `<h3>${shop.name}</h3><p>${shop.address}</p><button onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${shop.latitude},${shop.longitude}', '_blank')">Route</button>`;
-      const marker = new mapboxgl.Marker({ color: shop.id === selectedShopId ? 'gold' : '#FF4B4B' })
+      // Функция для проверки, открыта ли кофейня сейчас
+      const isOpenNow = (hoursStr) => {
+        if (!hoursStr) return null;
+        const [open, close] = hoursStr.split(/[–-]/).map(s => s.trim());
+        if (!open || !close) return null;
+        const now = new Date();
+        const pad = n => n.toString().padStart(2, '0');
+        const nowStr = pad(now.getHours()) + ':' + pad(now.getMinutes());
+        return open <= nowStr && nowStr < close;
+      };
+
+      const status = shop.hours ? isOpenNow(shop.hours) : null;
+      const statusText = status === null ? '—' : status ? 'Open' : 'Closed';
+      const statusColor = status === null ? '#ccc' : status ? '#4caf50' : '#e53935';
+      
+      const popupHTML = `
+        <div style="padding: 8px; min-width: 200px;">
+          <h3 style="margin: 0 0 8px 0; font-size: 16px; color: #333;">${shop.name}</h3>
+          <p style="margin: 0 0 8px 0; font-size: 14px; color: #666;">${shop.address}</p>
+          ${shop.hours ? `
+            <div style="display: flex; align-items: center; gap: 8px; margin: 8px 0;">
+              <span style="
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: ${statusColor};
+              "></span>
+              <span style="font-weight: 500; color: ${statusColor}; font-size: 14px;">
+                ${statusText}
+              </span>
+              <span style="color: #888; font-size: 14px; margin-left: 6px;">
+                ${shop.hours}
+              </span>
+            </div>
+          ` : ''}
+          <button onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${shop.latitude},${shop.longitude}', '_blank')" 
+                  style="
+                    background: #d3914b;
+                    color: white;
+                    border: none;
+                    padding: 8px 16px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    width: 100%;
+                  ">
+            🚶‍♂️ Route
+          </button>
+        </div>
+      `;
+      
+      const marker = new mapboxgl.Marker({ color: '#d3914b' })
         .setLngLat([shop.longitude, shop.latitude])
-        .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(popupHTML)); 
+        .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(popupHTML));
       marker.addTo(map.current);
       marker._shopId = shop.id;
       markers.current.push(marker);
     });
-    console.log("[CM] updateMapVisuals completed");
   };
 
   useEffect(() => {
     if (map.current) return; 
-    console.log("[CM] Initializing map with center:", mapCenter);
+    let initialConfig = DISTRICT_CENTERS['Financial District'];
+    // Для мобильных увеличиваем latitude (точка выше)
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      initialConfig = {
+        ...initialConfig,
+        center: [initialConfig.center[0], initialConfig.center[1] + 0.012]
+      };
+    }
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: mapCenter || [-74.006, 40.7128], 
-      zoom: initialZoom,
+      center: initialConfig.center,
+      zoom: initialConfig.zoom,
       attributionControl: false,
     });
 
-    // Add geolocation control if provided
-    if (geolocationControl && geolocationControl.onClick && geolocationControl.svgIcon) {
-      map.current.addControl(
-        new GeolocationControl({
-          onClick: geolocationControl.onClick,
-          svgIcon: geolocationControl.svgIcon,
-          title: geolocationControl.title || 'My Location'
-        }), 
-        'bottom-right'
-      );
-    }
-
     map.current.on('load', () => {
-      console.log('[CM] Map loaded event.');
       setIsMapLoaded(true);
       const layerDefs = [
         { id: 'radius-outer', color: 'rgba(255,0,0,0.08)' },
         { id: 'radius-middle', color: 'rgba(255,75,75,0.12)' },
         { id: 'radius-inner', color: 'rgba(255,75,75,0.18)' },
-        { id: 'center-point', color: '#FF4B4B', strokeColor: '#FFFFFF', strokeWidth: 2 }
+        { id: 'center-point', color: '#d3914b', strokeColor: '#fff', strokeWidth: 2 }
       ];
-      const initialGeoJsonCenter = mapCenter || [-74.006, 40.7128];
+      const initialGeoJsonCenter = map.current.getCenter().toArray();
+      setMapCenter(initialGeoJsonCenter);
       layerDefs.forEach(def => {
         map.current.addSource(def.id, { type: 'geojson', data: { type: 'Feature', geometry: { type: 'Point', coordinates: initialGeoJsonCenter } } });
         map.current.addLayer({
@@ -204,25 +248,25 @@ const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCen
         });
       });
       layersCreated.current = true;
-      console.log("[CM] Layers created. Initial mapCenter:", mapCenter);
-      if (mapCenter) {
-         console.log('[CM] Initial flyTo after load with offset.');
-         executeFlyTo(mapCenter, initialZoom, 100);
-      }
       updateMapVisuals(); 
+    });
+
+    map.current.on('move', () => {
+      if (map.current) {
+        const c = map.current.getCenter();
+        setMapCenter([c.lng, c.lat]);
+      }
     });
 
     if (!disableMove) {
       map.current.on('dragstart', () => {
         if (!isFlying) {
           console.log('[CM] User dragstart');
-          isUserInteraction.current = true;
         }
       });
       map.current.on('zoomstart', () => {
         if (!isFlying) {
             console.log('[CM] User zoomstart');
-            isUserInteraction.current = true;
         }
       });
 
@@ -233,12 +277,11 @@ const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCen
             updateMapVisuals();
             return;
         }
-        
         if (isUserInteraction.current) {
           const newGeographicCenter = map.current.getCenter().toArray();
           console.log('[CM] moveend after UserInteraction: new GeographicCenter from map.getCenter()', newGeographicCenter);
           if (setMapCenter) {
-            if (!mapCenter || Math.abs(newGeographicCenter[0] - mapCenter[0]) > 1e-7 || Math.abs(newGeographicCenter[1] - mapCenter[1]) > 1e-7) {
+            if (!setMapCenter || Math.abs(newGeographicCenter[0] - setMapCenter[0]) > 1e-7 || Math.abs(newGeographicCenter[1] - setMapCenter[1]) > 1e-7) {
               console.log('[CM] moveend: User interaction, calling setMapCenter with new geographic center:', newGeographicCenter);
               setMapCenter(newGeographicCenter); 
             } else {
@@ -258,14 +301,14 @@ const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCen
 
     const handleResize = () => {
         console.log("[CM] Window resized, re-flying to apply potentially changed offset and updating visuals.");
-        if (map.current && mapCenter && isMapLoaded) {
+        if (map.current && setMapCenter && isMapLoaded) {
             const newIsMobile = (typeof window !== 'undefined' && window.innerWidth < 768);
             const updatedOffsetBasedOnProp = newIsMobile ? [0, mobileOffsetY] : NO_OFFSET;
             
             programmaticMove.current = true;
             setIsFlying(true);
             map.current.flyTo({
-                center: mapCenter,
+                center: setMapCenter,
                 zoom: map.current.getZoom(),
                 offset: updatedOffsetBasedOnProp,
                 duration: 200
@@ -291,32 +334,72 @@ const CoffeeMap = forwardRef(({ coffeeShops = [], radiusCircle = 1000, setMapCen
   }, []);
 
   useEffect(() => {
-    console.log("[CM] mapCenter prop changed to:", mapCenter, "isMapLoaded:", isMapLoaded, "layersCreated:", layersCreated.current);
-    if (!map.current || !isMapLoaded || !layersCreated.current || !mapCenter) return;
-
-    if (!programmaticMove.current) {
-        console.log('[CM] mapCenter prop changed externally, executing flyTo with offset:', mapCenter);
-        executeFlyTo(mapCenter, map.current.getZoom()); 
-    } else {
-        console.log("[CM] mapCenter prop changed, but programmaticMove is true, likely internal feedback. Skipping flyTo, just updating visuals.");
-    }
-    updateMapVisuals(); 
-  }, [mapCenter]); 
-
-  useEffect(() => {
-    console.log("[CM] radiusCircle prop changed to:", radiusCircle, "isMapLoaded:", isMapLoaded, "layersCreated:", layersCreated.current);
-    if (!map.current || !isMapLoaded || !layersCreated.current || !mapCenter) return;
-    
-    updateMapVisuals(); 
-    prevRadius.current = radiusCircle;
-  }, [radiusCircle]); 
-
-  useEffect(() => {
-    console.log("[CM] coffeeShops or selectedShopId changed. Updating visuals.");
     if (isMapLoaded && layersCreated.current) {
       updateMapVisuals();
     }
-  }, [coffeeShops, selectedShopId]);
+  }, [setMapCenter, radiusCircle, coffeeShops]);
+
+  // Синхронизация центра при перемещении карты
+  useEffect(() => {
+    if (!map.current || !setMapCenter) return;
+    const handleMove = () => {
+      const center = map.current.getCenter();
+      setMapCenter([center.lng, center.lat]);
+    };
+    map.current.on('moveend', handleMove);
+    return () => {
+      if (map.current) {
+        map.current.off('moveend', handleMove);
+      }
+    };
+  }, [setMapCenter]);
+
+  // Автоматический flyTo с offset при изменении mapCenter на мобильных
+  // useEffect с flyTo по mapCenter временно удалён для устранения багов
+
+  // Обработка выбора кофейни из списка
+  useEffect(() => {
+    if (!isMapLoaded || !selectedShopId || !markers.current.length) return;
+    
+    // Закрываем все открытые попапы
+    markers.current.forEach(marker => {
+      if (marker.getPopup().isOpen()) {
+        marker.getPopup().remove();
+      }
+    });
+    
+    // Находим нужный маркер и открываем его попап
+    const marker = markers.current.find(m => m._shopId === selectedShopId);
+    if (marker) {
+      marker.getPopup().addTo(map.current);
+      // Убираем flyTo - карта не должна перемещаться
+    }
+  }, [selectedShopId, isMapLoaded]);
+
+  // Возвращает координаты точки выше центра карты на offsetY пикселей (только для мобильных)
+  const getVisualCenter = (offsetY = 60) => {
+    if (!map.current) return mapCenter;
+    if (!IS_MOBILE) return mapCenter;
+    const container = map.current.getContainer();
+    const rect = container.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    // Экранные координаты точки выше центра
+    const screenX = width / 2;
+    const screenY = height / 2 - offsetY;
+    const lngLat = map.current.unproject([screenX, screenY]);
+    return [lngLat.lng, lngLat.lat];
+  };
+
+  // Делаем функцию доступной через ref
+  useImperativeHandle(ref, () => ({
+    getVisualCenter,
+    flyTo: (center, zoom) => {
+      if (map.current) {
+        map.current.flyTo({ center, zoom: zoom || map.current.getZoom() });
+      }
+    }
+  }));
 
   if (error) {
     return <div style={{ padding: '1rem', textAlign: 'center', color: 'red' }}>Error loading map: {error}</div>;

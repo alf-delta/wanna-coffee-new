@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as turf from '@turf/turf';
 
-const CoffeeList = ({ coffeeShops = [], onShopClick, horizontal = false, showCount = true }) => {
+const CoffeeList = ({ coffeeShops = [], onShopClick, horizontal = false, showCount = true, center, radiusCircle }) => {
   console.log('CoffeeList received shops:', coffeeShops.length);
   
   if (!coffeeShops || coffeeShops.length === 0) {
@@ -12,11 +13,38 @@ const CoffeeList = ({ coffeeShops = [], onShopClick, horizontal = false, showCou
     );
   }
 
+  // Функция фильтрации кофеен по радиусу (должна совпадать с CoffeeMap)
+  function getShopsInRadius(center, radius, shops) {
+    return shops.filter(shop => {
+      if (isNaN(shop.longitude) || isNaN(shop.latitude)) return false;
+      const from = turf.point(center);
+      const to = turf.point([shop.longitude, shop.latitude]);
+      const dist = turf.distance(from, to, { units: 'meters' });
+      return dist <= radius;
+    });
+  }
+
+  // Вместо старой фильтрации используем getShopsInRadius
+  const filteredShops = getShopsInRadius(center, radiusCircle, coffeeShops);
+
+  // Вспомогательная функция для проверки, открыта ли кофейня сейчас
+  function isOpenNow(hoursStr) {
+    if (!hoursStr) return null;
+    // hoursStr: "08:00–20:00"
+    const [open, close] = hoursStr.split(/[–-]/).map(s => s.trim());
+    if (!open || !close) return null;
+    const now = new Date();
+    const pad = n => n.toString().padStart(2, '0');
+    const nowStr = pad(now.getHours()) + ':' + pad(now.getMinutes());
+    // Сравниваем строки вида "08:00" <= nowStr < "20:00"
+    return open <= nowStr && nowStr < close;
+  }
+
   return (
     <div style={horizontal ? styles.horizontalList : styles.container}>
       {showCount && !horizontal && <h3 style={styles.title}>Coffee Shops ({coffeeShops.length})</h3>}
       <div style={horizontal ? styles.horizontalCards : styles.list}>
-        {coffeeShops.map((shop) => (
+        {filteredShops.map((shop) => (
           <div 
             key={shop.id} 
             className="coffee-card"
@@ -25,6 +53,24 @@ const CoffeeList = ({ coffeeShops = [], onShopClick, horizontal = false, showCou
           >
             <h4 style={styles.name}>{shop.name}</h4>
             <p style={styles.address}>{shop.address}</p>
+            {shop.hours && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '4px 0 2px 0' }}>
+                <span style={{
+                  display: 'inline-block',
+                  width: 10,
+                  height: 10,
+                  borderRadius: '50%',
+                  background: isOpenNow(shop.hours) === null ? '#ccc' : isOpenNow(shop.hours) ? '#4caf50' : '#e53935',
+                  marginRight: 4,
+                }} />
+                <span style={{ fontWeight: 500, color: isOpenNow(shop.hours) ? '#4caf50' : '#e53935', fontSize: '0.92em' }}>
+                  {isOpenNow(shop.hours) === null ? '—' : isOpenNow(shop.hours) ? 'Open' : 'Closed'}
+                </span>
+                <span style={{ color: '#888', fontSize: '0.92em', marginLeft: 6 }}>
+                  {shop.hours}
+                </span>
+              </div>
+            )}
             <button
               onClick={e => {
                 e.stopPropagation();

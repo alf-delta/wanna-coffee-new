@@ -4,7 +4,7 @@ import { filtersConfig } from '../filtersConfig';
 
 const FilterPanel = ({ filters, setFilters }) => {
   // Состояние: какие фильтры открыты
-  const [openFilters, setOpenFilters] = useState([]);
+  const [openFilters, setOpenFilters] = useState(() => filtersConfig.map(f => f.key));
 
   const toggleFilter = (key) => {
     setOpenFilters(prev => prev.includes(key)
@@ -54,7 +54,7 @@ const FilterPanel = ({ filters, setFilters }) => {
                 <div style={styles.checkboxGroup}>
                   {filter.options.map(opt => (
                     <label key={opt.value} style={styles.checkboxLabel}>
-      <input
+                      <input
                         type="checkbox"
                         checked={Array.isArray(filters[filter.key])
                           ? filters[filter.key].includes(opt.value)
@@ -156,7 +156,7 @@ const styles = {
     '@media (max-width: 768px)': {
       fontSize: '0.8rem',
       padding: '1.5px 0',
-  },
+    },
   },
   checkbox: {
     width: 16,
@@ -189,7 +189,7 @@ const styles = {
       fontSize: '0.75rem',
       padding: 4,
       marginTop: 3,
-    width: '100%',
+      width: '100%',
     },
   },
 };

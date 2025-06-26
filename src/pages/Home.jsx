@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import CoffeeMap from '../components/CoffeeMap';
 import FilterPanel from '../components/FilterPanel';
 import CoffeeList from '../components/CoffeeList';
@@ -319,7 +319,7 @@ const styles = {
     scrollbarColor: '#bbb #f5f5f5',
   },
   mobileSliderContainer: {
-    padding: '0.4rem 1rem 1.2rem 1rem',
+    padding: '0.75rem 1rem 0.75rem 1rem',
     background: '#fff',
     borderTop: '1px solid #f2f2f2',
     borderRadius: '0 0 16px 16px',
@@ -455,51 +455,59 @@ const Home = () => {
   // feetOptions[radiusIdx] — радиус в футах, переводим в метры для карты
   const radiusCircle = feetOptions[radiusIdx] / 3.28084;
 
-  // --- вычисляем смещённый центр для мобильных ---
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  // Получаем смещённый центр для мобильных
+  const getVisualCenter = () => {
+    if (mapRef.current && typeof window !== 'undefined' && window.innerWidth <= 768) {
+      return mapRef.current.getVisualCenter ? mapRef.current.getVisualCenter(180) : mapCenter;
+    }
+    return mapCenter;
+  };
+  const visualCenter = getVisualCenter();
 
   // Новая фильтрация кофеен по filters
-  const filteredShops = coffeeShopsData
-    .map(shop => {
-      const shopCoords = [shop.longitude, shop.latitude];
-      const centerPoint = turf.point(mapCenter);
-      const shopPoint = turf.point(shopCoords);
-      const distance = turf.distance(centerPoint, shopPoint, { units: 'meters' });
-      return { ...shop, distance };
-    })
-    .filter(shop => shop.distance <= radiusCircle)
-    .filter(shop => {
-      // Coffee Type
-      if (filters.coffeeType && filters.coffeeType.length > 0) {
-        if (!shop.coffeeType || !filters.coffeeType.some(type => shop.coffeeType.includes(type))) return false;
-      }
-      // Roasting
-      if (filters.roasting && filters.roasting.length > 0) {
-        if (!shop.roasting || !filters.roasting.some(type => shop.roasting.includes(type))) return false;
-      }
-      // Roast Level (nested)
-      if (filters.roast_level && filters.roast_level !== '') {
-        if (!shop.roast_level || shop.roast_level !== filters.roast_level) return false;
-      }
-      // Brew Methods
-      if (filters.brewMethods && filters.brewMethods.length > 0) {
-        if (!shop.brewMethods || !filters.brewMethods.some(method => shop.brewMethods.includes(method))) return false;
-      }
-      // Barista
-      if (filters.barista) {
-        if (!shop.barista || !shop.barista.includes('sca_certified')) return false;
-      }
-      // Menu
-      if (filters.menu && filters.menu.length > 0) {
-        if (!shop.menu || !filters.menu.some(m => shop.menu.includes(m))) return false;
-      }
-      // Recognition
-      if (filters.recognition) {
-        if (!shop.recognition || !shop.recognition.includes('featured_guide')) return false;
-      }
-      return true;
-    })
-    .sort((a, b) => a.distance - b.distance);
+  const filteredShops = useMemo(() => {
+    return coffeeShopsData
+      .map(shop => {
+        const shopCoords = [shop.longitude, shop.latitude];
+        const centerPoint = turf.point(visualCenter);
+        const shopPoint = turf.point(shopCoords);
+        const distance = turf.distance(centerPoint, shopPoint, { units: 'meters' });
+        return { ...shop, distance };
+      })
+      .filter(shop => shop.distance <= radiusCircle)
+      .filter(shop => {
+        // Coffee Type
+        if (filters.coffeeType && filters.coffeeType.length > 0) {
+          if (!shop.coffeeType || !filters.coffeeType.some(type => shop.coffeeType.includes(type))) return false;
+        }
+        // Roasting
+        if (filters.roasting && filters.roasting.length > 0) {
+          if (!shop.roasting || !filters.roasting.some(type => shop.roasting.includes(type))) return false;
+        }
+        // Roast Level (nested)
+        if (filters.roast_level && filters.roast_level !== '') {
+          if (!shop.roast_level || shop.roast_level !== filters.roast_level) return false;
+        }
+        // Brew Methods
+        if (filters.brewMethods && filters.brewMethods.length > 0) {
+          if (!shop.brewMethods || !filters.brewMethods.some(method => shop.brewMethods.includes(method))) return false;
+        }
+        // Barista
+        if (filters.barista) {
+          if (!shop.barista || !shop.barista.includes('sca_certified')) return false;
+        }
+        // Menu
+        if (filters.menu && filters.menu.length > 0) {
+          if (!shop.menu || !filters.menu.some(m => shop.menu.includes(m))) return false;
+        }
+        // Recognition
+        if (filters.recognition) {
+          if (!shop.recognition || !shop.recognition.includes('featured_guide')) return false;
+        }
+        return true;
+      })
+      .sort((a, b) => a.distance - b.distance);
+  }, [coffeeShopsData, visualCenter, radiusCircle, filters]);
 
   const handleShopClick = useCallback((shopId) => {
     setSelectedShopId(shopId);
@@ -646,9 +654,11 @@ const Home = () => {
               <CoffeeList
                 coffeeShops={filteredShops}
                 onShopClick={handleShopClick}
+                center={visualCenter}
+                radiusCircle={radiusCircle}
               />
             </div>
-      </div>
+          </div>
         )}
         {showSidebar && <div style={styles.overlay} onClick={() => setShowSidebar(false)} />}
         <div style={{
@@ -657,15 +667,15 @@ const Home = () => {
         }}>
           <div style={styles.mapWrapper}>
             <div style={styles.mapWrapperBorder} />
-        <CoffeeMap
+            <CoffeeMap
               ref={mapRef}
               coffeeShops={filteredShops}
-          radiusCircle={radiusCircle}
-          setMapCenter={setMapCenter}
-          mapCenter={mapCenter}
-          selectedShopId={selectedShopId}
-          centerOffsetY={isMobile ? 90 : 0}
-        />
+              radiusCircle={radiusCircle}
+              setMapCenter={setMapCenter}
+              mapCenter={visualCenter}
+              selectedShopId={selectedShopId}
+              mobileOffsetY={-400}
+            />
           </div>
           {/* Плавающая кнопка геолокации только на десктопе */}
           {!isMobileView && (
@@ -687,7 +697,7 @@ const Home = () => {
             <button
               style={styles.mobileGeoButton}
               onClick={handleUseLocation}
-              title="My location"
+              title="Моё местоположение"
             >
               <LocationIcon size={20} color="#d3914b" />
             </button>
@@ -705,11 +715,13 @@ const Home = () => {
               onShopClick={handleShopClick}
               horizontal
               showCount={false}
+              center={visualCenter}
+              radiusCircle={radiusCircle}
             />
           </div>
           <div style={styles.mobileSliderContainer}>
             <div style={styles.mobileSliderWrapper}>
-              <label htmlFor="radius-slider-mobile" style={{ fontWeight: 500, fontSize: '1rem', color: '#d3914b', display: 'block', marginBottom: 2 }}>
+              <label htmlFor="radius-slider-mobile" style={{ fontWeight: 500, fontSize: '1rem', color: '#d3914b', display: 'block', marginBottom: 6 }}>
                 Search radius: {feetOptions[radiusIdx]} ft
               </label>
               <input

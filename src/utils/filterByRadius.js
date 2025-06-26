@@ -1,12 +1,14 @@
+
+
 import { distance } from '@turf/turf';
 
 /**
- * Filters coffee shops by radius from a given center.
+ * Фильтрует кофейни по радиусу от заданного центра.
  *
- * @param {Array} shops - List of coffee shops with coordinates [{ name, latitude, longitude }, ...]
- * @param {Object} center - Map center { lat, lng }
- * @param {number} radius - Radius in meters
- * @returns {Array} - Filtered list of coffee shops
+ * @param {Array} shops - Список кофеен с координатами [{ name, latitude, longitude }, ...]
+ * @param {Object} center - Центр карты { lat, lng }
+ * @param {number} radius - Радиус в метрах
+ * @returns {Array} - Отфильтрованный список кофеен
  */
 export function filterByRadius(shops, center, radius) {
   return shops.filter(shop => {
