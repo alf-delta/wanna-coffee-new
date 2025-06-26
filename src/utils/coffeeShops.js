@@ -8,7 +8,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 3.0,
         reviews: 2,
-        features: ["wifi","outdoor seating"]
+        features: ["wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 2,
@@ -19,7 +20,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 4.3,
         reviews: 1406,
-        features: ["coffee","wifi","food","outdoor seating"]
+        features: ["coffee","wifi","food","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 3,
@@ -30,7 +32,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 4.7,
         reviews: 210,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 4,
@@ -41,7 +44,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 5.0,
         reviews: 1,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 5,
@@ -52,7 +56,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 5.0,
         reviews: 98,
-        features: ["coffee","wifi","food","outdoor seating"]
+        features: ["coffee","wifi","food","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 6,
@@ -63,7 +68,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 4.9,
         reviews: 438,
-        features: ["coffee","wifi","food","outdoor seating"]
+        features: ["coffee","wifi","food","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 7,
@@ -74,7 +80,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 4.7,
         reviews: 39,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 8,
@@ -85,7 +92,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 4.6,
         reviews: 406,
-        features: ["coffee","wifi","food","outdoor seating"]
+        features: ["coffee","wifi","food","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 9,
@@ -96,7 +104,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 4.5,
         reviews: 582,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 10,
@@ -107,7 +116,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 4.8,
         reviews: 141,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 11,
@@ -118,7 +128,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 4.7,
         reviews: 240,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 12,
@@ -129,7 +140,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 4.7,
         reviews: 177,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 13,
@@ -140,7 +152,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 4.7,
         reviews: 144,
-        features: ["coffee","wifi","food","outdoor seating"]
+        features: ["coffee","wifi","food","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 14,
@@ -151,7 +164,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 4.7,
         reviews: 227,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 15,
@@ -162,7 +176,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 4.7,
         reviews: 3,
-        features: ["coffee","wifi","food","outdoor seating"]
+        features: ["coffee","wifi","food","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 16,
@@ -173,7 +188,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 4.9,
         reviews: 1365,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 17,
@@ -184,7 +200,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 4.9,
         reviews: 573,
-        features: ["coffee","wifi","food","outdoor seating"]
+        features: ["coffee","wifi","food","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 18,
@@ -195,7 +212,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 4.3,
         reviews: 75,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 19,
@@ -206,7 +224,8 @@ const coffeeShops = [
         neighborhood: "East Harlem",
         rating: 4.3,
         reviews: 61,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 20,
@@ -217,7 +236,8 @@ const coffeeShops = [
         neighborhood: "Greenwich Village",
         rating: 4.9,
         reviews: 2366,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 21,
@@ -228,7 +248,8 @@ const coffeeShops = [
         neighborhood: "Greenwich Village",
         rating: 4.9,
         reviews: 1803,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 22,
@@ -239,7 +260,8 @@ const coffeeShops = [
         neighborhood: "Greenwich Village",
         rating: 4.5,
         reviews: 32,
-        features: ["coffee","wifi","food","outdoor seating"]
+        features: ["coffee","wifi","food","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 23,
@@ -250,7 +272,8 @@ const coffeeShops = [
         neighborhood: "Greenwich Village",
         rating: 4.6,
         reviews: 436,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 24,
@@ -261,7 +284,8 @@ const coffeeShops = [
         neighborhood: "Greenwich Village",
         rating: 4.5,
         reviews: 610,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 25,
@@ -272,7 +296,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.0,
         reviews: 28,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 26,
@@ -283,7 +308,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.7,
         reviews: 289,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 27,
@@ -294,7 +320,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.5,
         reviews: 184,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 28,
@@ -305,7 +332,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.8,
         reviews: 28,
-        features: ["coffee","wifi","food","outdoor seating"]
+        features: ["coffee","wifi","food","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 29,
@@ -316,7 +344,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.6,
         reviews: 520,
-        features: ["coffee","wifi","food","outdoor seating"]
+        features: ["coffee","wifi","food","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 30,
@@ -327,7 +356,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.7,
         reviews: 87,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 31,
@@ -338,7 +368,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.7,
         reviews: 88,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 32,
@@ -349,7 +380,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.5,
         reviews: 265,
-        features: ["coffee","wifi","food","outdoor seating"]
+        features: ["coffee","wifi","food","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 33,
@@ -360,7 +392,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.7,
         reviews: 671,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 34,
@@ -371,7 +404,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.5,
         reviews: 287,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 35,
@@ -382,7 +416,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.9,
         reviews: 32,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 36,
@@ -393,7 +428,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.8,
         reviews: 281,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 37,
@@ -404,7 +440,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.8,
         reviews: 364,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 38,
@@ -415,7 +452,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 3.9,
         reviews: 142,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 39,
@@ -426,7 +464,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 3.9,
         reviews: 142,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 40,
@@ -437,7 +476,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.6,
         reviews: 841,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 41,
@@ -448,7 +488,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.8,
         reviews: 31,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 42,
@@ -459,7 +500,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.8,
         reviews: 148,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 43,
@@ -470,7 +512,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.9,
         reviews: 61,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 44,
@@ -481,7 +524,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.8,
         reviews: 72,
-        features: ["coffee","wifi","food","outdoor seating"]
+        features: ["coffee","wifi","food","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 45,
@@ -492,7 +536,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: 4.8,
         reviews: 185,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 46,
@@ -503,7 +548,8 @@ const coffeeShops = [
         neighborhood: "Harlem",
         rating: NaN,
         reviews: NaN,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 47,
@@ -514,7 +560,8 @@ const coffeeShops = [
         neighborhood: "Lower Manhattan",
         rating: 4.9,
         reviews: 44,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 48,
@@ -525,7 +572,8 @@ const coffeeShops = [
         neighborhood: "Lower Manhattan",
         rating: 4.8,
         reviews: 421,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 49,
@@ -536,7 +584,8 @@ const coffeeShops = [
         neighborhood: "Lower Manhattan",
         rating: 5.0,
         reviews: 110,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 50,
@@ -547,7 +596,8 @@ const coffeeShops = [
         neighborhood: "Lower Manhattan",
         rating: 4.3,
         reviews: 213,
-        features: ["coffee","wifi","food","outdoor seating"]
+        features: ["coffee","wifi","food","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 51,
@@ -558,7 +608,8 @@ const coffeeShops = [
         neighborhood: "Lower Manhattan",
         rating: 4.2,
         reviews: 215,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 52,
@@ -569,7 +620,8 @@ const coffeeShops = [
         neighborhood: "Lower Manhattan",
         rating: 4.7,
         reviews: 225,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 53,
@@ -580,7 +632,8 @@ const coffeeShops = [
         neighborhood: "Lower Manhattan",
         rating: 4.8,
         reviews: 65,
-        features: ["coffee","wifi","outdoor seating"]
+        features: ["coffee","wifi","outdoor seating"],
+        hours: "08:00–20:00"
     },
     {
         id: 54,

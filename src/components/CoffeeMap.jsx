@@ -144,7 +144,58 @@ const CoffeeMap = forwardRef(({
     markers.current.forEach(marker => marker.remove());
     markers.current = [];
     coffeeShops.forEach(shop => {
-      const popupHTML = `<h3>${shop.name}</h3><p>${shop.address}</p><button onclick=\"window.open('https://www.google.com/maps/dir/?api=1&destination=${shop.latitude},${shop.longitude}', '_blank')\">Route</button>`;
+      // Функция для проверки, открыта ли кофейня сейчас
+      const isOpenNow = (hoursStr) => {
+        if (!hoursStr) return null;
+        const [open, close] = hoursStr.split(/[–-]/).map(s => s.trim());
+        if (!open || !close) return null;
+        const now = new Date();
+        const pad = n => n.toString().padStart(2, '0');
+        const nowStr = pad(now.getHours()) + ':' + pad(now.getMinutes());
+        return open <= nowStr && nowStr < close;
+      };
+
+      const status = shop.hours ? isOpenNow(shop.hours) : null;
+      const statusText = status === null ? '—' : status ? 'Open' : 'Closed';
+      const statusColor = status === null ? '#ccc' : status ? '#4caf50' : '#e53935';
+      
+      const popupHTML = `
+        <div style="padding: 8px; min-width: 200px;">
+          <h3 style="margin: 0 0 8px 0; font-size: 16px; color: #333;">${shop.name}</h3>
+          <p style="margin: 0 0 8px 0; font-size: 14px; color: #666;">${shop.address}</p>
+          ${shop.hours ? `
+            <div style="display: flex; align-items: center; gap: 8px; margin: 8px 0;">
+              <span style="
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: ${statusColor};
+              "></span>
+              <span style="font-weight: 500; color: ${statusColor}; font-size: 14px;">
+                ${statusText}
+              </span>
+              <span style="color: #888; font-size: 14px; margin-left: 6px;">
+                ${shop.hours}
+              </span>
+            </div>
+          ` : ''}
+          <button onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${shop.latitude},${shop.longitude}', '_blank')" 
+                  style="
+                    background: #d3914b;
+                    color: white;
+                    border: none;
+                    padding: 8px 16px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    width: 100%;
+                  ">
+            🚶‍♂️ Route
+          </button>
+        </div>
+      `;
+      
       const marker = new mapboxgl.Marker({ color: '#d3914b' })
         .setLngLat([shop.longitude, shop.latitude])
         .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(popupHTML));
@@ -305,6 +356,25 @@ const CoffeeMap = forwardRef(({
 
   // Автоматический flyTo с offset при изменении mapCenter на мобильных
   // useEffect с flyTo по mapCenter временно удалён для устранения багов
+
+  // Обработка выбора кофейни из списка
+  useEffect(() => {
+    if (!isMapLoaded || !selectedShopId || !markers.current.length) return;
+    
+    // Закрываем все открытые попапы
+    markers.current.forEach(marker => {
+      if (marker.getPopup().isOpen()) {
+        marker.getPopup().remove();
+      }
+    });
+    
+    // Находим нужный маркер и открываем его попап
+    const marker = markers.current.find(m => m._shopId === selectedShopId);
+    if (marker) {
+      marker.getPopup().addTo(map.current);
+      // Убираем flyTo - карта не должна перемещаться
+    }
+  }, [selectedShopId, isMapLoaded]);
 
   // Возвращает координаты точки выше центра карты на offsetY пикселей (только для мобильных)
   const getVisualCenter = (offsetY = 60) => {

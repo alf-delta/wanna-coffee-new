@@ -12,6 +12,34 @@ const Header = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const accentButton = {
+    background: '#cc9042',
+    color: '#fff',
+    borderRadius: '22px',
+    padding: '0.5rem 1.5rem',
+    margin: '0 0.25rem',
+    fontWeight: 600,
+    boxShadow: '0 2px 8px rgba(204,144,66,0.12)',
+    transition: 'background 0.2s, box-shadow 0.2s',
+    textDecoration: 'none',
+    border: '2px solid transparent',
+    display: 'inline-block',
+  };
+
+  const soonBadge = {
+    position: 'absolute',
+    top: '-8px',
+    right: '-8px',
+    background: '#e53935',
+    color: '#fff',
+    fontWeight: 700,
+    fontSize: '0.75rem',
+    borderRadius: '8px',
+    padding: '2px 8px',
+    boxShadow: '0 1px 4px rgba(204,144,66,0.10)',
+    zIndex: 2,
+  };
+
   return (
     <header style={styles.header}>
       <nav style={styles.nav}>
@@ -33,6 +61,9 @@ const Header = () => {
                   <Link to="/" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>Home</Link>
                   <Link to="/about" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>About</Link>
                   <Link to="/contact" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>Contact</Link>
+                  <Link to="/couponator" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>Couponator</Link>
+                  <Link to="/loyalty" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>Loyalty</Link>
+                  <Link to="/subscription" style={styles.mobileMenuLink} onClick={() => setIsMenuOpen(false)}>Subscription</Link>
                 </div>
               )}
             </>
@@ -41,6 +72,18 @@ const Header = () => {
               <Link to="/" style={styles.link}>Home</Link>
               <Link to="/about" style={styles.link}>About</Link>
               <Link to="/contact" style={styles.link}>Contact</Link>
+              <span style={{ position: 'relative', display: 'inline-block' }}>
+                <Link to="/couponator" style={accentButton}>Couponator</Link>
+                <span style={soonBadge}>Soon</span>
+              </span>
+              <span style={{ position: 'relative', display: 'inline-block' }}>
+                <Link to="/loyalty" style={accentButton}>Loyalty</Link>
+                <span style={soonBadge}>Soon</span>
+              </span>
+              <span style={{ position: 'relative', display: 'inline-block' }}>
+                <Link to="/subscription" style={accentButton}>Shop</Link>
+                <span style={soonBadge}>Soon</span>
+              </span>
             </div>
           )}
         </div>
