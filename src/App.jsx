@@ -8,7 +8,6 @@ import Couponator from './pages/Couponator';
 import Events from './pages/Events';
 import CoffeeSubscription from './pages/CoffeeSubscription';
 import Header from './components/Header';
-import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const App = () => {
   return (
@@ -22,7 +21,6 @@ const App = () => {
         <Route path="/couponator" element={<Couponator />} />
         <Route path="/subscription" element={<CoffeeSubscription />} />
       </Routes>
-      <SpeedInsights />
     </>
   );
 };
