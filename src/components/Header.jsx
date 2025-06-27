@@ -28,18 +28,23 @@ const Header = () => {
 
   const soonBadge = {
     position: 'absolute',
-    top: -4,
-    right: 8,
+    top: -16,
+    right: -8,
     background: '#e53935',
     color: '#fff',
     fontSize: '0.85rem',
     fontWeight: 700,
     borderRadius: '12px',
-    padding: '2px 12px',
+    padding: '2px 10px',
     zIndex: 10,
     boxShadow: '0 2px 8px rgba(204,144,66,0.10)',
-    '@media (min-width: 769px)': {
-      top: -14,
+    opacity: 0.7,
+    transition: 'top 0.2s, right 0.2s, opacity 0.2s',
+    '@media (max-width: 768px)': {
+      top: -8,
+      right: 8,
+      fontSize: '0.8rem',
+      padding: '2px 8px',
     },
   };
 
@@ -86,7 +91,7 @@ const Header = () => {
               <Link to="/about" style={styles.link}>About</Link>
               <Link to="/contact" style={styles.link}>Contact</Link>
               <span style={{ position: 'relative', display: 'inline-block' }}>
-                <Link to="/couponator" style={accentButton}>Couponator</Link>
+                <Link to="/couponator" style={accentButton}>Coffee Pass</Link>
                 <span style={soonBadge}>Soon</span>
               </span>
               <span style={{ position: 'relative', display: 'inline-block' }}>
