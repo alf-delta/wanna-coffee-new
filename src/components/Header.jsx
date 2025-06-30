@@ -48,6 +48,21 @@ const Header = () => {
     },
   };
 
+  // Красная точка для мобильной версии
+  const soonDot = {
+    position: 'absolute',
+    top: 2,
+    right: 10,
+    width: 14,
+    height: 14,
+    borderRadius: '50%',
+    background: '#e53935',
+    zIndex: 10,
+    boxShadow: '0 1px 4px rgba(204,144,66,0.10)',
+    border: '2px solid #fff',
+    display: 'inline-block',
+  };
+
   return (
     <header style={styles.header}>
       <nav style={styles.nav}>
@@ -72,15 +87,15 @@ const Header = () => {
                   <Link to="/contact" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>Contact</Link>
                   <span style={{ position: 'relative', display: 'block' }}>
                     <Link to="/couponator" style={{ ...accentButton, ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Coffee Pass</Link>
-                    <span style={soonBadge}>Soon</span>
+                    <span style={soonDot}></span>
                   </span>
                   <span style={{ position: 'relative', display: 'block' }}>
                     <Link to="/events" style={{ ...accentButton, ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Events</Link>
-                    <span style={soonBadge}>Soon</span>
+                    <span style={soonDot}></span>
                   </span>
                   <span style={{ position: 'relative', display: 'block' }}>
                     <Link to="/subscription" style={{ ...accentButton, ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Shop</Link>
-                    <span style={soonBadge}>Soon</span>
+                    <span style={soonDot}></span>
                   </span>
                 </div>
               )}
