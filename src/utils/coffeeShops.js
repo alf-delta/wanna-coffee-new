@@ -1,7 +1,7 @@
 // Асинхронная функция для загрузки кофеен из JSON файла
 export const fetchCoffeeShops = async () => {
   try {
-    const response = await fetch('/src/utils/coffeeShops.json');
+    const response = await fetch('/coffeeShops.json');
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
