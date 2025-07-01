@@ -277,3 +277,20 @@ select:focus {
   height: auto;
   object-fit: contain;
 }
+
+.hero-logo-unified {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  max-height: 140px;
+  height: auto;
+  margin: 0 auto 1.2rem auto;
+  object-fit: contain;
+}
+
+@media (max-width: 700px) {
+  .hero-logo-unified {
+    max-width: 90vw;
+    max-height: 90px;
+  }
+}

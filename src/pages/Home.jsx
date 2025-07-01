@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import CoffeeMap from '../components/CoffeeMap';
 import FilterPanel from '../components/FilterPanel';
 import CoffeeList from '../components/CoffeeList';
-import { coffeeShops as coffeeShopsData } from '../utils/coffeeShops';
+import { fetchCoffeeShops } from '../utils/coffeeShops';
 import * as turf from '@turf/turf';
 import { filtersConfig } from '../filtersConfig';
 import Modal from '../components/Modal';
@@ -432,18 +432,12 @@ const sliderStyle = {
 };
 
 const Home = () => {
+  const [coffeeShopsData, setCoffeeShopsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [radiusIdx, setRadiusIdx] = useState(0); // минимальный радиус по умолчанию
   const [mapCenter, setMapCenter] = useState([-74.009, 40.707]); // Financial District, Manhattan
-  const [filters, setFilters] = useState(() => {
-    // Инициализация фильтров всегда пустыми значениями
-    const initial = {};
-    filtersConfig.forEach(f => {
-      if (f.multi) initial[f.key] = [];
-      else initial[f.key] = false;
-      if (f.nested) initial[f.nested.key] = '';
-    });
-    return initial;
-  });
+  const [filters, setFilters] = useState({ openNow: false });
   const [selectedShopId, setSelectedShopId] = useState(null);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -464,8 +458,31 @@ const Home = () => {
   };
   const visualCenter = getVisualCenter();
 
-  // Новая фильтрация кофеен по filters
+  // Загрузка данных кофеен
+  useEffect(() => {
+    const loadCoffeeShops = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const data = await fetchCoffeeShops();
+        console.log('Home: Загружено кофеен:', data.length);
+        setCoffeeShopsData(data);
+      } catch (err) {
+        console.error('Ошибка загрузки кофеен:', err);
+        setError('Не удалось загрузить данные кофеен');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadCoffeeShops();
+  }, []);
+
+  // Фильтрация кофеен по радиусу и фильтру 'Open now'
   const filteredShops = useMemo(() => {
+    if (!coffeeShopsData || coffeeShopsData.length === 0) {
+      return [];
+    }
     return coffeeShopsData
       .map(shop => {
         const shopCoords = [shop.longitude, shop.latitude];
@@ -476,33 +493,15 @@ const Home = () => {
       })
       .filter(shop => shop.distance <= radiusCircle)
       .filter(shop => {
-        // Coffee Type
-        if (filters.coffeeType && filters.coffeeType.length > 0) {
-          if (!shop.coffeeType || !filters.coffeeType.some(type => shop.coffeeType.includes(type))) return false;
-        }
-        // Roasting
-        if (filters.roasting && filters.roasting.length > 0) {
-          if (!shop.roasting || !filters.roasting.some(type => shop.roasting.includes(type))) return false;
-        }
-        // Roast Level (nested)
-        if (filters.roast_level && filters.roast_level !== '') {
-          if (!shop.roast_level || shop.roast_level !== filters.roast_level) return false;
-        }
-        // Brew Methods
-        if (filters.brewMethods && filters.brewMethods.length > 0) {
-          if (!shop.brewMethods || !filters.brewMethods.some(method => shop.brewMethods.includes(method))) return false;
-        }
-        // Barista
-        if (filters.barista) {
-          if (!shop.barista || !shop.barista.includes('sca_certified')) return false;
-        }
-        // Menu
-        if (filters.menu && filters.menu.length > 0) {
-          if (!shop.menu || !filters.menu.some(m => shop.menu.includes(m))) return false;
-        }
-        // Recognition
-        if (filters.recognition) {
-          if (!shop.recognition || !shop.recognition.includes('featured_guide')) return false;
+        if (filters.openNow) {
+          // Проверяем, открыта ли кофейня сейчас
+          if (!shop.hours) return false;
+          const [open, close] = shop.hours.split(/[–—-]/).map(s => s.trim());
+          if (!open || !close) return false;
+          const now = new Date();
+          const pad = n => n.toString().padStart(2, '0');
+          const nowStr = pad(now.getHours()) + ':' + pad(now.getMinutes());
+          return open <= nowStr && nowStr < close;
         }
         return true;
       })
@@ -695,18 +694,18 @@ const Home = () => {
         <div style={styles.mobileBottomBarFixed}>
           <div style={styles.mobileFiltersRowFixed}>
             <button
+              style={styles.fabFilterBottom}
+              onClick={() => setIsFilterModalOpen(true)}
+            >
+              <span role="img" aria-label="filter">🔎</span> Filters
+            </button>
+            <span style={styles.coffeeCount}>{filteredShops.length} found</span>
+            <button
               style={styles.mobileGeoButton}
               onClick={handleUseLocation}
               title="Моё местоположение"
             >
               <LocationIcon size={20} color="#d3914b" />
-            </button>
-            <span style={styles.coffeeCount}>{filteredShops.length} found</span>
-            <button
-              style={styles.fabFilterBottom}
-              onClick={() => setIsFilterModalOpen(true)}
-            >
-              <span role="img" aria-label="filter">🔎</span> Filters
             </button>
           </div>
           <div style={styles.mobileListScrollFixed}>
@@ -719,7 +718,10 @@ const Home = () => {
               radiusCircle={radiusCircle}
             />
           </div>
-          <div style={styles.mobileSliderContainer}>
+          <div style={{
+            ...styles.mobileSliderContainer,
+            paddingBottom: '2.2rem',
+          }}>
             <div style={styles.mobileSliderWrapper}>
               <label htmlFor="radius-slider-mobile" style={{ fontWeight: 500, fontSize: '1rem', color: '#d3914b', display: 'block', marginBottom: 6 }}>
                 Search radius: {feetOptions[radiusIdx]} ft
@@ -772,7 +774,17 @@ const Home = () => {
       {/* Модальное окно фильтров */}
       {isFilterModalOpen && (
         <Modal onClose={() => setIsFilterModalOpen(false)}>
-          <FilterPanel filters={filters} setFilters={setFilters} />
+          <div style={{ padding: 16 }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', fontWeight: 500 }}>
+              <input
+                type="checkbox"
+                checked={filters.openNow}
+                onChange={e => setFilters(f => ({ ...f, openNow: e.target.checked }))}
+                style={{ width: 20, height: 20 }}
+              />
+              Open now
+            </label>
+          </div>
           <button style={styles.closeModalBtn} onClick={() => setIsFilterModalOpen(false)}>Close</button>
         </Modal>
       )}

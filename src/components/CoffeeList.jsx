@@ -30,14 +30,29 @@ const CoffeeList = ({ coffeeShops = [], onShopClick, horizontal = false, showCou
   // Вспомогательная функция для проверки, открыта ли кофейня сейчас
   function isOpenNow(hoursStr) {
     if (!hoursStr) return null;
-    // hoursStr: "08:00–20:00"
-    const [open, close] = hoursStr.split(/[–-]/).map(s => s.trim());
-    if (!open || !close) return null;
-    const now = new Date();
-    const pad = n => n.toString().padStart(2, '0');
-    const nowStr = pad(now.getHours()) + ':' + pad(now.getMinutes());
-    // Сравниваем строки вида "08:00" <= nowStr < "20:00"
-    return open <= nowStr && nowStr < close;
+    
+    try {
+      // hoursStr: "07:00–20:00" или "08:00-20:00"
+      const [open, close] = hoursStr.split(/[–-]/).map(s => s.trim());
+      if (!open || !close) return null;
+      
+      const now = new Date();
+      const pad = n => n.toString().padStart(2, '0');
+      const nowStr = pad(now.getHours()) + ':' + pad(now.getMinutes());
+      
+      // Сравниваем строки вида "08:00" <= nowStr < "20:00"
+      const isOpen = open <= nowStr && nowStr < close;
+      
+      // Отладочная информация
+      if (Math.random() < 0.01) { // Показываем только 1% случаев для отладки
+        console.log('Проверка часов:', { hoursStr, open, close, nowStr, isOpen });
+      }
+      
+      return isOpen;
+    } catch (error) {
+      console.warn('Ошибка парсинга часов:', hoursStr, error);
+      return null;
+    }
   }
 
   return (
@@ -49,7 +64,15 @@ const CoffeeList = ({ coffeeShops = [], onShopClick, horizontal = false, showCou
             key={shop.id} 
             className="coffee-card"
             onClick={() => onShopClick(shop.id)}
-            style={{ ...styles.card, ...(horizontal ? styles.cardHorizontal : {}), cursor: 'pointer' }}
+            style={{ 
+              ...styles.card, 
+              ...(horizontal ? styles.cardHorizontal : {}), 
+              cursor: 'pointer',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              minHeight: 170, // можно скорректировать под нужную высоту
+            }}
           >
             <h4 style={styles.name}>{shop.name}</h4>
             <p style={styles.address}>{shop.address}</p>
@@ -60,13 +83,16 @@ const CoffeeList = ({ coffeeShops = [], onShopClick, horizontal = false, showCou
                   width: 10,
                   height: 10,
                   borderRadius: '50%',
-                  background: isOpenNow(shop.hours) === null ? '#ccc' : isOpenNow(shop.hours) ? '#4caf50' : '#e53935',
-                  marginRight: 4,
-                }} />
-                <span style={{ fontWeight: 500, color: isOpenNow(shop.hours) ? '#4caf50' : '#e53935', fontSize: '0.92em' }}>
-                  {isOpenNow(shop.hours) === null ? '—' : isOpenNow(shop.hours) ? 'Open' : 'Closed'}
+                  background: isOpenNow(shop.hours) === null ? '#ccc' : isOpenNow(shop.hours) ? '#28a745' : '#dc3545',
+                }}></span>
+                <span style={{
+                  fontSize: '0.8rem',
+                  color: isOpenNow(shop.hours) === null ? '#6c757d' : isOpenNow(shop.hours) ? '#28a745' : '#dc3545',
+                  fontWeight: 500,
+                }}>
+                  {isOpenNow(shop.hours) === null ? 'Hours not specified' : isOpenNow(shop.hours) ? 'Open' : 'Closed'}
                 </span>
-                <span style={{ color: '#888', fontSize: '0.92em', marginLeft: 6 }}>
+                <span style={{ fontSize: '0.8rem', color: '#6c757d' }}>
                   {shop.hours}
                 </span>
               </div>
@@ -77,21 +103,31 @@ const CoffeeList = ({ coffeeShops = [], onShopClick, horizontal = false, showCou
                 const url = `https://www.google.com/maps/dir/?api=1&destination=${shop.latitude},${shop.longitude}`;
                 window.open(url, '_blank');
               }}
-              style={styles.gmapsButton}
-              title="Open in Google Maps"
+              style={{
+                background: '#d3914b',
+                color: 'white',
+                border: 'none',
+                padding: '8px 16px',
+                borderRadius: 4,
+                cursor: 'pointer',
+                fontSize: 14,
+                width: '100%',
+                marginTop: 8,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 8,
+                boxShadow: '0 2px 8px rgba(211,145,75,0.08)',
+                transition: 'background 0.2s',
+                '@media (max-width: 768px)': {
+                  padding: '10px 8px',
+                  fontSize: 15,
+                  marginTop: 6,
+                },
+              }}
+              title="Маршрут в Google Maps"
             >
-              <span role="img" aria-label="walk">🚶‍♂️</span>
-              <span style={styles.arrow}>→</span>
-              <span style={styles.gmapsIcon}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48">
-                  <g>
-                    <path fill="#4285F4" d="M43.6 20.5h-1.9V20H24v8h11.3c-1.6 4.3-5.7 7-11.3 7-6.6 0-12-5.4-12-12s5.4-12 12-12c2.9 0 5.5 1 7.6 2.7l6-6C34.3 5.1 29.4 3 24 3 12.9 3 4 11.9 4 23s8.9 20 20 20c11 0 19.7-8 19.7-20 0-1.3-.1-2.7-.3-4z"/>
-                    <path fill="#34A853" d="M6.3 14.7l6.6 4.8C14.5 16.1 18.9 13 24 13c2.9 0 5.5 1 7.6 2.7l6-6C34.3 5.1 29.4 3 24 3 15.6 3 8.1 8.5 6.3 14.7z"/>
-                    <path fill="#FBBC05" d="M24 43c5.4 0 10.3-1.8 14.1-4.9l-6.5-5.3C29.5 34.9 26.9 36 24 36c-5.6 0-10.3-3.8-12-9l-6.6 5.1C8.1 39.5 15.6 45 24 45z"/>
-                    <path fill="#EA4335" d="M43.6 20.5h-1.9V20H24v8h11.3c-1.1 3-3.6 5.1-6.3 6.1l6.5 5.3C41.2 36.1 44 30.9 44 24c0-1.3-.1-2.7-.4-4z"/>
-                  </g>
-                </svg>
-              </span>
+              🚶‍♂️ Route
             </button>
           </div>
         ))}

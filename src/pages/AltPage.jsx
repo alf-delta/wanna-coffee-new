@@ -3,7 +3,7 @@ import EventsCalendar from '../components/EventsCalendar';
 import EventsList from '../components/EventsList';
 import EventsMap from '../components/EventsMap';
 import eventsData from '../data/events.json';
-import { coffeeShops as allCoffeeShopsData } from '../utils/coffeeShops';
+import { fetchCoffeeShops } from '../utils/coffeeShops';
 
 const DEFAULT_CENTER = [-74.006, 40.7128]; // NYC
 
@@ -12,11 +12,34 @@ const AltPage = () => {
   const [highlightedEventId, setHighlightedEventId] = useState(null);
   const [mapCenter, setMapCenter] = useState(DEFAULT_CENTER);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 900);
+  const [allCoffeeShopsData, setAllCoffeeShopsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Загрузка данных кофеен
+  useEffect(() => {
+    const loadCoffeeShops = async () => {
+      try {
+        setIsLoading(true);
+        const data = await fetchCoffeeShops();
+        console.log('AltPage: Загружено кофеен:', data.length);
+        setAllCoffeeShopsData(data);
+      } catch (err) {
+        console.error('Ошибка загрузки кофеен:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadCoffeeShops();
+  }, []);
 
   const eventCoffeeShops = useMemo(() => {
+    if (!allCoffeeShopsData || allCoffeeShopsData.length === 0) {
+      return [];
+    }
     const shopIds = new Set(eventsData.map(ev => ev.coffeeShopId));
     return allCoffeeShopsData.filter(shop => shopIds.has(shop.id));
-  }, []);
+  }, [allCoffeeShopsData]);
 
   const filteredEvents = useMemo(() => {
     if (!selectedDate) return eventsData;

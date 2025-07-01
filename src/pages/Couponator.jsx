@@ -196,7 +196,7 @@ const Couponator = () => {
       <div style={styles.container}>
         {/* Hero / Concept */}
         <div style={styles.hero}>
-          <img src={WCTicketsLogo} alt="Wanna Coffee Couponator Logo" style={styles.heroLogo} className="couponator-hero-logo" />
+          <img src={WCTicketsLogo} alt="Wanna Coffee Couponator Logo" className="hero-logo-unified" />
           <p style={styles.heroDesc} className="couponator-hero-desc">
             Wanna Coffee Tickets isn't about discounts — it's about making coffee culture more open, convenient, and rewarding. With a single purchase, you unlock a flexible digital wallet of coffee "tickets" that can be used at any participating café across the city. It's freedom in your pocket — no punch cards, no small change, no guesswork.
           </p>

@@ -66,7 +66,7 @@ const CoffeeSubscription = () => (
     {/* Верхняя часть для клиентов */}
     <section style={styles.heroSection}>
       <div style={styles.heroTitleRow}>
-        <img src={WCShopLogo} alt="Wanna Coffee Shop Logo" style={styles.heroLogoLarge} />
+        <img src={WCShopLogo} alt="Wanna Coffee Shop Logo" className="hero-logo-unified" />
       </div>
       <p style={styles.heroSubtitle}>A curated specialty coffee marketplace</p>
       <p style={styles.heroDesc}>

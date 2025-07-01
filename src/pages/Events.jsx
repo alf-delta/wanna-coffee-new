@@ -117,7 +117,7 @@ const Events = () => {
       <div style={{ minHeight: '100vh', background: '#f8f9fa' }}>
         {/* Hero / Concept */}
         <div style={{ background: '#fff', color: '#b87333', padding: '2.5rem 1rem 1.5rem 1rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-          <img src={WCEventsLogo} alt="Wanna Coffee Events Logo" style={{ width: '90vw', maxWidth: 480, height: 'auto', display: 'block', marginBottom: '1.2rem', maxHeight: 180 }} className="events-hero-logo" />
+          <img src={WCEventsLogo} alt="Wanna Coffee Events Logo" className="hero-logo-unified" />
           <p style={{ color: '#3B2F2F', fontSize: '1.15rem', margin: '0 auto 1.5rem auto', maxWidth: 600, textAlign: 'center' }}>
             Step deeper into New York's specialty coffee culture.<br/><br/>
             The Featured Events section is your front-row seat to what's happening across the city's third-wave coffee community. It's more than just a calendar — it's a curated hub for the people who care about coffee as a craft, a culture, and a connection point.<br/><br/>
