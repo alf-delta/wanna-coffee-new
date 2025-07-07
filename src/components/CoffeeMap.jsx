@@ -3,6 +3,7 @@ import mapboxgl from 'mapbox-gl';
 import { MAPBOX_TOKEN } from '../assets/mapbox-token';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import * as turf from '@turf/turf';
+import GuideCoffeeCard from './GuideCoffeeCard';
 
 if (!MAPBOX_TOKEN) {
   console.error('Mapbox token is missing!');
@@ -68,12 +69,13 @@ function getShopsInRadius(center, radius, shops) {
 const CoffeeMap = forwardRef(({ 
   coffeeShops = [], 
   radiusCircle = 1000, 
-  selectedShopId, 
+  selectedShop,
   disableMove = false, 
   mobileOffsetY = -120,
   highlightShopId = null,
   mapCenter,
-  setMapCenter
+  setMapCenter,
+  onCloseSelectedShop
 }, ref) => {
   const mapContainer = useRef(null);
   const map = useRef(null);
@@ -84,6 +86,7 @@ const CoffeeMap = forwardRef(({
   const [isMapLoaded, setIsMapLoaded] = useState(false);
   const [isFlying, setIsFlying] = useState(false);
   const layersCreated = useRef(false);
+  const [internalSelectedShop, setInternalSelectedShop] = useState(null);
 
   const IS_MOBILE = typeof window !== 'undefined' && window.innerWidth < 768;
   const MOBILE_VISUAL_OFFSET = [0, mobileOffsetY];
@@ -92,7 +95,7 @@ const CoffeeMap = forwardRef(({
 
   console.log('CoffeeMap: Render/Props Update', { 
     radiusCircle, 
-    selectedShopId, 
+    selectedShop, 
     isMapLoaded, 
     currentVisualOffset
   });
@@ -159,50 +162,17 @@ const CoffeeMap = forwardRef(({
       const statusText = status === null ? '—' : status ? 'Open' : 'Closed';
       const statusColor = status === null ? '#ccc' : status ? '#4caf50' : '#e53935';
       
-      const popupHTML = `
-        <div style="padding: 8px; min-width: 200px;">
-          <h3 style="margin: 0 0 8px 0; font-size: 16px; color: #333;">${shop.name}</h3>
-          <p style="margin: 0 0 8px 0; font-size: 14px; color: #666;">${shop.address}</p>
-          ${shop.hours ? `
-            <div style="display: flex; align-items: center; gap: 8px; margin: 8px 0;">
-              <span style="
-                display: inline-block;
-                width: 10px;
-                height: 10px;
-                border-radius: 50%;
-                background: ${statusColor};
-              "></span>
-              <span style="font-weight: 500; color: ${statusColor}; font-size: 14px;">
-                ${statusText}
-              </span>
-              <span style="color: #888; font-size: 14px; margin-left: 6px;">
-                ${shop.hours}
-              </span>
-            </div>
-          ` : ''}
-          <button onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${shop.latitude},${shop.longitude}', '_blank')" 
-                  style="
-                    background: #d3914b;
-                    color: white;
-                    border: none;
-                    padding: 8px 16px;
-                    border-radius: 4px;
-                    cursor: pointer;
-                    font-size: 14px;
-                    width: 100%;
-                  ">
-            🚶‍♂️ Route
-          </button>
-        </div>
-      `;
-      
       const marker = new mapboxgl.Marker({ color: '#d3914b' })
         .setLngLat([shop.longitude, shop.latitude])
-        .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(popupHTML));
-      marker.addTo(map.current);
+        .addTo(map.current);
       marker._shopId = shop.id;
+      marker.getElement().addEventListener('click', (e) => {
+        e.stopPropagation();
+        setInternalSelectedShop(shop);
+      });
       markers.current.push(marker);
     });
+    console.log('[DEBUG] Маркеры созданы:', markers.current.map(m => m && m._shopId), 'types:', markers.current.map(m => m && typeof m._shopId));
   };
 
   useEffect(() => {
@@ -357,25 +327,6 @@ const CoffeeMap = forwardRef(({
   // Автоматический flyTo с offset при изменении mapCenter на мобильных
   // useEffect с flyTo по mapCenter временно удалён для устранения багов
 
-  // Обработка выбора кофейни из списка
-  useEffect(() => {
-    if (!isMapLoaded || !selectedShopId || !markers.current.length) return;
-    
-    // Закрываем все открытые попапы
-    markers.current.forEach(marker => {
-      if (marker.getPopup().isOpen()) {
-        marker.getPopup().remove();
-      }
-    });
-    
-    // Находим нужный маркер и открываем его попап
-    const marker = markers.current.find(m => m._shopId === selectedShopId);
-    if (marker) {
-      marker.getPopup().addTo(map.current);
-      // Убираем flyTo - карта не должна перемещаться
-    }
-  }, [selectedShopId, isMapLoaded]);
-
   // Возвращает координаты точки выше центра карты на offsetY пикселей (только для мобильных)
   const getVisualCenter = (offsetY = 60) => {
     if (!map.current) return mapCenter;
@@ -401,11 +352,26 @@ const CoffeeMap = forwardRef(({
     }
   }));
 
+  const shopToShow = selectedShop || internalSelectedShop;
   if (error) {
     return <div style={{ padding: '1rem', textAlign: 'center', color: 'red' }}>Error loading map: {error}</div>;
   }
 
-  return <div ref={mapContainer} style={{ width: '100%', height: '100%' }} />;
+  const handleClosePopup = () => {
+    setInternalSelectedShop(null);
+    if (onCloseSelectedShop) onCloseSelectedShop();
+  };
+
+  return <>
+    <div ref={mapContainer} style={{ width: '100%', height: '100%' }} />
+    {shopToShow && (
+      <div style={{ position: 'fixed', left: 0, top: 0, width: '100vw', height: '100vh', zIndex: 2000, background: 'rgba(0,0,0,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={handleClosePopup}>
+        <div style={{ maxWidth: 500, width: '90vw', maxHeight: '90vh', overflowY: 'auto' }} onClick={e => e.stopPropagation()}>
+          <GuideCoffeeCard coffeeShop={shopToShow} onClose={handleClosePopup} />
+        </div>
+      </div>
+    )}
+  </>;
 });
 
 export default CoffeeMap;

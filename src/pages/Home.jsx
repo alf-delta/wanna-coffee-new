@@ -438,7 +438,7 @@ const Home = () => {
   const [radiusIdx, setRadiusIdx] = useState(0); // минимальный радиус по умолчанию
   const [mapCenter, setMapCenter] = useState([-74.009, 40.707]); // Financial District, Manhattan
   const [filters, setFilters] = useState({ openNow: false });
-  const [selectedShopId, setSelectedShopId] = useState(null);
+  const [selectedShop, setSelectedShop] = useState(null);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
   const [showSidebar, setShowSidebar] = useState(false);
   const [activeView, setActiveView] = useState('map'); // 'map' или 'list'
@@ -508,8 +508,8 @@ const Home = () => {
       .sort((a, b) => a.distance - b.distance);
   }, [coffeeShopsData, visualCenter, radiusCircle, filters]);
 
-  const handleShopClick = useCallback((shopId) => {
-    setSelectedShopId(shopId);
+  const handleShopClick = useCallback((shop) => {
+    setSelectedShop(shop);
   }, []);
 
   // --- СИНХРОНИЗАЦИЯ FILTERS <-> URL ---
@@ -617,6 +617,20 @@ const Home = () => {
     );
   };
 
+  useEffect(() => {
+    if (filteredShops && filteredShops.length > 0) {
+      console.log('[DEBUG] filteredShops ids:', filteredShops.map(s => s.id), 'types:', filteredShops.map(s => typeof s.id));
+    }
+  }, [filteredShops]);
+
+  useEffect(() => {
+    console.log('[DEBUG] selectedShop:', selectedShop, 'type:', typeof selectedShop);
+  }, [selectedShop]);
+
+  const handleCloseSelectedShop = useCallback(() => {
+    setSelectedShop(null);
+  }, []);
+
   return (
     <div style={styles.home}>
       <div style={styles.content}>
@@ -672,8 +686,9 @@ const Home = () => {
               radiusCircle={radiusCircle}
               setMapCenter={setMapCenter}
               mapCenter={visualCenter}
-              selectedShopId={selectedShopId}
+              selectedShop={selectedShop}
               mobileOffsetY={-400}
+              onCloseSelectedShop={handleCloseSelectedShop}
             />
           </div>
           {/* Плавающая кнопка геолокации только на десктопе */}
