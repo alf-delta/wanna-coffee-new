@@ -3,7 +3,7 @@ import mapboxgl from 'mapbox-gl';
 import { MAPBOX_TOKEN } from '../assets/mapbox-token';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import * as turf from '@turf/turf';
-import GuideCoffeeCard from './GuideCoffeeCard.jsx';
+import GuideCoffeeCard from './GuideCoffeeCard';
 
 if (!MAPBOX_TOKEN) {
   console.error('Mapbox token is missing!');
