@@ -13,7 +13,6 @@ const Header = () => {
   }, []);
 
   const accentButton = {
-    background: '#cc9042',
     color: '#fff',
     borderRadius: '22px',
     padding: '0.5rem 1.5rem',
@@ -86,15 +85,15 @@ const Header = () => {
                   <Link to="/about" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>About</Link>
                   <Link to="/contact" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>Contact</Link>
                   <span style={{ position: 'relative', display: 'block' }}>
-                    <Link to="/couponator" style={{ ...accentButton, ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Coffee Pass</Link>
+                    <Link to="/couponator" className="accent-btn" style={{ ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Coffee Pass</Link>
                     <span style={soonDot}></span>
                   </span>
                   <span style={{ position: 'relative', display: 'block' }}>
-                    <Link to="/events" style={{ ...accentButton, ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Events</Link>
+                    <Link to="/events" className="accent-btn" style={{ ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Events</Link>
                     <span style={soonDot}></span>
                   </span>
                   <span style={{ position: 'relative', display: 'block' }}>
-                    <Link to="/subscription" style={{ ...accentButton, ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Shop</Link>
+                    <Link to="/subscription" className="accent-btn" style={{ ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Shop</Link>
                     <span style={soonDot}></span>
                   </span>
                 </div>
@@ -106,15 +105,15 @@ const Header = () => {
               <Link to="/about" style={styles.link}>About</Link>
               <Link to="/contact" style={styles.link}>Contact</Link>
               <span style={{ position: 'relative', display: 'inline-block' }}>
-                <Link to="/couponator" style={accentButton}>Coffee Pass</Link>
+                <Link to="/couponator" className="accent-btn" style={accentButton}>Coffee Pass</Link>
                 <span style={soonBadge}>Soon</span>
               </span>
               <span style={{ position: 'relative', display: 'inline-block' }}>
-                <Link to="/events" style={accentButton}>Events</Link>
+                <Link to="/events" className="accent-btn" style={accentButton}>Events</Link>
                 <span style={soonBadge}>Soon</span>
               </span>
               <span style={{ position: 'relative', display: 'inline-block' }}>
-                <Link to="/subscription" style={accentButton}>Shop</Link>
+                <Link to="/subscription" className="accent-btn" style={accentButton}>Shop</Link>
                 <span style={soonBadge}>Soon</span>
               </span>
             </div>
