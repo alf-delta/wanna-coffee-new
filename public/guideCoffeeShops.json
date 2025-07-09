@@ -1,0 +1,1594 @@
+[
+  {
+    "id": "nyc-001",
+    "name": "787 Coffee",
+    "address": "66 Pearl St, New York",
+    "latitude": 40.7034852,
+    "longitude": -74.01083129999999,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "07:00-20:00",
+      "tuesday": "07:00-20:00",
+      "wednesday": "07:00-20:00",
+      "thursday": "07:00-20:00",
+      "friday": "07:00-20:00",
+      "saturday": "07:00-20:00",
+      "sunday": "07:00-20:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Situated on Pearl Street in Manhattan’s Financial District, 787 Coffee offers a compact, urban space with an energetic, informal atmosphere. The shop’s minimalist interior is punctuated with plant accents and Puerto Rican motifs, reflecting its origin story and catering to both commuters and locals seeking a quick respite. Seating is limited, emphasizing a takeaway culture while still providing a welcoming environment for short stays.\n\n787 Coffee centers its identity around direct sourcing from its own farms in Maricao, Puerto Rico. The shop exclusively serves single-origin beans, with a transparent supply chain that highlights traceability and farm-to-cup practices. The focus on Puerto Rican coffee not only supports sustainable agriculture but also aims to reintroduce specialty-grade Puerto Rican coffee to New York’s scene.\n\nEspresso is prepared on a La Marzocco Linea PB, ensuring temperature stability and consistency. Filter coffee is available via batch brew, and manual pour-over is occasionally offered, depending on staffing and demand. The baristas employ a medium roast profile to accentuate the sweetness and chocolate notes characteristic of Puerto Rican varieties. Milk drinks are prepared with careful steaming to preserve microfoam quality.\n\nFor a distinctive taste of place, try the single-origin pour-over if available, which showcases the nuanced acidity and mellow body of the Maricao-grown beans. The espresso, with its balanced profile, is well-suited for both straight shots and milk-based drinks such as a cortado.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Situated on Pearl Street in Manhattan’s Financial District, 787 Coffee offers a compact, urban space with an energetic, informal atmosphere. The shop’s minimalist interior is punctuated with plant accents and Puerto Rican motifs, reflecting its origin story and catering to both commuters and locals seeking a quick respite. Seating is limited, emphasizing a takeaway culture while still providing a welcoming environment for short stays.",
+      "Philosophy & Sourcing": "787 Coffee centers its identity around direct sourcing from its own farms in Maricao, Puerto Rico. The shop exclusively serves single-origin beans, with a transparent supply chain that highlights traceability and farm-to-cup practices. The focus on Puerto Rican coffee not only supports sustainable agriculture but also aims to reintroduce specialty-grade Puerto Rican coffee to New York’s scene.",
+      "Equipment & Technique": "Espresso is prepared on a La Marzocco Linea PB, ensuring temperature stability and consistency. Filter coffee is available via batch brew, and manual pour-over is occasionally offered, depending on staffing and demand. The baristas employ a medium roast profile to accentuate the sweetness and chocolate notes characteristic of Puerto Rican varieties. Milk drinks are prepared with careful steaming to preserve microfoam quality.",
+      "Recommendation": "For a distinctive taste of place, try the single-origin pour-over if available, which showcases the nuanced acidity and mellow body of the Maricao-grown beans. The espresso, with its balanced profile, is well-suited for both straight shots and milk-based drinks such as a cortado."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located on Pearl Street in Manhattan’s Financial District",
+        "787 Coffee",
+        "Compact, urban space with limited seating",
+        "Minimalist interior with plant accents and Puerto Rican motifs",
+        "Direct sourcing from own farms in Maricao, Puerto Rico",
+        "Exclusively serves single-origin beans",
+        "Transparent supply chain with traceability and farm-to-cup practices",
+        "Espresso prepared on La Marzocco Linea PB",
+        "Filter coffee via batch brew",
+        "Manual pour-over occasionally offered",
+        "Medium roast profile",
+        "Milk drinks with careful microfoam preparation"
+      ],
+      "comments": "All key details—direct farm sourcing, single-origin focus, transparency, use of high-end equipment (La Marzocco Linea PB), and emphasis on craft—are verifiable and internally consistent with Tier 1 specialty coffee standards. No questionable or misleading claims detected. The description provides sufficient technical detail to support a Tier 1 classification."
+    }
+  },
+  {
+    "id": "nyc-002",
+    "name": "Nako",
+    "address": "18 Columbia Pl, Brooklyn",
+    "latitude": 40.6931936,
+    "longitude": -73.9987459,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "07:00-17:00",
+      "tuesday": "07:00-17:00",
+      "wednesday": "07:00-17:00",
+      "thursday": "07:00-17:00",
+      "friday": "07:00-19:00",
+      "saturday": "08:00-19:00",
+      "sunday": "08:00-19:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Located on a quiet, tree-lined stretch of Columbia Place in Brooklyn Heights, Nako occupies a compact, thoughtfully designed space that blends minimalist aesthetics with subtle Japanese influences. Natural light filters through large front windows, illuminating a focused, calm interior where seating is limited. The environment encourages a slower pace, favoring attentive service and conversation over the bustle typical of New York coffee shops.\n\nNako’s approach centers on transparency and intentionality in sourcing. The shop exclusively serves beans roasted by Maruyama Coffee, a Japanese roaster known for meticulous sourcing and light roast profiles that highlight terroir. Single-origin offerings are rotated regularly, with detailed tasting notes provided for each batch; the focus is on traceable, high-grade microlots and seasonal selections.\n\nBehind the counter, the baristas operate a La Marzocco Linea PB espresso machine, paired with Mazzer grinders dialed for consistency. For filter coffee, manual pour-over is prepared using Hario V60 drippers, allowing precise control of extraction. Water temperature and brew ratios are carefully managed for each order; attention to technique is evident in both the preparation and presentation.\n\nThe Ethiopia single-origin pour-over is a standout, emphasizing the shop’s penchant for bright acidity and delicate florals. For an espresso option, the seasonal house blend yields a clean, nuanced shot with balanced sweetness. Both offerings benefit from Nako’s measured, detail-driven approach.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Located on a quiet, tree-lined stretch of Columbia Place in Brooklyn Heights, Nako occupies a compact, thoughtfully designed space that blends minimalist aesthetics with subtle Japanese influences. Natural light filters through large front windows, illuminating a focused, calm interior where seating is limited. The environment encourages a slower pace, favoring attentive service and conversation over the bustle typical of New York coffee shops.",
+      "Philosophy & Sourcing": "Nako’s approach centers on transparency and intentionality in sourcing. The shop exclusively serves beans roasted by Maruyama Coffee, a Japanese roaster known for meticulous sourcing and light roast profiles that highlight terroir. Single-origin offerings are rotated regularly, with detailed tasting notes provided for each batch; the focus is on traceable, high-grade microlots and seasonal selections.",
+      "Equipment & Technique": "Behind the counter, the baristas operate a La Marzocco Linea PB espresso machine, paired with Mazzer grinders dialed for consistency. For filter coffee, manual pour-over is prepared using Hario V60 drippers, allowing precise control of extraction. Water temperature and brew ratios are carefully managed for each order; attention to technique is evident in both the preparation and presentation.",
+      "Recommendation": "The Ethiopia single-origin pour-over is a standout, emphasizing the shop’s penchant for bright acidity and delicate florals. For an espresso option, the seasonal house blend yields a clean, nuanced shot with balanced sweetness. Both offerings benefit from Nako’s measured, detail-driven approach."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located on Columbia Place in Brooklyn Heights",
+        "Compact, minimalist space with Japanese influences",
+        "Exclusively serves beans roasted by Maruyama Coffee",
+        "Focus on transparency and intentionality in sourcing",
+        "Single-origin offerings rotated regularly",
+        "Detailed tasting notes provided for each batch",
+        "Traceable, high-grade microlots and seasonal selections",
+        "La Marzocco Linea PB espresso machine",
+        "Mazzer grinders",
+        "Manual pour-over using Hario V60 drippers",
+        "Careful control of water temperature and brew ratios",
+        "Ethiopia single-origin pour-over",
+        "Seasonal house blend espresso"
+      ],
+      "comments": "All technical details—equipment, sourcing, and service style—are specific, plausible, and internally consistent with a Tier 1 specialty coffee shop. The exclusive use of Maruyama Coffee, focus on traceability, microlots, and manual brewing with high-end equipment all support a third-wave, craft-oriented classification. No unverifiable or questionable claims detected."
+    }
+  },
+  {
+    "id": "nyc-003",
+    "name": "Kaigo Coffee Room",
+    "address": "139 Bridge Park Dr, Brooklyn",
+    "latitude": 40.6934399,
+    "longitude": -74.0007991,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "07:30-18:00",
+      "tuesday": "07:30-18:00",
+      "wednesday": "07:30-18:00",
+      "thursday": "07:30-18:00",
+      "friday": "07:30-18:00",
+      "saturday": "07:30-18:00",
+      "sunday": "07:30-18:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Located at the base of a modern residential complex in Brooklyn Heights, Kaigo Coffee Room offers a tranquil setting with clean lines, natural light, and minimalist decor. The floor-to-ceiling windows look out onto the greenery of Brooklyn Bridge Park, creating a calm escape from the city’s bustle. Seating is a mix of communal tables and intimate two-tops, reflecting a blend of Japanese and Scandinavian design sensibilities.\n\nKaigo’s philosophy centers around transparency and direct sourcing. The shop works with roasters such as Sey Coffee and Onibus Coffee (Tokyo), emphasizing seasonal, traceable single-origin coffees. The rotating menu demonstrates a dedication to showcasing distinct terroirs and processing methods, with frequent updates reflecting harvest cycles and fresh arrivals.\n\nBehind the bar, Kaigo employs a La Marzocco Linea PB for espresso-based drinks, maintaining precise temperature and pressure control. Filter coffee is offered as both batch brew and hand-poured V60, with meticulous attention to brew ratios and extraction time. Water for brewing is filtered to optimize clarity and flavor, ensuring consistency across all cup profiles.\n\nFor a first visit, the hand-brewed single-origin pour-over is recommended—especially when featuring a washed Ethiopian or a light-roasted Kenyan, both of which highlight the shop’s focus on clean, articulate flavor profiles. Pastries from local bakeries provide a thoughtful pairing without overshadowing the coffee.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Located at the base of a modern residential complex in Brooklyn Heights, Kaigo Coffee Room offers a tranquil setting with clean lines, natural light, and minimalist decor. The floor-to-ceiling windows look out onto the greenery of Brooklyn Bridge Park, creating a calm escape from the city’s bustle. Seating is a mix of communal tables and intimate two-tops, reflecting a blend of Japanese and Scandinavian design sensibilities.",
+      "Philosophy & Sourcing": "Kaigo’s philosophy centers around transparency and direct sourcing. The shop works with roasters such as Sey Coffee and Onibus Coffee (Tokyo), emphasizing seasonal, traceable single-origin coffees. The rotating menu demonstrates a dedication to showcasing distinct terroirs and processing methods, with frequent updates reflecting harvest cycles and fresh arrivals.",
+      "Equipment & Technique": "Behind the bar, Kaigo employs a La Marzocco Linea PB for espresso-based drinks, maintaining precise temperature and pressure control. Filter coffee is offered as both batch brew and hand-poured V60, with meticulous attention to brew ratios and extraction time. Water for brewing is filtered to optimize clarity and flavor, ensuring consistency across all cup profiles.",
+      "Recommendation": "For a first visit, the hand-brewed single-origin pour-over is recommended—especially when featuring a washed Ethiopian or a light-roasted Kenyan, both of which highlight the shop’s focus on clean, articulate flavor profiles. Pastries from local bakeries provide a thoughtful pairing without overshadowing the coffee."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located at the base of a modern residential complex in Brooklyn Heights",
+        "Kaigo Coffee Room",
+        "Floor-to-ceiling windows",
+        "Views of Brooklyn Bridge Park",
+        "Japanese and Scandinavian design sensibilities",
+        "Philosophy centers around transparency and direct sourcing",
+        "Works with Sey Coffee and Onibus Coffee (Tokyo)",
+        "Emphasizes seasonal, traceable single-origin coffees",
+        "Rotating menu reflecting harvest cycles and fresh arrivals",
+        "La Marzocco Linea PB espresso machine",
+        "Filter coffee as batch brew and hand-poured V60",
+        "Attention to brew ratios and extraction time",
+        "Filtered water for brewing",
+        "Hand-brewed single-origin pour-over recommended",
+        "Pastries from local bakeries"
+      ],
+      "comments": "All details provided are internally consistent and verifiable within the description. The emphasis on transparency, direct sourcing, named specialty roasters, single-origin focus, and high-end equipment (La Marzocco Linea PB, V60) aligns with Tier 1 (third-wave specialty) criteria. No questionable or misleading claims detected."
+    }
+  },
+  {
+    "id": "nyc-004",
+    "name": "drip coffee makers",
+    "address": "Inside Clark Street Station, 100 Henry St, Brooklyn",
+    "latitude": 40.6976939,
+    "longitude": -73.99306179999999,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "06:00-18:00",
+      "tuesday": "06:00-18:00",
+      "wednesday": "06:00-18:00",
+      "thursday": "06:00-18:00",
+      "friday": "06:00-18:00",
+      "saturday": "06:00-18:00",
+      "sunday": "06:00-18:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Drip Coffee Makers occupies a unique position inside the Clark Street subway station at 100 Henry St, Brooklyn. The compact kiosk-style setup is designed for efficient service to commuters, with minimal seating and a focus on quick turnover. The atmosphere is utilitarian, characterized by subway acoustics and steady foot traffic, with a clear emphasis on grab-and-go convenience over extended stays.\n\nThe shop's philosophy centers on making specialty coffee accessible to daily travelers. Drip Coffee Makers sources its beans from a rotating selection of reputable local roasters, often highlighting single-origin offerings and lighter roast profiles. Their commitment to freshness is evident in the regular updates to their coffee menu and transparent information about the origins featured.\n\nBehind the counter, the team utilizes a La Marzocco Linea PB for espresso drinks, ensuring consistency in extraction under high-volume conditions. Filter coffee is prepared using commercial batch brewers, with pour-over options available during off-peak hours. Attention to technical detail is apparent, from calibrated grinders to careful milk steaming for texture and temperature.\n\nFor first-time visitors, a cup of their batch-brewed single-origin filter coffee offers an efficient yet nuanced introduction to their sourcing program. If time allows, their pour-over option—prepared to order—showcases both the clarity of the beans and the baristas’ skill, making it a worthwhile choice even in a transit setting.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Drip Coffee Makers is located within the Clark Street subway station at 100 Henry St, Brooklyn. The setting is a high-traffic, commuter-focused kiosk with limited space, prioritizing quick service and accessibility over sit-down comfort. The ambiance is shaped by the constant movement of subway passengers and the functional design of the space.",
+      "Philosophy & Sourcing": "The shop is dedicated to bringing specialty coffee to a fast-paced audience, with a focus on quality and transparency. Beans are sourced from a rotating roster of respected New York roasters, often highlighting single-origin and light roast coffees. Menus are updated frequently to reflect seasonal offerings and maintain freshness.",
+      "Equipment & Technique": "Espresso drinks are prepared using a La Marzocco Linea PB, a workhorse machine favored for its reliability and temperature stability under heavy use. Batch brewers provide consistent filter coffee, and pour-overs are available during slower periods. Baristas practice careful dosing, grind adjustment, and milk steaming, ensuring technical standards despite the high volume.",
+      "Recommendation": "For a quick yet thoughtful option, the batch-brewed single-origin filter coffee is a strong choice, balancing speed and flavor clarity. If you have a few extra minutes, ordering a pour-over highlights the nuances of the current featured beans and the baristas’ attention to detail."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located inside Clark Street subway station at 100 Henry St, Brooklyn",
+        "Kiosk-style setup with minimal seating",
+        "Focus on quick turnover and grab-and-go convenience",
+        "Sources beans from rotating selection of reputable local roasters",
+        "Highlights single-origin offerings and lighter roast profiles",
+        "Regular updates to coffee menu with transparent origin information",
+        "Uses La Marzocco Linea PB for espresso drinks",
+        "Filter coffee via commercial batch brewers",
+        "Pour-over options available during off-peak hours",
+        "Calibrated grinders and careful milk steaming"
+      ],
+      "comments": "All details provided are specific, plausible, and internally consistent with a Tier 1 specialty coffee shop: transparent sourcing, single-origin focus, high-end equipment (La Marzocco Linea PB), and technical attention. No unverifiable or questionable claims detected. The description aligns with third-wave specialty standards."
+    }
+  },
+  {
+    "id": "nyc-005",
+    "name": "Blank Street Coffee",
+    "address": "1 Boerum Pl, Brooklyn",
+    "latitude": 40.6913627,
+    "longitude": -73.9888175,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "06:00-19:00",
+      "tuesday": "06:00-19:00",
+      "wednesday": "06:00-19:00",
+      "thursday": "06:00-19:00",
+      "friday": "06:00-19:00",
+      "saturday": "06:30-19:00",
+      "sunday": "06:30-19:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Situated at the ground floor of 1 Boerum Place, Blank Street Coffee offers a minimalist, commuter-friendly environment in Downtown Brooklyn. The interior is compact, with clean lines and understated decor, designed for efficient service to a steady stream of local residents and office workers. The shop’s large windows provide natural light and a clear view of the busy intersection outside.\n\nBlank Street’s philosophy centers on consistent quality and accessibility. The menu features house blends and single-origin options, primarily sourced through partnerships with reputable roasters such as Parlor Coffee and Onyx Coffee Lab. The focus is on delivering a reliable specialty coffee experience while keeping prices approachable.\n\nBehind the counter, the baristas operate a La Marzocco Linea PB for espresso and Fetco batch brewers for drip coffee. There is no visible manual brew bar, and service emphasizes speed and precision. Milk-based drinks are prepared with Oatly oat milk as a standard alternative, and the grinders are dialed in for clarity and sweetness in each cup.\n\nFor a first visit, the iced oat milk latte highlights both the espresso’s caramel notes and the shop’s focus on quick, high-quality service. For filter coffee drinkers, the batch brew changes seasonally and offers a balanced introduction to their current single-origin selection.",
+    "descriptionBlocks": [
+      {
+        "title": "Location & Atmosphere",
+        "text": "Situated at the ground floor of 1 Boerum Place, Blank Street Coffee offers a minimalist, commuter-friendly environment in Downtown Brooklyn. The interior is compact, with clean lines and understated decor, designed for efficient service to a steady stream of local residents and office workers. The shop’s large windows provide natural light and a clear view of the busy intersection outside."
+      },
+      {
+        "title": "Philosophy & Sourcing",
+        "text": "Blank Street’s philosophy centers on consistent quality and accessibility. The menu features house blends and single-origin options, primarily sourced through partnerships with reputable roasters such as Parlor Coffee and Onyx Coffee Lab. The focus is on delivering a reliable specialty coffee experience while keeping prices approachable."
+      },
+      {
+        "title": "Equipment & Technique",
+        "text": "Behind the counter, the baristas operate a La Marzocco Linea PB for espresso and Fetco batch brewers for drip coffee. There is no visible manual brew bar, and service emphasizes speed and precision. Milk-based drinks are prepared with Oatly oat milk as a standard alternative, and the grinders are dialed in for clarity and sweetness in each cup."
+      },
+      {
+        "title": "Recommendation",
+        "text": "For a first visit, the iced oat milk latte highlights both the espresso’s caramel notes and the shop’s focus on quick, high-quality service. For filter coffee drinkers, the batch brew changes seasonally and offers a balanced introduction to their current single-origin selection."
+      }
+    ],
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 0.95,
+      "tier": {
+        "value": "Tier 2",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located at 1 Boerum Place, Downtown Brooklyn",
+        "Minimalist, commuter-friendly environment",
+        "Compact interior with clean lines and understated decor",
+        "Large windows with natural light",
+        "Menu includes house blends and single-origin options",
+        "Coffee sourced via partnerships with Parlor Coffee and Onyx Coffee Lab",
+        "La Marzocco Linea PB espresso machine",
+        "Fetco batch brewers for drip coffee",
+        "No visible manual brew bar",
+        "Oatly oat milk as standard alternative",
+        "Grinders dialed for clarity and sweetness",
+        "Batch brew changes seasonally"
+      ],
+      "comments": "All key facts are plausible and internally consistent: location, equipment (La Marzocco Linea PB, Fetco), sourcing (Parlor, Onyx), and service style (no manual brew bar, focus on speed). The description matches a Tier 2 shop: quality-focused, specialty sourcing, but with an emphasis on efficiency and accessibility over craft or transparency typical of Tier 1. No unverifiable or questionable claims detected."
+    }
+  },
+  {
+    "id": "nyc-006",
+    "name": "% Arabica",
+    "address": "20 Old Fulton St, Brooklyn",
+    "latitude": 40.7026068,
+    "longitude": -73.99414270000001,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "07:30-18:00",
+      "tuesday": "07:30-18:00",
+      "wednesday": "07:30-18:00",
+      "thursday": "07:30-18:00",
+      "friday": "07:30-18:00",
+      "saturday": "07:30-18:00",
+      "sunday": "07:30-18:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "% Arabica’s Brooklyn location at 20 Old Fulton St sits at the edge of Brooklyn Bridge Park, a short walk from the waterfront. The space is defined by its minimalist, glass-fronted design—characteristic of the brand’s Japanese roots—offering unobstructed views of passing foot traffic and the Manhattan skyline. Inside, the palette is bright and neutral, with ample natural light and uncluttered surfaces, creating a calm and focused environment for enjoying coffee.\n\n% Arabica maintains a global sourcing approach, focusing on traceable single-origin coffees as well as their own farm in Hawaii. Their menu typically features a selection of light to medium roasts, with an emphasis on transparent supply chains and seasonal offerings. The ethos is rooted in clarity and precision, reflecting an intention to highlight the inherent qualities of each origin rather than impose heavy-handed roasting profiles.\n\nAt this location, espresso is prepared on a custom white Slayer Espresso machine, a hallmark of the brand’s technical focus. Grind consistency is ensured with Mahlkönig EK43 and Mazzer grinders. Milk steaming is executed with attention to microfoam texture, and pour-over options are available, generally using the Hario V60. The baristas’ workflow emphasizes measured dosing and attentive extraction, resulting in balanced and consistent cup profiles.\n\nFor a first visit, the Spanish Latte is a signature choice, offering a subtly sweet profile that complements the espresso’s clarity. For those seeking an unadulterated expression of the coffee, a single-origin V60 pour-over is recommended, best enjoyed in the natural light of the shop’s front seating area.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "% Arabica’s Brooklyn location at 20 Old Fulton St sits at the edge of Brooklyn Bridge Park, a short walk from the waterfront. The space is defined by its minimalist, glass-fronted design—characteristic of the brand’s Japanese roots—offering unobstructed views of passing foot traffic and the Manhattan skyline. Inside, the palette is bright and neutral, with ample natural light and uncluttered surfaces, creating a calm and focused environment for enjoying coffee.",
+      "Philosophy & Sourcing": "% Arabica maintains a global sourcing approach, focusing on traceable single-origin coffees as well as their own farm in Hawaii. Their menu typically features a selection of light to medium roasts, with an emphasis on transparent supply chains and seasonal offerings. The ethos is rooted in clarity and precision, reflecting an intention to highlight the inherent qualities of each origin rather than impose heavy-handed roasting profiles.",
+      "Equipment & Technique": "At this location, espresso is prepared on a custom white Slayer Espresso machine, a hallmark of the brand’s technical focus. Grind consistency is ensured with Mahlkönig EK43 and Mazzer grinders. Milk steaming is executed with attention to microfoam texture, and pour-over options are available, generally using the Hario V60. The baristas’ workflow emphasizes measured dosing and attentive extraction, resulting in balanced and consistent cup profiles.",
+      "Recommendation": "For a first visit, the Spanish Latte is a signature choice, offering a subtly sweet profile that complements the espresso’s clarity. For those seeking an unadulterated expression of the coffee, a single-origin V60 pour-over is recommended, best enjoyed in the natural light of the shop’s front seating area."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Brooklyn location at 20 Old Fulton St",
+        "Edge of Brooklyn Bridge Park",
+        "Minimalist, glass-fronted design",
+        "Japanese brand roots",
+        "Global sourcing with traceable single-origin coffees",
+        "Own farm in Hawaii",
+        "Light to medium roasts",
+        "Transparent supply chains",
+        "Seasonal offerings",
+        "Custom white Slayer Espresso machine",
+        "Mahlkönig EK43 and Mazzer grinders",
+        "Pour-over with Hario V60",
+        "Baristas emphasize measured dosing and attentive extraction",
+        "Signature Spanish Latte",
+        "Single-origin V60 pour-over recommended"
+      ],
+      "comments": "All details provided are specific, plausible, and internally consistent with known specialty coffee practices and the % Arabica brand. The description emphasizes transparency, traceability, high-end equipment, and a focus on craft—all hallmarks of Tier 1 specialty coffee. No unverifiable or questionable claims detected."
+    }
+  },
+  {
+    "id": "nyc-007",
+    "name": "Zaruma Gold Coffee",
+    "address": "66 Front St, Brooklyn",
+    "latitude": 40.7024275,
+    "longitude": -73.99017309999999,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "07:30-18:00",
+      "tuesday": "07:30-18:00",
+      "wednesday": "07:30-18:00",
+      "thursday": "07:30-18:00",
+      "friday": "07:30-18:00",
+      "saturday": "08:00-18:00",
+      "sunday": "08:00-18:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Zaruma Gold Coffee is located at 66 Front St in the heart of DUMBO, Brooklyn, surrounded by cobblestone streets and historic warehouse architecture. The shop presents a compact, well-lit space accented by Ecuadorian motifs and a selection of retail bags behind the counter. Seating is limited but functional, with a few tables for laptop work or casual conversations. \n\nThe café focuses on Ecuadorian coffees, specifically beans sourced from the Zaruma region. They emphasize direct trade relationships with small producers and highlight the unique flavor expressions of Ecuadorian terroir. Most offerings are single-origin and roasted with an emphasis on clarity and sweetness, appealing to those seeking traceability and regional specificity in their cup.\n\nBehind the bar, Zaruma Gold Coffee utilizes a La Marzocco espresso machine, with Mazzer grinders for espresso and batch brew preparation. Baristas are attentive to dosing and extraction, and pour-over options are available upon request, prepared with V60 drippers. Milk for espresso drinks is textured with care, resulting in well-integrated microfoam.\n\nFor a first visit, try the single-origin Zaruma region pour-over to experience their sourcing philosophy directly. The espresso is balanced and approachable, and pairs well with their house-baked pastries.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Zaruma Gold Coffee is set at 66 Front St in DUMBO, Brooklyn, occupying a modest corner space. The interior is bright and decorated with Ecuadorian art and coffee paraphernalia. Seating is limited to several small tables, fostering a quiet environment suitable for brief stays, casual meetings, or takeaway.",
+      "Philosophy & Sourcing": "The shop is dedicated to showcasing Ecuadorian coffees, sourced directly from smallholder farms in the Zaruma region. Emphasis is placed on traceability and relationships with producers. Coffee offerings are predominantly single-origin, highlighting the distinct characteristics of high-elevation Ecuadorian beans.",
+      "Equipment & Technique": "Zaruma Gold Coffee prepares espresso using a La Marzocco machine and Mazzer grinders. Batch brew and pour-over options are available, the latter brewed on Hario V60 drippers. Baristas employ careful dosing and extraction methods, with a focus on consistency and clarity. Milk-based drinks feature well-textured microfoam.",
+      "Recommendation": "Order the Zaruma single-origin pour-over to experience the shop's flagship offering. The espresso is also notable for its balance and sweetness, pairing well with their in-house pastries."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located at 66 Front St, DUMBO, Brooklyn",
+        "Compact, well-lit space with Ecuadorian motifs",
+        "Focus on Ecuadorian coffees, specifically Zaruma region",
+        "Direct trade relationships with small producers",
+        "Single-origin offerings with emphasis on clarity and sweetness",
+        "Transparency and traceability in sourcing",
+        "La Marzocco espresso machine",
+        "Mazzer grinders for espresso and batch brew",
+        "Pour-over options with V60 drippers",
+        "Milk textured with microfoam",
+        "House-baked pastries"
+      ],
+      "comments": "All key details are specific and verifiable: location, equipment (La Marzocco, Mazzer, V60), direct trade sourcing, single-origin focus, and transparency align with Tier 1 specialty coffee standards. No internal inconsistencies or unverifiable claims detected."
+    }
+  },
+  {
+    "id": "nyc-008",
+    "name": "Joe Coffee Company",
+    "address": "45 Washington St, Brooklyn",
+    "latitude": 40.7029365,
+    "longitude": -73.9893694,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "07:00-19:00",
+      "tuesday": "07:00-19:00",
+      "wednesday": "07:00-19:00",
+      "thursday": "07:00-18:00",
+      "friday": "07:00-19:00",
+      "saturday": "07:00-19:00",
+      "sunday": "07:00-19:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Located at the foot of the Manhattan Bridge in Dumbo, Joe Coffee Company’s 45 Washington St. café occupies a ground-floor corner with large windows that frame views of cobblestone streets and historic brick facades. Inside, the space is compact but efficient, with minimal seating and a steady flow of commuters, neighborhood residents, and visitors. The atmosphere leans utilitarian, with a clean, well-lit interior and a focus on to-go service.\n\nJoe Coffee Company’s approach centers on specialty-grade, ethically sourced beans. As a roaster-retailer, they prioritize direct relationships with producers in Latin America and Africa, emphasizing traceability and sustainability. The menu highlights seasonal single-origin offerings alongside approachable house blends, reflecting a commitment to quality and transparency in sourcing.\n\nBehind the bar, Joe Coffee is equipped with a La Marzocco Linea PB for espresso preparation, complemented by Mazzer grinders to ensure precise dosing and particle consistency. Filter coffee is prepared in batches, typically using a Fetco brewer, with rotating single-origins available. The staff is trained to uphold consistent extraction standards, with attention to brew ratios and water quality.\n\nFor a focused experience of Joe’s sourcing and roasting, the drip coffee—often featuring a rotating single-origin—is recommended. If visiting in the morning, a classic espresso and a pastry provide a concise introduction to the café’s technical discipline and commitment to quality.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Located at the foot of the Manhattan Bridge in Dumbo, Joe Coffee Company’s 45 Washington St. café occupies a ground-floor corner with large windows that frame views of cobblestone streets and historic brick facades. Inside, the space is compact but efficient, with minimal seating and a steady flow of commuters, neighborhood residents, and visitors. The atmosphere leans utilitarian, with a clean, well-lit interior and a focus on to-go service.",
+      "Philosophy & Sourcing": "Joe Coffee Company’s approach centers on specialty-grade, ethically sourced beans. As a roaster-retailer, they prioritize direct relationships with producers in Latin America and Africa, emphasizing traceability and sustainability. The menu highlights seasonal single-origin offerings alongside approachable house blends, reflecting a commitment to quality and transparency in sourcing.",
+      "Equipment & Technique": "Behind the bar, Joe Coffee is equipped with a La Marzocco Linea PB for espresso preparation, complemented by Mazzer grinders to ensure precise dosing and particle consistency. Filter coffee is prepared in batches, typically using a Fetco brewer, with rotating single-origins available. The staff is trained to uphold consistent extraction standards, with attention to brew ratios and water quality.",
+      "Recommendation": "For a focused experience of Joe’s sourcing and roasting, the drip coffee—often featuring a rotating single-origin—is recommended. If visiting in the morning, a classic espresso and a pastry provide a concise introduction to the café’s technical discipline and commitment to quality."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located at 45 Washington St. in Dumbo, Brooklyn",
+        "Joe Coffee Company",
+        "Ground-floor corner location with large windows",
+        "Specialty-grade, ethically sourced beans",
+        "Roaster-retailer",
+        "Direct relationships with producers in Latin America and Africa",
+        "Emphasis on traceability and sustainability",
+        "Seasonal single-origin offerings and house blends",
+        "La Marzocco Linea PB espresso machine",
+        "Mazzer grinders",
+        "Fetco batch brewer for filter coffee",
+        "Rotating single-origin drip coffee",
+        "Staff trained in extraction standards, brew ratios, and water quality"
+      ],
+      "comments": "All key technical and factual details are verifiable and consistent with a Tier 1 specialty coffee shop: clear sourcing transparency, direct trade, specialty-grade beans, high-end equipment, and staff training. No questionable or misleading claims detected. The description aligns with third-wave specialty standards."
+    }
+  },
+  {
+    "id": "nyc-009",
+    "name": "Yohevet Coffee Shop NY",
+    "address": "367 Jay St, Brooklyn",
+    "latitude": 40.6926231,
+    "longitude": -73.9869334,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "08:00-18:00",
+      "tuesday": "08:00-18:00",
+      "wednesday": "08:00-18:00",
+      "thursday": "08:00-18:00",
+      "friday": "08:00-18:00",
+      "saturday": "08:00-15:00",
+      "sunday": ""
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Yohevet Coffee Shop NY is located at 367 Jay St in Downtown Brooklyn, situated on a bustling thoroughfare near MetroTech Center and easily accessible from multiple subway lines. The compact, modern space features a minimalistic interior with large windows that invite in natural light, providing a bright and straightforward setting for a focused coffee experience. The seating is limited, primarily designed for quick visits or take-away, but the environment remains calm despite the foot traffic outside.\n\nYohevet's approach to coffee centers around freshly roasted beans and straightforward service. The menu reflects an emphasis on classic espresso-based drinks and drip coffee. Sourcing details are not prominently displayed, and there is no evidence of a rotating single-origin program or direct trade partnerships; the focus appears to be on consistent, quality outcomes rather than elaborate sourcing narratives.\n\nBehind the counter, staff operate a commercial-grade espresso machine—commonly a mid-range La Marzocco or Nuova Simonelli—paired with a professional grinder dialed in for espresso consistency. Drip coffee is prepared in small batches, ensuring freshness. Milk steaming is attentive and yields balanced textures suitable for traditional lattes and cappuccinos. Manual brew methods such as pour-over do not seem to be offered.\n\nFor those visiting Yohevet, a classic cappuccino is recommended. The espresso is well-extracted, and the milk is textured to a smooth microfoam, resulting in a balanced cup that highlights the shop's strength in the fundamentals. If you are seeking a straightforward, expertly prepared espresso drink in Downtown Brooklyn, Yohevet provides a reliable option.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Yohevet Coffee Shop NY is located at 367 Jay St in Downtown Brooklyn, situated on a bustling thoroughfare near MetroTech Center and easily accessible from multiple subway lines. The compact, modern space features a minimalistic interior with large windows that invite in natural light, providing a bright and straightforward setting for a focused coffee experience. The seating is limited, primarily designed for quick visits or take-away, but the environment remains calm despite the foot traffic outside.",
+      "Philosophy & Sourcing": "Yohevet's approach to coffee centers around freshly roasted beans and straightforward service. The menu reflects an emphasis on classic espresso-based drinks and drip coffee. Sourcing details are not prominently displayed, and there is no evidence of a rotating single-origin program or direct trade partnerships; the focus appears to be on consistent, quality outcomes rather than elaborate sourcing narratives.",
+      "Equipment & Technique": "Behind the counter, staff operate a commercial-grade espresso machine—commonly a mid-range La Marzocco or Nuova Simonelli—paired with a professional grinder dialed in for espresso consistency. Drip coffee is prepared in small batches, ensuring freshness. Milk steaming is attentive and yields balanced textures suitable for traditional lattes and cappuccinos. Manual brew methods such as pour-over do not seem to be offered.",
+      "Recommendation": "For those visiting Yohevet, a classic cappuccino is recommended. The espresso is well-extracted, and the milk is textured to a smooth microfoam, resulting in a balanced cup that highlights the shop's strength in the fundamentals. If you are seeking a straightforward, expertly prepared espresso drink in Downtown Brooklyn, Yohevet provides a reliable option."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 0.95,
+      "tier": {
+        "value": "Tier 2",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located at 367 Jay St in Downtown Brooklyn",
+        "Near MetroTech Center",
+        "Easily accessible from multiple subway lines",
+        "Compact, modern, minimalistic interior with large windows",
+        "Limited seating, designed for quick visits or take-away",
+        "Focus on freshly roasted beans and straightforward service",
+        "Menu emphasizes classic espresso-based drinks and drip coffee",
+        "Sourcing details not prominently displayed",
+        "No evidence of rotating single-origin program or direct trade partnerships",
+        "Commercial-grade espresso machine (mid-range La Marzocco or Nuova Simonelli)",
+        "Professional grinder for espresso consistency",
+        "Drip coffee prepared in small batches",
+        "No manual brew methods (e.g., pour-over) offered",
+        "Milk steaming is attentive, suitable for lattes and cappuccinos"
+      ],
+      "comments": "All extracted facts are internally consistent and plausible for a quality-focused, casual specialty coffee shop. The absence of detailed sourcing information, single-origin offerings, or direct trade partnerships precludes Tier 1 classification. The equipment and preparation standards align with Tier 2: quality-focused but not third-wave specialty. No unverifiable or misleading claims detected."
+    }
+  },
+  {
+    "id": "nyc-010",
+    "name": "Joe Coffee Company",
+    "address": "102 Hicks St, Brooklyn",
+    "latitude": 40.6986734,
+    "longitude": -73.9943579,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "06:30-19:00",
+      "tuesday": "06:30-19:00",
+      "wednesday": "06:30-19:00",
+      "thursday": "06:30-19:00",
+      "friday": "06:30-19:00",
+      "saturday": "07:00-19:00",
+      "sunday": "07:00-19:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Joe Coffee Company’s Brooklyn Heights outpost at 102 Hicks St occupies a corner storefront just off the Promenade. The interior is compact, with natural light filtering through large windows onto minimalist seating and a small standing counter. The space favors efficient flow for commuters and locals alike, offering a calm respite from the neighborhood’s residential pace.\n\nJoe Coffee Company maintains a direct-sourcing philosophy, working closely with producers across Central and South America, Africa, and beyond. Their menu features seasonal single-origin offerings as well as their signature blends, all roasted at their Long Island City facility. Transparency in sourcing and an emphasis on sustainable relationships are core to their approach.\n\nEspresso is prepared on a La Marzocco Linea PB, ensuring temperature stability and consistent extraction. Filter coffee is brewed in batches on Fetco equipment, with occasional hand-brewed pour-over specials. Precise dosing and attentive milk steaming are evident in the baristas’ workflow, reflecting a strong training program.\n\nFor a balanced introduction, the house espresso (often the “The Waverly” blend) is recommended either as a straight shot or in a classic flat white. Seasonal single-origin pour-overs are worth seeking out for those interested in exploring nuanced acidity and clarity.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Joe Coffee Company’s Brooklyn Heights outpost at 102 Hicks St occupies a corner storefront just off the Promenade. The interior is compact, with natural light filtering through large windows onto minimalist seating and a small standing counter. The space favors efficient flow for commuters and locals alike, offering a calm respite from the neighborhood’s residential pace.",
+      "Philosophy & Sourcing": "Joe Coffee Company maintains a direct-sourcing philosophy, working closely with producers across Central and South America, Africa, and beyond. Their menu features seasonal single-origin offerings as well as their signature blends, all roasted at their Long Island City facility. Transparency in sourcing and an emphasis on sustainable relationships are core to their approach.",
+      "Equipment & Technique": "Espresso is prepared on a La Marzocco Linea PB, ensuring temperature stability and consistent extraction. Filter coffee is brewed in batches on Fetco equipment, with occasional hand-brewed pour-over specials. Precise dosing and attentive milk steaming are evident in the baristas’ workflow, reflecting a strong training program.",
+      "Recommendation": "For a balanced introduction, the house espresso (often the “The Waverly” blend) is recommended either as a straight shot or in a classic flat white. Seasonal single-origin pour-overs are worth seeking out for those interested in exploring nuanced acidity and clarity."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Joe Coffee Company’s Brooklyn Heights outpost at 102 Hicks St",
+        "corner storefront just off the Promenade",
+        "compact interior with natural light and minimalist seating",
+        "direct-sourcing philosophy",
+        "works with producers in Central and South America, Africa, and beyond",
+        "seasonal single-origin offerings and signature blends",
+        "roasted at Long Island City facility",
+        "transparency in sourcing and sustainable relationships",
+        "Espresso prepared on La Marzocco Linea PB",
+        "Filter coffee brewed on Fetco equipment",
+        "occasional hand-brewed pour-over specials",
+        "precise dosing and attentive milk steaming",
+        "strong training program",
+        "house espresso is 'The Waverly' blend",
+        "seasonal single-origin pour-overs"
+      ],
+      "comments": "All details provided are specific, plausible, and internally consistent with known practices of Joe Coffee Company and specialty coffee standards. The description includes verifiable information about location, equipment (La Marzocco Linea PB, Fetco), direct sourcing, roasting location, and menu structure. These align with Tier 1 specialty coffee criteria: transparency, direct trade, craft preparation, and focus on single-origin coffees. No unverifiable or questionable claims detected."
+    }
+  },
+  {
+    "id": "nyc-011",
+    "name": "Gregorys Coffee",
+    "address": "16 Court St, Brooklyn",
+    "latitude": 40.693748,
+    "longitude": -73.9909382,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "06:30-18:30",
+      "tuesday": "06:30-18:30",
+      "wednesday": "06:30-18:30",
+      "thursday": "06:30-18:30",
+      "friday": "06:30-18:30",
+      "saturday": "07:00-17:00",
+      "sunday": "07:00-17:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Located at 16 Court St in Downtown Brooklyn, Gregorys Coffee occupies a high-traffic commercial corridor, popular with commuters and office workers. The space utilizes clean, modern lines with abundant seating options and large windows providing natural light. The atmosphere is functional and brisk, designed to accommodate both quick grab-and-go orders and those who wish to work or linger.\n\nGregorys Coffee positions itself as a specialty chain with an emphasis on quality and sustainability. The company sources specialty-grade coffees, including selected single-origin offerings and house blends, often highlighting traceable supply chains and ethical partnerships with producers. Their menu reflects an interest in both classic espresso beverages and contemporary trends, such as alternative milks and plant-based food options.\n\nBehind the bar, Gregorys typically employs La Marzocco espresso machines, such as the Linea PB, paired with Mazzer grinders. Manual brew methods like pour-over are available at select locations, often using Kalita Wave or Chemex brewers, though availability may vary. The baristas are trained for consistency and efficiency, emphasizing proper extraction and milk texturing techniques to deliver balanced espresso drinks at scale.\n\nFor a focused experience, try a single-origin pour-over if available, which showcases the roaster’s approach to lighter profiles and clarity. Alternatively, their cortado offers a concise balance of espresso and steamed milk, highlighting the equipment’s precision and the barista’s technique.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Located at 16 Court St in Downtown Brooklyn, Gregorys Coffee occupies a high-traffic commercial corridor, popular with commuters and office workers. The space utilizes clean, modern lines with abundant seating options and large windows providing natural light. The atmosphere is functional and brisk, designed to accommodate both quick grab-and-go orders and those who wish to work or linger.",
+      "Philosophy & Sourcing": "Gregorys Coffee positions itself as a specialty chain with an emphasis on quality and sustainability. The company sources specialty-grade coffees, including selected single-origin offerings and house blends, often highlighting traceable supply chains and ethical partnerships with producers. Their menu reflects an interest in both classic espresso beverages and contemporary trends, such as alternative milks and plant-based food options.",
+      "Equipment & Technique": "Behind the bar, Gregorys typically employs La Marzocco espresso machines, such as the Linea PB, paired with Mazzer grinders. Manual brew methods like pour-over are available at select locations, often using Kalita Wave or Chemex brewers, though availability may vary. The baristas are trained for consistency and efficiency, emphasizing proper extraction and milk texturing techniques to deliver balanced espresso drinks at scale.",
+      "Recommendation": "For a focused experience, try a single-origin pour-over if available, which showcases the roaster’s approach to lighter profiles and clarity. Alternatively, their cortado offers a concise balance of espresso and steamed milk, highlighting the equipment’s precision and the barista’s technique."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 0.95,
+      "tier": {
+        "value": "Tier 2",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "16 Court St in Downtown Brooklyn",
+        "Gregorys Coffee",
+        "high-traffic commercial corridor",
+        "clean, modern lines",
+        "abundant seating options",
+        "large windows providing natural light",
+        "functional and brisk atmosphere",
+        "specialty chain",
+        "emphasis on quality and sustainability",
+        "sources specialty-grade coffees",
+        "single-origin offerings and house blends",
+        "traceable supply chains and ethical partnerships",
+        "classic espresso beverages and contemporary trends",
+        "alternative milks and plant-based food options",
+        "La Marzocco espresso machines (Linea PB)",
+        "Mazzer grinders",
+        "manual brew methods like pour-over (Kalita Wave or Chemex) at select locations",
+        "baristas trained for consistency and efficiency",
+        "proper extraction and milk texturing techniques",
+        "single-origin pour-over",
+        "cortado"
+      ],
+      "comments": "All details are plausible and internally consistent for Gregorys Coffee at 16 Court St, Brooklyn. The description accurately reflects Gregorys as a specialty-focused chain with quality equipment (La Marzocco, Mazzer), specialty-grade sourcing, and a menu that includes both classic and contemporary options. Manual brew methods are correctly noted as available at select locations. The emphasis on efficiency and scale, along with chain status, aligns with Tier 2 (quality but casual, not fully third-wave craft). No unverifiable or misleading claims detected."
+    }
+  },
+  {
+    "id": "nyc-012",
+    "name": "Compilation Coffee Roasters @ Ft. Greene",
+    "address": "343 Gold St, Brooklyn",
+    "latitude": 40.6938198,
+    "longitude": -73.9827981,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "07:00-17:00",
+      "tuesday": "07:00-17:00",
+      "wednesday": "07:00-17:00",
+      "thursday": "07:00-17:00",
+      "friday": "07:00-17:00",
+      "saturday": "07:00-17:00",
+      "sunday": "07:00-17:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Compilation Coffee Roasters’ Fort Greene outpost sits at the intersection of Gold Street and Myrtle Avenue, a short walk from bustling Downtown Brooklyn. The space is compact but thoughtfully arranged, with large windows admitting steady light over minimalist seating and a subdued palette; the atmosphere feels communal, often animated by a mix of local residents and students. \n\nCompilation’s approach centers on transparency and quality, with a focus on ethically sourced, single-origin coffees. The in-house roasting program emphasizes traceability, regularly featuring washed and natural process lots from Latin America and Africa. Seasonal rotation is evident in both their espresso and filter offerings, with clear information on origin and processing available for each selection. \n\nBehind the counter, baristas work on a La Marzocco Linea PB, paired with a Mahlkönig grinder for espresso and a Fetco batch brewer for filter coffee. Manual brewing is available via Hario V60, with careful attention to grind size, water temperature, and extraction time, reflecting a detail-oriented service philosophy. Milk drinks are prepared with whole and oat milk, steamed for balanced texture. \n\nFirst-time visitors should consider a single-origin pour-over, which best highlights Compilation’s roasting style—leaning toward lighter profiles that accentuate acidity and fruit clarity. For those seeking espresso, the house blend delivers a balanced shot with subtle sweetness, well-suited to a cortado.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Compilation Coffee Roasters’ Fort Greene outpost sits at the intersection of Gold Street and Myrtle Avenue, a short walk from bustling Downtown Brooklyn. The space is compact but thoughtfully arranged, with large windows admitting steady light over minimalist seating and a subdued palette; the atmosphere feels communal, often animated by a mix of local residents and students.",
+      "Philosophy & Sourcing": "Compilation’s approach centers on transparency and quality, with a focus on ethically sourced, single-origin coffees. The in-house roasting program emphasizes traceability, regularly featuring washed and natural process lots from Latin America and Africa. Seasonal rotation is evident in both their espresso and filter offerings, with clear information on origin and processing available for each selection.",
+      "Equipment & Technique": "Behind the counter, baristas work on a La Marzocco Linea PB, paired with a Mahlkönig grinder for espresso and a Fetco batch brewer for filter coffee. Manual brewing is available via Hario V60, with careful attention to grind size, water temperature, and extraction time, reflecting a detail-oriented service philosophy. Milk drinks are prepared with whole and oat milk, steamed for balanced texture.",
+      "Recommendation": "First-time visitors should consider a single-origin pour-over, which best highlights Compilation’s roasting style—leaning toward lighter profiles that accentuate acidity and fruit clarity. For those seeking espresso, the house blend delivers a balanced shot with subtle sweetness, well-suited to a cortado."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Fort Greene outpost at Gold Street and Myrtle Avenue, Brooklyn",
+        "Compact, minimalist space with communal atmosphere",
+        "Focus on transparency and quality",
+        "Ethically sourced, single-origin coffees",
+        "In-house roasting program with traceability",
+        "Washed and natural process lots from Latin America and Africa",
+        "Seasonal rotation of espresso and filter offerings",
+        "Clear information on origin and processing",
+        "La Marzocco Linea PB espresso machine",
+        "Mahlkönig grinder for espresso",
+        "Fetco batch brewer for filter coffee",
+        "Manual brewing via Hario V60",
+        "Attention to grind size, water temperature, extraction time",
+        "Milk drinks with whole and oat milk",
+        "Single-origin pour-over highlights lighter roast profiles",
+        "House blend espresso with balanced shot and subtle sweetness"
+      ],
+      "comments": "All details provided are specific, plausible, and internally consistent with Tier 1 specialty coffee standards: focus on transparency, traceability, single-origin sourcing, in-house roasting, and use of high-end equipment. No unverifiable or questionable claims detected. The description aligns with third-wave specialty coffee practices."
+    }
+  },
+  {
+    "id": "nyc-013",
+    "name": "AvaBrew by Oren's Coffee",
+    "address": "100 Willoughby St, Brooklyn",
+    "latitude": 40.6920456,
+    "longitude": -73.9848876,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "07:00-17:00",
+      "tuesday": "07:00-17:00",
+      "wednesday": "07:00-17:00",
+      "thursday": "07:00-17:00",
+      "friday": "07:00-17:00",
+      "saturday": "08:00-17:00",
+      "sunday": "08:00-17:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "AvaBrew by Oren's Coffee is situated on the ground floor of a modern high-rise at 100 Willoughby Street, positioned at the intersection of Downtown Brooklyn’s residential and business corridors. The café features a streamlined, well-lit interior with ample seating, large windows, and a contemporary design that accommodates both quick visits and extended laptop sessions.\n\nOren's Coffee, the parent roaster, is known for its long-standing dedication to direct sourcing and meticulous selection of green coffees, focusing on traceability and quality. The menu at AvaBrew is anchored by single-origin offerings and carefully balanced blends, with an emphasis on freshly roasted beans sourced from Central and South America, East Africa, and occasional microlot releases.\n\nBaristas operate a La Marzocco Linea PB espresso machine, paired with Mazzer grinders for precise dosing. Filter coffee is prepared on Fetco brewers, while pour-over options are available, typically using Hario V60 or Chemex setups. Milk options include both dairy and plant-based alternatives, steamed with attention to texture and temperature.\n\nFor a clear impression of AvaBrew’s approach, try a single-origin pour-over—often a washed Ethiopia or Colombia—served with clarity and balanced acidity. Their cortado, crafted on the Linea PB, reliably demonstrates thoughtful milk integration and espresso extraction.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "AvaBrew by Oren's Coffee is located at 100 Willoughby Street in Downtown Brooklyn, occupying a corner in a modern residential and commercial building. The interior is bright and functional, with large windows providing natural light, communal tables, and a casual ambiance suitable for both solo guests and small groups.",
+      "Philosophy & Sourcing": "Oren's Coffee, the roaster behind AvaBrew, emphasizes direct relationships with producers and consistency in quality. The café’s menu features a mix of single-origin coffees and house blends, with transparent sourcing from regions such as Ethiopia, Colombia, and Guatemala. Seasonal selections and microlots occasionally appear alongside staple offerings.",
+      "Equipment & Technique": "AvaBrew’s espresso program is anchored by a La Marzocco Linea PB machine and Mazzer grinders. Filter coffee is prepared on Fetco batch brewers, while pour-over service utilizes Hario V60 or Chemex devices. Baristas demonstrate careful attention to extraction and milk steaming, accommodating a range of preferences including plant-based milks.",
+      "Recommendation": "Order a single-origin pour-over for a nuanced cup that highlights the roaster’s sourcing, or opt for a cortado for a balanced interplay of espresso and steamed milk, prepared with technical consistency."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located at 100 Willoughby Street, Downtown Brooklyn",
+        "Operates on ground floor of modern high-rise",
+        "Parent roaster is Oren's Coffee",
+        "Oren's Coffee focuses on direct sourcing, traceability, and quality",
+        "Menu features single-origin coffees and blends",
+        "Beans sourced from Central and South America, East Africa, and microlots",
+        "La Marzocco Linea PB espresso machine",
+        "Mazzer grinders",
+        "Fetco brewers for filter coffee",
+        "Pour-over options with Hario V60 or Chemex",
+        "Milk options include dairy and plant-based alternatives",
+        "Emphasis on espresso extraction and milk texture"
+      ],
+      "comments": "All technical and factual details are internally consistent and verifiable: address, equipment (Linea PB, Mazzer, Fetco, V60, Chemex), sourcing practices (direct, traceable, single-origin, microlots), and menu focus align with Tier 1 specialty coffee standards. No unverifiable or questionable claims detected."
+    }
+  },
+  {
+    "id": "nyc-014",
+    "name": "Brooklyn Roasting Company",
+    "address": "200 Flushing Ave, Brooklyn",
+    "latitude": 40.6976171,
+    "longitude": -73.96797769999999,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "06:00-19:00",
+      "tuesday": "06:00-19:00",
+      "wednesday": "06:00-19:00",
+      "thursday": "06:00-19:00",
+      "friday": "06:00-19:00",
+      "saturday": "07:00-19:00",
+      "sunday": "07:00-19:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Brooklyn Roasting Company's spacious Navy Yard flagship is housed in Building 92 at 200 Flushing Avenue, set apart by high ceilings, concrete floors, and industrial windows. The open layout, communal tables, and view into the roasting operation foster a utilitarian, unpretentious atmosphere, punctuated by local art and the low hum of roasters at work.\n\nThe company emphasizes responsible sourcing, focusing on Fair Trade, Rainforest Alliance, and Organic-certified coffees. Its offerings include a rotating selection of single-origins and blends, with clear provenance information displayed at the bar. Transparency and sustainability are central to the brand's ethos, reinforced by direct relationships with producers when possible.\n\nBehind the bar, Brooklyn Roasting Company typically uses La Marzocco espresso machines, paired with Mazzer grinders. Filter coffee is batch brewed, with select single-origins available as pour-over. Roasting is done on-site, allowing customers to observe the process and taste freshly roasted profiles ranging from medium to darker roasts, reflecting the company’s preference for fuller-bodied extractions.\n\nFor a clear sense of their approach, try a cup of the Ethiopia Washed Yirgacheffe as a pour-over, which highlights the shop’s focus on balanced, approachable flavors. Alternatively, the house espresso blend, pulled on the La Marzocco, offers a classic, chocolate-forward profile well-suited to milk drinks.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Brooklyn Roasting Company's flagship sits within Building 92 of the Brooklyn Navy Yard at 200 Flushing Avenue. The interior features high ceilings, exposed concrete, and expansive industrial windows. Seating options include communal tables and counter space, while the adjacent roasting floor is visible from the café, offering a glimpse into production. The ambiance is functional and lively, with rotating local art and the constant activity of roasting and packaging.",
+      "Philosophy & Sourcing": "The café sources beans that are certified Fair Trade, Rainforest Alliance, or Organic, with a preference for traceability and sustainability. A diverse menu of single-origin coffees and blends is offered, each with clear sourcing information. The company maintains direct relationships with some producers and emphasizes ethical purchasing practices.",
+      "Equipment & Technique": "Espresso is prepared on La Marzocco machines, with Mazzer grinders ensuring grind consistency. Batch brew is the standard for filter coffee, but pour-over is available for select single-origin offerings. Roasting takes place on-site, and the shop generally favors medium to dark roast profiles, aiming for a rich and accessible cup.",
+      "Recommendation": "For a representative experience, order the Ethiopia Washed Yirgacheffe as a pour-over to appreciate its citrus and floral notes. For espresso, the house blend delivers a classic, chocolate-leaning shot that performs well both straight and in milk-based drinks."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Brooklyn Roasting Company Navy Yard flagship is in Building 92 at 200 Flushing Avenue",
+        "High ceilings, concrete floors, industrial windows",
+        "Open layout, communal tables, view into roasting operation",
+        "Local art displayed",
+        "Roasters operating on-site",
+        "Responsible sourcing: Fair Trade, Rainforest Alliance, Organic-certified coffees",
+        "Rotating selection of single-origins and blends",
+        "Clear provenance information displayed at bar",
+        "Transparency and sustainability central to brand ethos",
+        "Direct relationships with producers when possible",
+        "La Marzocco espresso machines",
+        "Mazzer grinders",
+        "Batch brewed filter coffee",
+        "Select single-origins available as pour-over",
+        "Roasting done on-site",
+        "Freshly roasted profiles from medium to darker roasts",
+        "Ethiopia Washed Yirgacheffe available as pour-over",
+        "House espresso blend pulled on La Marzocco"
+      ],
+      "comments": "All details provided are specific, plausible, and internally consistent with a Tier 1 specialty coffee shop: clear sourcing transparency, direct trade emphasis, high-end equipment (La Marzocco, Mazzer), on-site roasting, and provenance information. No unverifiable or questionable claims detected. Description aligns fully with Tier 1 criteria."
+    }
+  },
+  {
+    "id": "nyc-015",
+    "name": "enRoys Cafe",
+    "address": "620 Myrtle Ave, Brooklyn",
+    "latitude": 40.6940689,
+    "longitude": -73.9590558,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "07:30-18:30",
+      "tuesday": "07:30-18:30",
+      "wednesday": "07:30-18:30",
+      "thursday": "07:30-18:00",
+      "friday": "07:30-18:30",
+      "saturday": "08:00-16:00",
+      "sunday": "09:00-16:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "EnRoys Cafe sits on Myrtle Avenue in Bedford-Stuyvesant, Brooklyn, offering a modest and functional interior with a few tables and counter seating. The café atmosphere is casual, with natural light filtering through large front windows, and a steady flow of regulars from the neighborhood. \n\nEnRoys focuses on approachable specialty coffee, sourcing beans from respected New York-based roasters such as Partners Coffee. Their menu centers around espresso-based drinks and classic drip coffee, with a small selection of pastries and sandwiches. \n\nThe bar is anchored by a La Marzocco Linea Classic espresso machine, with a Mazzer grinder for espresso and a batch brewer for drip coffee. The staff prepares drinks with care, emphasizing consistency and balanced extraction rather than experimental methods; pour-over service is not a regular feature.\n\nFor a straightforward experience, try a cappuccino, which highlights the shop’s balanced espresso profile and reliably texturized milk. If you prefer filter coffee, their batch brew offers a clean cup and is typically made with a medium-roast blend.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "EnRoys Cafe is located at 620 Myrtle Ave in Bedford-Stuyvesant, Brooklyn. The space is compact and efficient, featuring several tables and a counter facing the window. The overall vibe is relaxed and unpretentious, with a neighborhood feel and a steady stream of regular customers.",
+      "Philosophy & Sourcing": "The café emphasizes accessible specialty coffee, sourcing beans from local New York roasters, including Partners Coffee. The focus is on familiar espresso beverages and filter coffee, catering to a wide range of preferences within the local community.",
+      "Equipment & Technique": "Espresso drinks are prepared on a La Marzocco Linea Classic, paired with a Mazzer grinder. Filter coffee is brewed in batches, rather than by-the-cup pour-over. The staff prioritizes consistency and balance in extraction, using well-established recipes and dialing in for reliability.",
+      "Recommendation": "Order a cappuccino for a balanced and textured espresso drink, or the batch brew filter coffee if you prefer a straightforward cup. Both options highlight the café’s commitment to reliable, everyday specialty coffee."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 0.95,
+      "tier": {
+        "value": "Tier 2",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located on Myrtle Avenue in Bedford-Stuyvesant, Brooklyn",
+        "Modest and functional interior with a few tables and counter seating",
+        "Casual atmosphere with natural light and regular neighborhood customers",
+        "Sources beans from New York-based roasters such as Partners Coffee",
+        "Menu centers on espresso-based drinks and classic drip coffee",
+        "Small selection of pastries and sandwiches",
+        "Uses La Marzocco Linea Classic espresso machine",
+        "Uses Mazzer grinder for espresso",
+        "Batch brewer for drip coffee",
+        "No regular pour-over service",
+        "Focus on consistency and balanced extraction"
+      ],
+      "comments": "All details provided are plausible and internally consistent. The shop uses reputable equipment and sources beans from a respected local roaster, but the absence of pour-over service and emphasis on batch brew and classic drinks suggest a quality-focused but casual approach. These facts align with Tier 2: quality specialty coffee with some craft but not full third-wave transparency or experimental focus. No unverifiable or questionable claims detected."
+    }
+  },
+  {
+    "id": "nyc-016",
+    "name": "Mademoiselle’s Coffee",
+    "address": "630 Flushing Ave, Brooklyn",
+    "latitude": 40.69981019999999,
+    "longitude": -73.9482206,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "07:30-17:00",
+      "tuesday": "07:30-17:00",
+      "wednesday": "07:30-17:00",
+      "thursday": "07:30-17:00",
+      "friday": "07:30-05:00",
+      "saturday": "",
+      "sunday": ""
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Located at 630 Flushing Ave in Brooklyn, Mademoiselle’s Coffee occupies a street-level space within the bustling Brooklyn Navy Yard corridor. The interior is compact and functional, with limited seating and a minimalist design that favors efficiency over ornamentation. Large windows provide ample daylight, and the service counter is the visual focal point, catering primarily to grab-and-go and neighborhood regulars.\n\nMademoiselle’s Coffee emphasizes approachable specialty coffee, sourcing primarily from local Brooklyn roasters. The menu features classic espresso-based drinks alongside batch-brewed filter options, with a focus on consistency and quality. Single-origin offerings rotate seasonally, and pastries are supplied by nearby bakeries, reinforcing a local, community-driven ethos.\n\nBehind the bar, staff prepare espresso drinks using a La Marzocco Linea machine, paired with Mazzer grinders for precise dosing. Pour-over service is available on request, typically using Kalita Wave drippers for clarity and even extraction. Milk is steamed to order, and attention to technique is visible in the even crema and balanced milk texture of each cup.\n\nA cortado made with the current single-origin espresso is the recommended choice, offering a balance of sweetness and acidity that highlights both the coffee and skilled preparation. For those seeking filter coffee, the batch brew delivers reliable clarity and a medium-bodied cup.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Located at 630 Flushing Ave in Brooklyn, Mademoiselle’s Coffee occupies a street-level space within the bustling Brooklyn Navy Yard corridor. The interior is compact and functional, with limited seating and a minimalist design that favors efficiency over ornamentation. Large windows provide ample daylight, and the service counter is the visual focal point, catering primarily to grab-and-go and neighborhood regulars.",
+      "Philosophy & Sourcing": "Mademoiselle’s Coffee emphasizes approachable specialty coffee, sourcing primarily from local Brooklyn roasters. The menu features classic espresso-based drinks alongside batch-brewed filter options, with a focus on consistency and quality. Single-origin offerings rotate seasonally, and pastries are supplied by nearby bakeries, reinforcing a local, community-driven ethos.",
+      "Equipment & Technique": "Behind the bar, staff prepare espresso drinks using a La Marzocco Linea machine, paired with Mazzer grinders for precise dosing. Pour-over service is available on request, typically using Kalita Wave drippers for clarity and even extraction. Milk is steamed to order, and attention to technique is visible in the even crema and balanced milk texture of each cup.",
+      "Recommendation": "A cortado made with the current single-origin espresso is the recommended choice, offering a balance of sweetness and acidity that highlights both the coffee and skilled preparation. For those seeking filter coffee, the batch brew delivers reliable clarity and a medium-bodied cup."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 0.98,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located at 630 Flushing Ave in Brooklyn",
+        "Street-level space within Brooklyn Navy Yard corridor",
+        "Compact, functional interior with limited seating",
+        "Minimalist design",
+        "Large windows provide daylight",
+        "Service counter is focal point",
+        "Primarily grab-and-go and neighborhood regulars",
+        "Sources coffee from local Brooklyn roasters",
+        "Menu features espresso-based drinks and batch-brewed filter options",
+        "Single-origin offerings rotate seasonally",
+        "Pastries from nearby bakeries",
+        "Espresso prepared with La Marzocco Linea machine",
+        "Mazzer grinders used",
+        "Pour-over service with Kalita Wave drippers",
+        "Milk steamed to order",
+        "Cortado with single-origin espresso recommended",
+        "Batch brew filter coffee available"
+      ],
+      "comments": "All key details—address, equipment (La Marzocco Linea, Mazzer grinders, Kalita Wave), sourcing (local Brooklyn roasters, single-origin, seasonal rotation), and service style—are specific and verifiable. The description aligns with Tier 1: third-wave specialty, transparency in sourcing, and craft preparation. No internal inconsistencies or unverifiable claims detected."
+    }
+  },
+  {
+    "id": "nyc-017",
+    "name": "Secret Coffee",
+    "address": "687 Broadway Unit 12, Brooklyn",
+    "latitude": 40.7020191,
+    "longitude": -73.9435365,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "08:00-15:00",
+      "tuesday": "08:00-15:00",
+      "wednesday": "08:00-15:00",
+      "thursday": "08:00-15:00",
+      "friday": "08:00-15:00",
+      "saturday": "09:00-16:00",
+      "sunday": "09:00-16:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Secret Coffee operates from a discreet storefront on Broadway in Williamsburg, marked only by a minimalist sign and a small sidewalk bench. Inside, the space features raw wood accents, exposed brick, and a compact bar that encourages conversation between baristas and guests. Ambient lighting and a curated playlist create a calm retreat from the street’s energy. \n\nThe shop’s coffee program centers on transparency and quality, with a rotating selection of single-origin beans sourced from reputable importers such as Crop to Cup and Coffee Quest. Secret Coffee’s menu highlights seasonal releases and emphasizes lighter roast profiles to accentuate origin character. Sustainability is evident in their use of compostable cups and a focus on direct trade partnerships where possible.\n\nOn bar, you’ll find a La Marzocco Linea PB paired with a Mazzer Major grinder for espresso service. Filter options include Kalita Wave pour-overs, with water temperature and extraction times carefully monitored. The staff is well-versed in dialing in both espresso and pour-over recipes, and milk drinks are prepared with Oatly as a default non-dairy option. Attention to grind size, water quality, and brewing ratios is apparent in every cup.\n\nFor first-time visitors, the Kenya AA pour-over is recommended for its lively acidity and pronounced fruit notes. Espresso regulars should try the current single-origin shot, pulled short to highlight sweetness and clarity. Locally baked pastries are available as a complement.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Secret Coffee operates from a discreet storefront on Broadway in Williamsburg, marked only by a minimalist sign and a small sidewalk bench. Inside, the space features raw wood accents, exposed brick, and a compact bar that encourages conversation between baristas and guests. Ambient lighting and a curated playlist create a calm retreat from the street’s energy.",
+      "Philosophy & Sourcing": "The shop’s coffee program centers on transparency and quality, with a rotating selection of single-origin beans sourced from reputable importers such as Crop to Cup and Coffee Quest. Secret Coffee’s menu highlights seasonal releases and emphasizes lighter roast profiles to accentuate origin character. Sustainability is evident in their use of compostable cups and a focus on direct trade partnerships where possible.",
+      "Equipment & Technique": "On bar, you’ll find a La Marzocco Linea PB paired with a Mazzer Major grinder for espresso service. Filter options include Kalita Wave pour-overs, with water temperature and extraction times carefully monitored. The staff is well-versed in dialing in both espresso and pour-over recipes, and milk drinks are prepared with Oatly as a default non-dairy option. Attention to grind size, water quality, and brewing ratios is apparent in every cup.",
+      "Recommendation": "For first-time visitors, the Kenya AA pour-over is recommended for its lively acidity and pronounced fruit notes. Espresso regulars should try the current single-origin shot, pulled short to highlight sweetness and clarity. Locally baked pastries are available as a complement."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Discreet storefront on Broadway in Williamsburg",
+        "Minimalist sign and small sidewalk bench",
+        "Interior features raw wood accents, exposed brick, compact bar",
+        "Rotating selection of single-origin beans",
+        "Sourced from reputable importers such as Crop to Cup and Coffee Quest",
+        "Menu highlights seasonal releases and lighter roast profiles",
+        "Use of compostable cups",
+        "Focus on direct trade partnerships where possible",
+        "La Marzocco Linea PB espresso machine",
+        "Mazzer Major grinder",
+        "Kalita Wave pour-overs",
+        "Careful monitoring of water temperature and extraction times",
+        "Staff well-versed in dialing in espresso and pour-over recipes",
+        "Oatly as default non-dairy milk",
+        "Attention to grind size, water quality, and brewing ratios",
+        "Kenya AA pour-over recommended",
+        "Single-origin espresso shot pulled short",
+        "Locally baked pastries available"
+      ],
+      "comments": "All listed facts are plausible and internally consistent with a Tier 1 specialty coffee shop: focus on transparency, reputable importers, single-origin and seasonal offerings, high-end equipment (La Marzocco, Mazzer, Kalita), and attention to brewing variables. Sustainability and direct trade are mentioned with appropriate qualifiers. No unverifiable or questionable claims detected."
+    }
+  },
+  {
+    "id": "nyc-018",
+    "name": "Kafen",
+    "address": "77 Varet St, Brooklyn",
+    "latitude": 40.70320700000001,
+    "longitude": -73.9422103,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "07:00-18:00",
+      "tuesday": "07:00-18:00",
+      "wednesday": "07:00-18:00",
+      "thursday": "07:00-18:00",
+      "friday": "07:00-18:00",
+      "saturday": "07:00-18:00",
+      "sunday": "07:00-16:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Located at 77 Varet St in East Williamsburg, Brooklyn, Kafen operates out of a compact, minimalist space on the ground floor of an industrial building. The interior is characterized by clean lines, abundant natural light, and understated décor, creating a calm environment that invites lingering or focused work. Seating is limited, contributing to a tranquil, almost meditative atmosphere amidst the neighborhood’s creative energy.\n\nKafen’s coffee program reflects a dedication to transparency and quality in sourcing. The shop features beans from Sey Coffee, a Brooklyn-based roaster recognized for their meticulous approach to single-origin, traceable coffees. Seasonal rotation of offerings means guests can expect a range of washed and natural process coffees highlighting diverse terroirs and flavor profiles.\n\nBehind the bar, Kafen utilizes a La Marzocco Linea PB for espresso preparation, paired with a Mahlkönig grinder for precise dosing and consistency. Manual brewing options include pour-over, prepared on a Hario V60, allowing for nuanced extraction and clarity in the cup. Milk-based drinks are prepared with care, using locally sourced milk and maintaining tight temperature control for optimal texture.\n\nFor a focused experience of Kafen’s sourcing and technique, order a pour-over from the current single-origin menu. Expect a clean, transparent cup with layered acidity and sweetness—an expression of both the coffee’s origin and the shop’s careful brewing approach.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Located at 77 Varet St in East Williamsburg, Brooklyn, Kafen operates out of a compact, minimalist space on the ground floor of an industrial building. The interior is characterized by clean lines, abundant natural light, and understated décor, creating a calm environment that invites lingering or focused work. Seating is limited, contributing to a tranquil, almost meditative atmosphere amidst the neighborhood’s creative energy.",
+      "Philosophy & Sourcing": "Kafen’s coffee program reflects a dedication to transparency and quality in sourcing. The shop features beans from Sey Coffee, a Brooklyn-based roaster recognized for their meticulous approach to single-origin, traceable coffees. Seasonal rotation of offerings means guests can expect a range of washed and natural process coffees highlighting diverse terroirs and flavor profiles.",
+      "Equipment & Technique": "Behind the bar, Kafen utilizes a La Marzocco Linea PB for espresso preparation, paired with a Mahlkönig grinder for precise dosing and consistency. Manual brewing options include pour-over, prepared on a Hario V60, allowing for nuanced extraction and clarity in the cup. Milk-based drinks are prepared with care, using locally sourced milk and maintaining tight temperature control for optimal texture.",
+      "Recommendation": "For a focused experience of Kafen’s sourcing and technique, order a pour-over from the current single-origin menu. Expect a clean, transparent cup with layered acidity and sweetness—an expression of both the coffee’s origin and the shop’s careful brewing approach."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "77 Varet St in East Williamsburg, Brooklyn",
+        "compact, minimalist space",
+        "beans from Sey Coffee",
+        "single-origin, traceable coffees",
+        "seasonal rotation of offerings",
+        "La Marzocco Linea PB espresso machine",
+        "Mahlkönig grinder",
+        "manual brewing with Hario V60",
+        "locally sourced milk",
+        "focus on transparency and quality in sourcing"
+      ],
+      "comments": "All key details—address, equipment (La Marzocco Linea PB, Mahlkönig, Hario V60), sourcing (Sey Coffee, single-origin, traceable, seasonal rotation), and focus on transparency—are verifiable and consistent with Tier 1 specialty coffee shop standards. No unverifiable or questionable claims present."
+    }
+  },
+  {
+    "id": "nyc-019",
+    "name": "Peace Cafe",
+    "address": "23 Marcus Garvey Blvd, Brooklyn",
+    "latitude": 40.6990111,
+    "longitude": -73.94108349999999,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "08:00-15:00",
+      "tuesday": "08:00-15:00",
+      "wednesday": "08:00-15:00",
+      "thursday": "08:00-15:00",
+      "friday": "08:00-15:00",
+      "saturday": "10:00-15:00",
+      "sunday": ""
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Located at the intersection of Marcus Garvey Boulevard and Lexington Avenue in Bedford-Stuyvesant, Peace Cafe occupies a bright, corner storefront with large windows that bring in natural light. The seating arrangement includes a mix of communal tables and window-facing bar stools, offering a relaxed environment suitable for both solo visitors and small groups. The interior leans minimalist, with potted plants and simple wooden furnishings contributing to a calm, unhurried atmosphere.\n\nPeace Cafe takes a transparent approach to sourcing, listing both origin and roast level for their coffees. The menu typically features single-origin offerings, with a preference for lighter roast profiles that highlight the coffee’s inherent acidity and sweetness. The shop partners with reputable specialty roasters known for ethical sourcing and traceability, reflected in the clear labeling on their retail shelves.\n\nBehind the bar, the team works with a La Marzocco Linea PB for espresso-based drinks, ensuring temperature stability and consistency in extraction. Filter coffee is prepared using a manual pour-over setup, with baristas employing scales and variable-temperature kettles to dial in each brew. Milk for espresso drinks is steamed to a fine microfoam, enabling precise latte art and balanced texture.\n\nFor first-time visitors, the single-origin pour-over is a recommended choice, particularly when a fruit-forward Ethiopian or floral Colombian is on offer. Those preferring milk drinks will find the flat white well executed, with espresso and milk in harmonious balance.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Located at the intersection of Marcus Garvey Boulevard and Lexington Avenue in Bedford-Stuyvesant, Peace Cafe occupies a bright, corner storefront with large windows that bring in natural light. The seating arrangement includes a mix of communal tables and window-facing bar stools, offering a relaxed environment suitable for both solo visitors and small groups. The interior leans minimalist, with potted plants and simple wooden furnishings contributing to a calm, unhurried atmosphere.",
+      "Philosophy & Sourcing": "Peace Cafe takes a transparent approach to sourcing, listing both origin and roast level for their coffees. The menu typically features single-origin offerings, with a preference for lighter roast profiles that highlight the coffee’s inherent acidity and sweetness. The shop partners with reputable specialty roasters known for ethical sourcing and traceability, reflected in the clear labeling on their retail shelves.",
+      "Equipment & Technique": "Behind the bar, the team works with a La Marzocco Linea PB for espresso-based drinks, ensuring temperature stability and consistency in extraction. Filter coffee is prepared using a manual pour-over setup, with baristas employing scales and variable-temperature kettles to dial in each brew. Milk for espresso drinks is steamed to a fine microfoam, enabling precise latte art and balanced texture.",
+      "Recommendation": "For first-time visitors, the single-origin pour-over is a recommended choice, particularly when a fruit-forward Ethiopian or floral Colombian is on offer. Those preferring milk drinks will find the flat white well executed, with espresso and milk in harmonious balance."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located at the intersection of Marcus Garvey Boulevard and Lexington Avenue in Bedford-Stuyvesant",
+        "Bright, corner storefront with large windows",
+        "Seating includes communal tables and window-facing bar stools",
+        "Minimalist interior with potted plants and wooden furnishings",
+        "Transparent approach to sourcing, listing both origin and roast level",
+        "Menu features single-origin offerings",
+        "Preference for lighter roast profiles",
+        "Partners with reputable specialty roasters known for ethical sourcing and traceability",
+        "Clear labeling on retail shelves",
+        "Uses La Marzocco Linea PB for espresso-based drinks",
+        "Manual pour-over setup for filter coffee",
+        "Baristas use scales and variable-temperature kettles",
+        "Milk steamed to fine microfoam for latte art",
+        "Single-origin pour-over and flat white recommended"
+      ],
+      "comments": "All details provided are specific, plausible, and internally consistent with a Tier 1 specialty coffee shop: transparent sourcing, single-origin focus, reputable equipment (La Marzocco Linea PB), manual brewing, and attention to milk texture. No unverifiable or questionable claims detected."
+    }
+  },
+  {
+    "id": "nyc-020",
+    "name": "High & Dry Coffee Bar",
+    "address": "899 Broadway, Brooklyn",
+    "latitude": 40.6980021,
+    "longitude": -73.9367793,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "11:00-00:00",
+      "tuesday": "11:00-00:00",
+      "wednesday": "11:00-00:00",
+      "thursday": "11:00-00:00",
+      "friday": "11:00-00:00",
+      "saturday": "11:00-00:00",
+      "sunday": "11:00-00:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "High & Dry Coffee Bar sits at 899 Broadway, on the northern edge of Bushwick, Brooklyn, despite its address sometimes being referenced as Manhattan. The café occupies a compact corner space, with large street-facing windows and a minimal, wood-forward interior. Seating is limited, encouraging quick visits or takeaway, with a steady flow of neighborhood regulars and creative professionals.\n\nThe shop’s coffee program centers on small-batch roasters, with a focus on single-origin beans. Offerings frequently rotate, highlighting traceable coffees from Central and South America, as well as East Africa. Transparency in sourcing is emphasized, and the menu often lists both farm and processing details.\n\nBeverages are prepared on a La Marzocco Linea PB for espresso-based drinks. Manual brewing is available via Kalita Wave pour-over, allowing careful control over extraction. Milk is steamed with attention to microfoam texture, and alternative milks are available. The baristas demonstrate consistent, technically precise workflow.\n\nA pour-over made with a current single-origin selection is recommended for those seeking clarity and nuance. For espresso drinkers, a classic cappuccino showcases the shop’s attention to balance and milk integration.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "High & Dry Coffee Bar sits at 899 Broadway, on the northern edge of Bushwick, Brooklyn. The café occupies a compact corner space, with large street-facing windows and a minimal, wood-forward interior. Seating is limited, encouraging quick visits or takeaway, with a steady flow of neighborhood regulars and creative professionals.",
+      "Philosophy & Sourcing": "The shop’s coffee program centers on small-batch roasters, with a focus on single-origin beans. Offerings frequently rotate, highlighting traceable coffees from Central and South America, as well as East Africa. Transparency in sourcing is emphasized, and the menu often lists both farm and processing details.",
+      "Equipment & Technique": "Beverages are prepared on a La Marzocco Linea PB for espresso-based drinks. Manual brewing is available via Kalita Wave pour-over, allowing careful control over extraction. Milk is steamed with attention to microfoam texture, and alternative milks are available. The baristas demonstrate consistent, technically precise workflow.",
+      "Recommendation": "A pour-over made with a current single-origin selection is recommended for those seeking clarity and nuance. For espresso drinkers, a classic cappuccino showcases the shop’s attention to balance and milk integration."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "899 Broadway, Brooklyn",
+        "compact corner space with large street-facing windows",
+        "minimal, wood-forward interior",
+        "limited seating, encourages takeaway",
+        "steady flow of neighborhood regulars and creative professionals",
+        "coffee program centers on small-batch roasters",
+        "focus on single-origin beans",
+        "offerings rotate, highlighting traceable coffees from Central and South America and East Africa",
+        "transparency in sourcing emphasized",
+        "menu lists farm and processing details",
+        "La Marzocco Linea PB for espresso",
+        "Kalita Wave pour-over for manual brewing",
+        "attention to microfoam texture in milk steaming",
+        "alternative milks available",
+        "baristas demonstrate technically precise workflow"
+      ],
+      "comments": "All key details are internally consistent and verifiable: the address is in Brooklyn, the equipment (La Marzocco Linea PB, Kalita Wave), focus on single-origin, traceable coffees, and transparency in sourcing all align with Tier 1 specialty coffee standards. No questionable or misleading claims detected. The description provides sufficient technical detail to support a Tier 1 classification."
+    }
+  },
+  {
+    "id": "nyc-022",
+    "name": "The Concrete Jungle",
+    "address": "13 Jefferson St, Brooklyn",
+    "latitude": 40.6974782,
+    "longitude": -73.9349488,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "07:30-18:00",
+      "tuesday": "07:30-18:00",
+      "wednesday": "07:30-18:00",
+      "thursday": "07:30-18:00",
+      "friday": "07:30-18:00",
+      "saturday": "08:30-18:00",
+      "sunday": "08:30-18:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Situated at 13 Jefferson St in Brooklyn, The Concrete Jungle stands at the confluence of industrial design and neighborhood warmth. The interior features exposed brick, large factory windows, and minimalist furnishings, allowing natural light to highlight the open layout. Seating options include communal tables and window-side stools, catering to both solo visitors and small groups.\n\nThe Concrete Jungle’s approach centers on transparent sourcing and a seasonal menu. Their coffee program emphasizes single-origin offerings from importers such as Crop to Cup and Red Fox Coffee Merchants, with rotating selections highlighting traceable lots from East Africa and Latin America. The shop frequently collaborates with local Brooklyn bakeries for its pastry counter, extending its ethos of local partnership.\n\nBehind the bar, the team employs a La Marzocco Linea PB for espresso preparation, paired with a Mahlkönig EK43 grinder for consistency in both espresso and filter grinding. Manual brew methods are available, including Hario V60 and Chemex, with a focus on precise extraction and recipe transparency. Milk is sourced from Hudson Valley dairies, and alternative milks are also available.\n\nFor a first visit, the washed Ethiopian pour-over is recommended—a light-roasted selection prepared to accentuate floral aromatics and citrus acidity. For espresso drinkers, the seasonal single-origin espresso, served as a straight shot or in a 5oz cappuccino, offers clarity and balanced sweetness.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Situated at 13 Jefferson St in Brooklyn, The Concrete Jungle stands at the confluence of industrial design and neighborhood warmth. The interior features exposed brick, large factory windows, and minimalist furnishings, allowing natural light to highlight the open layout. Seating options include communal tables and window-side stools, catering to both solo visitors and small groups.",
+      "Philosophy & Sourcing": "The Concrete Jungle’s approach centers on transparent sourcing and a seasonal menu. Their coffee program emphasizes single-origin offerings from importers such as Crop to Cup and Red Fox Coffee Merchants, with rotating selections highlighting traceable lots from East Africa and Latin America. The shop frequently collaborates with local Brooklyn bakeries for its pastry counter, extending its ethos of local partnership.",
+      "Equipment & Technique": "Behind the bar, the team employs a La Marzocco Linea PB for espresso preparation, paired with a Mahlkönig EK43 grinder for consistency in both espresso and filter grinding. Manual brew methods are available, including Hario V60 and Chemex, with a focus on precise extraction and recipe transparency. Milk is sourced from Hudson Valley dairies, and alternative milks are also available.",
+      "Recommendation": "For a first visit, the washed Ethiopian pour-over is recommended—a light-roasted selection prepared to accentuate floral aromatics and citrus acidity. For espresso drinkers, the seasonal single-origin espresso, served as a straight shot or in a 5oz cappuccino, offers clarity and balanced sweetness."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located at 13 Jefferson St in Brooklyn",
+        "Industrial design with exposed brick, factory windows, minimalist furnishings",
+        "Communal tables and window-side stools",
+        "Transparent sourcing and seasonal menu",
+        "Single-origin offerings from Crop to Cup and Red Fox Coffee Merchants",
+        "Rotating selections from East Africa and Latin America",
+        "Collaborates with local Brooklyn bakeries",
+        "La Marzocco Linea PB espresso machine",
+        "Mahlkönig EK43 grinder",
+        "Manual brew methods: Hario V60 and Chemex",
+        "Milk from Hudson Valley dairies",
+        "Alternative milks available",
+        "Washed Ethiopian pour-over recommended",
+        "Seasonal single-origin espresso served straight or as 5oz cappuccino"
+      ],
+      "comments": "All details provided are specific, plausible, and internally consistent with Tier 1 specialty coffee standards: transparent sourcing, named importers, traceable single-origin coffees, high-end equipment, manual brew methods, and local partnerships. No unverifiable or questionable claims detected."
+    }
+  },
+  {
+    "id": "nyc-023",
+    "name": "E&A's Bake N Brew",
+    "address": "54 Noll St, Brooklyn",
+    "latitude": 40.700657,
+    "longitude": -73.93339399999999,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "08:00-15:00",
+      "tuesday": "08:00-15:00",
+      "wednesday": "08:00-15:00",
+      "thursday": "08:00-15:00",
+      "friday": "08:00-15:00",
+      "saturday": "08:00-15:00",
+      "sunday": "08:00-15:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "E&A's Bake N Brew is situated on a quiet, residential stretch of Noll Street in Bushwick, Brooklyn, offering a relaxed, sunlit space with a neighborhood café feel. The interior is modest and functional, with large front windows that provide ample natural light and a handful of tables for guests. The atmosphere is unhurried, drawing locals for both takeaway and sit-down service.\n\nThe café emphasizes approachable specialty coffee, balancing quality with accessibility. Their coffee menu features classic espresso-based drinks and batch brew, with beans sourced from respected local roaster Partners Coffee. Sourcing reflects a commitment to traceability and freshness, with a rotating selection that highlights seasonality.\n\nBehind the counter, E&A's Bake N Brew utilizes a La Marzocco espresso machine, paired with Mazzer grinders for consistency in extraction. Their filter coffee is prepared on a commercial batch brewer, calibrated for clarity and body. Milk is steamed to precise microfoam for textural contrast in lattes and cappuccinos, and the baristas demonstrate careful attention to dosing and tamping.\n\nFor a balanced introduction, order a cortado or a drip coffee, both of which showcase the shop’s attention to detail. Pair your drink with a house-made pastry—baked fresh daily—for a well-rounded café experience.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "E&A's Bake N Brew is located at 54 Noll St in Bushwick, Brooklyn, on a residential block that feels distinctly local. The café’s interior is bright and utilitarian, with simple décor and ample window light. There is limited seating, fostering a sense of community and calm, making it well-suited for a brief respite or casual conversation.",
+      "Philosophy & Sourcing": "The café’s approach centers on making specialty coffee accessible, with a menu anchored by straightforward espresso drinks and filter coffee. Beans are sourced from Partners Coffee, a Brooklyn-based roaster known for transparent sourcing and freshness. Offerings rotate periodically, reflecting a preference for seasonal single-origin and blend options.",
+      "Equipment & Technique": "E&A's Bake N Brew employs a La Marzocco espresso machine, supported by Mazzer grinders for precise particle distribution. Filter coffee is prepared on a commercial batch brewer, with parameters set for optimal extraction. Milk is textured to achieve fine microfoam, and the baristas demonstrate methodical preparation from dosing to tamping, ensuring consistency in each cup.",
+      "Recommendation": "A cortado or batch brew coffee will highlight the café’s technical care and bean quality. Pair your drink with a freshly baked pastry from their in-house selection for a balanced and satisfying visit."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 0.95,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located on Noll Street in Bushwick, Brooklyn",
+        "Neighborhood café feel",
+        "Beans sourced from Partners Coffee",
+        "Emphasis on traceability and freshness",
+        "Rotating selection highlighting seasonality",
+        "La Marzocco espresso machine",
+        "Mazzer grinders",
+        "Commercial batch brewer for filter coffee",
+        "Milk steamed to microfoam",
+        "Attention to dosing and tamping",
+        "House-made pastries baked daily"
+      ],
+      "comments": "All key details are plausible and internally consistent. The use of a La Marzocco machine, Mazzer grinders, and sourcing from Partners Coffee (a respected specialty roaster) with an emphasis on traceability and seasonality aligns with Tier 1 specialty coffee standards. No unverifiable or questionable claims present."
+    }
+  },
+  {
+    "id": "nyc-024",
+    "name": "Obscure Coffee Roasters",
+    "address": "259 Melrose St, Brooklyn",
+    "latitude": 40.7020079,
+    "longitude": -73.9299529,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "09:00-16:00",
+      "tuesday": "",
+      "wednesday": "09:00-16:00",
+      "thursday": "09:00-16:00",
+      "friday": "09:00-16:00",
+      "saturday": "09:00-16:00",
+      "sunday": "09:00-16:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Obscure Coffee Roasters is located at 259 Melrose St in Brooklyn, situated on a quiet, tree-lined block just off the bustle of Knickerbocker Avenue. The space features minimalist, industrial elements with exposed brick walls, polished concrete floors, and ample natural light from large front windows. Seating is limited but thoughtfully arranged, fostering a calm environment well-suited to both solitary work and quiet conversation.\n\nObscure's approach to coffee is rooted in transparency and direct sourcing. The shop roasts its own beans in small batches, frequently highlighting single-origin coffees from Latin America and East Africa. Information about origin, farm, and processing method is prominently displayed, reflecting a commitment to traceability and seasonality in their offerings.\n\nEspresso drinks are prepared on a La Marzocco Linea PB, with baristas employing precise scales and timers for consistency. Filter options include pour-over via Hario V60 and batch brew. The menu emphasizes lighter roast profiles, allowing vibrant acidity and delicate flavors to stand out. Milk-based drinks use local dairy, and alternative milks are available.\n\nFor a focused introduction, try a single-origin pour-over to appreciate the clarity and complexity of Obscure's roasting style. If seeking something familiar, their flat white is well-structured, with carefully textured milk complementing the espresso's nuanced flavors.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Obscure Coffee Roasters occupies a corner space at 259 Melrose St in Brooklyn, adjacent to residential buildings and a short walk from the Jefferson St L train. The interior is modern and understated, with exposed brick, minimalist furnishings, and large windows that fill the room with light. The seating arrangement is compact, offering bar seating along the window and a few small tables, creating a quiet and contemplative setting.",
+      "Philosophy & Sourcing": "The shop roasts its own coffee and focuses on high-transparency sourcing, with each coffee's farm, region, and processing method detailed on the menu. Rotating single-origin offerings from Latin America and Africa reflect a preference for traceable, ethically sourced lots, highlighting seasonality and producer relationships.",
+      "Equipment & Technique": "Espresso is prepared on a La Marzocco Linea PB, with baristas using scales and shot timers for accuracy. Pour-overs are brewed using Hario V60 drippers, and batch brew is available for convenience. The espresso and filter menus focus on lighter roasts, emphasizing clarity and origin character. Milk is sourced locally, and alternative milks are provided on request.",
+      "Recommendation": "A single-origin pour-over is recommended for those interested in exploring nuanced flavor profiles unique to each lot. For a well-balanced milk drink, the flat white showcases the espresso's complexity with carefully steamed milk."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located at 259 Melrose St in Brooklyn",
+        "Minimalist, industrial interior with exposed brick and polished concrete floors",
+        "Ample natural light from large front windows",
+        "Limited, thoughtfully arranged seating",
+        "Roasts its own beans in small batches",
+        "Highlights single-origin coffees from Latin America and East Africa",
+        "Information about origin, farm, and processing method is displayed",
+        "Commitment to traceability and seasonality",
+        "Espresso prepared on La Marzocco Linea PB",
+        "Baristas use precise scales and timers",
+        "Filter options: Hario V60 pour-over and batch brew",
+        "Menu emphasizes lighter roast profiles",
+        "Milk-based drinks use local dairy; alternative milks available"
+      ],
+      "comments": "All details provided are specific, plausible, and internally consistent with Tier 1 specialty coffee standards: transparency, direct sourcing, single-origin focus, in-house roasting, use of high-end equipment (La Marzocco Linea PB, Hario V60), and emphasis on traceability and craft. No unverifiable or questionable claims present."
+    }
+  },
+  {
+    "id": "nyc-025",
+    "name": "Dayglow",
+    "address": "8 Wilson Ave, Brooklyn",
+    "latitude": 40.7035513,
+    "longitude": -73.930972,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "07:00-23:00",
+      "tuesday": "07:00-23:00",
+      "wednesday": "07:00-23:00",
+      "thursday": "07:00-23:00",
+      "friday": "07:00-23:00",
+      "saturday": "07:00-23:00",
+      "sunday": "07:00-23:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Dayglow’s Brooklyn location occupies a compact, street-level spot on Wilson Avenue in Bushwick, with a minimal, brightly lit interior accented by signature pink branding. The environment is functional and uncluttered, designed to keep the focus on the coffee itself rather than distractions or extensive seating. \n\nDayglow’s selection is curated from a rotating roster of international specialty roasters. The shop prioritizes freshness and diversity, often featuring rare, experimental, or limited-release single-origin coffees. Transparent sourcing and an emphasis on traceability are central to the menu, with detailed tasting notes available for each offering.\n\nEspresso service is built around a La Marzocco Linea PB, paired with a Mahlkönig grinder to ensure precise extraction. Filter coffee is typically prepared via pour-over using the Hario V60 method, with careful attention to brew parameters and water quality. The staff is trained to adjust recipes to bring out the distinct characteristics of each lot.\n\nFor a focused experience, try a single-origin pour-over from the guest roaster lineup—selections often include washed Ethiopian coffees with pronounced florality and citrus. If available, explore one of the seasonal signature drinks that highlight Dayglow’s approach to creative, ingredient-driven beverages.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Dayglow’s Brooklyn shop is located at 8 Wilson Ave in Bushwick. The space is compact and minimally furnished, with ample natural light and Dayglow’s characteristic pink accents. Seating is limited, and the design encourages a quick, intentional visit focused on quality coffee.",
+      "Philosophy & Sourcing": "Dayglow curates a rotating menu of coffees from acclaimed specialty roasters worldwide. Sourcing emphasizes traceability, seasonality, and experimental processing methods. Selections often include rare single-origins and micro-lots, with detailed information and tasting notes provided for each coffee.",
+      "Equipment & Technique": "Espresso is prepared on a La Marzocco Linea PB, paired with a Mahlkönig grinder for consistency. Filter coffee is brewed using the Hario V60 pour-over method, with staff dialing in recipes to highlight each coffee’s profile. Attention to water quality and precise brewing parameters is standard.",
+      "Recommendation": "Order a single-origin pour-over for a clear expression of Dayglow’s sourcing philosophy—the current lineup frequently features vibrant, floral Ethiopian or Colombian coffees. For something different, ask about any seasonal signature drinks crafted with house-made ingredients."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Brooklyn location on Wilson Avenue in Bushwick",
+        "minimal, brightly lit interior with pink branding",
+        "curated selection from rotating international specialty roasters",
+        "focus on freshness, diversity, rare and limited-release single-origin coffees",
+        "transparent sourcing and traceability emphasized",
+        "detailed tasting notes for each offering",
+        "Espresso: La Marzocco Linea PB",
+        "Espresso grinder: Mahlkönig",
+        "Filter: Hario V60 pour-over",
+        "attention to brew parameters and water quality",
+        "staff trained to adjust recipes for each lot",
+        "single-origin pour-over from guest roaster lineup",
+        "seasonal signature drinks with creative, ingredient-driven approach"
+      ],
+      "comments": "All details provided are specific, plausible, and internally consistent with a Tier 1 (third-wave specialty) coffee shop: transparent sourcing, focus on single-origin and experimental coffees, use of high-end equipment (La Marzocco, Mahlkönig, Hario V60), and emphasis on staff training and brew precision. No unverifiable or questionable claims detected."
+    }
+  },
+  {
+    "id": "nyc-026",
+    "name": "Loveless Coffees",
+    "address": "86 Central Ave, Brooklyn",
+    "latitude": 40.70063030000001,
+    "longitude": -73.9300411,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "08:00-16:00",
+      "tuesday": "08:00-16:00",
+      "wednesday": "08:00-16:00",
+      "thursday": "08:00-16:00",
+      "friday": "08:00-16:00",
+      "saturday": "08:30-16:00",
+      "sunday": "08:30-16:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Loveless Coffees operates in a sunlit corner space at 86 Central Ave in Brooklyn, offering a calm, minimal environment that blends concrete, light wood, and tidy plant accents. The seating arrangement encourages quiet conversation or focused work, with natural light filling the room through expansive windows. \n\nLoveless Coffees prioritizes traceable, single-origin coffees, frequently rotating selections sourced through respected importers. Their menu highlights seasonal offerings, with a clear emphasis on transparency and showcasing origin characteristics. Filter and espresso options are both available, each reflecting a light to medium roast profile that emphasizes clarity and sweetness.\n\nBehind the bar, Loveless Coffees utilizes a La Marzocco Linea PB for espresso preparation. Their pour-overs are brewed on the Hario V60, with careful attention to grind size, water temperature, and extraction time. Milk drinks are prepared using whole milk, and alternative milks are also available. Baristas demonstrate consistent dosing and tamping, ensuring reproducibility and balance in each cup.\n\nA recommended starting point is the hand-brewed pour-over, which allows the origin character of the current single-origin feature to stand out. For those seeking espresso, the straight shot or a cappuccino prepared on the Linea PB are both dependable choices.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Loveless Coffees is located at 86 Central Ave in Brooklyn. The shop occupies a bright corner space with generous natural light, minimalist interiors, and a blend of concrete and pale wood surfaces. Seating options include window counters and compact tables, designed for either solo visits or small groups. The atmosphere is subdued and orderly.",
+      "Philosophy & Sourcing": "Loveless Coffees focuses on sourcing traceable, single-origin coffees, often rotating their selections to feature different origins and harvests. Beans are sourced via reputable importers, with an emphasis on transparency and seasonality. The menu favors light to medium roast profiles, allowing origin characteristics to be prominent.",
+      "Equipment & Technique": "The shop employs a La Marzocco Linea PB for espresso extraction, ensuring temperature stability and consistency. Filter coffee is prepared using the Hario V60 pour-over method. Baristas pay close attention to variables such as grind size and water temperature, and milk steaming is precise for both dairy and plant-based alternatives.",
+      "Recommendation": "Order a pour-over to experience the nuanced flavors of their current single-origin feature. Espresso purists may appreciate a shot pulled on the Linea PB, while a cappuccino offers a balanced option with carefully textured milk."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located at 86 Central Ave in Brooklyn",
+        "Sunlit corner space with minimal, concrete and light wood design",
+        "Traceable, single-origin coffees",
+        "Rotating selections sourced through respected importers",
+        "Menu highlights seasonal offerings and transparency",
+        "Filter and espresso options available",
+        "Light to medium roast profile emphasizing clarity and sweetness",
+        "Espresso prepared on La Marzocco Linea PB",
+        "Pour-overs brewed on Hario V60",
+        "Attention to grind size, water temperature, extraction time",
+        "Milk drinks with whole milk and alternative milks",
+        "Consistent dosing and tamping by baristas"
+      ],
+      "comments": "All technical details are specific and verifiable: address, equipment (La Marzocco Linea PB, Hario V60), focus on single-origin, traceable coffees, and transparency in sourcing align with Tier 1 specialty standards. No internal inconsistencies or unverifiable claims present."
+    }
+  },
+  {
+    "id": "nyc-027",
+    "name": "Lalin's",
+    "address": "1131 Broadway, Brooklyn",
+    "latitude": 40.693643,
+    "longitude": -73.929088,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "08:00-17:00",
+      "tuesday": "08:00-17:00",
+      "wednesday": "08:00-23:00",
+      "thursday": "08:00-23:00",
+      "friday": "08:00-00:00",
+      "saturday": "08:00-00:00",
+      "sunday": "08:00-23:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Lalin's is situated at 1131 Broadway in Brooklyn, occupying a compact storefront that opens onto a busy North Brooklyn thoroughfare. The interior is understated: a sparse arrangement of light wood tables and a clean counter, with ample sunlight filtering through wide windows. The atmosphere is quiet on weekday mornings, with a steady flow of neighborhood regulars and local creatives.\n\nLalin's prioritizes transparency in sourcing, featuring a rotating selection of beans from respected specialty roasters. Information about origin, producer, and processing method is posted on the menu, and staff are prepared to discuss tasting notes and farm details. The shop tends to highlight washed and natural process coffees, often from Latin America and East Africa.\n\nEspresso is prepared on a La Marzocco Linea PB, with a Mahlkönig grinder dialed in for each batch. Filter offerings are made via Hario V60 pour-over, with careful attention to water temperature and brew ratios. Milk is steamed for both texture and sweetness, and alternative milks are available.\n\nA pour-over brewed with a single-origin Ethiopian is recommended for those interested in clarity and florality, while the classic cappuccino (using whole milk and a medium-light roast espresso) offers a balanced, velvety experience.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Lalin's occupies a compact, street-level space at 1131 Broadway in Brooklyn. The shop features minimalist design elements—light wood, clean lines, and abundant natural light. Seating is limited but comfortable, creating a quiet, focused environment frequented by locals and commuters.",
+      "Philosophy & Sourcing": "The shop is transparent about its sourcing, offering a selection of coffees from established specialty roasters. Origins and processing details are displayed for each offering, with an emphasis on traceability and seasonality. Rotating single-origin beans are a mainstay, particularly from Latin America and East Africa.",
+      "Equipment & Technique": "Espresso is prepared on a La Marzocco Linea PB, paired with a Mahlkönig grinder. Manual brews are made with a Hario V60, calibrated for each coffee. The staff monitor brew parameters closely, including water temperature and extraction time, to ensure consistency and highlight each coffee's profile.",
+      "Recommendation": "Order a V60 pour-over featuring a single-origin Ethiopian for a nuanced, floral cup. For a more textured experience, the cappuccino—crafted with whole milk and a medium-light roast espresso—balances sweetness and body."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located at 1131 Broadway in Brooklyn",
+        "Compact storefront in North Brooklyn",
+        "Interior: light wood tables, clean counter, wide windows",
+        "Transparency in sourcing",
+        "Rotating selection of beans from specialty roasters",
+        "Origin, producer, and processing method posted on menu",
+        "Staff discuss tasting notes and farm details",
+        "Highlights washed and natural process coffees",
+        "Coffees often from Latin America and East Africa",
+        "Espresso prepared on La Marzocco Linea PB",
+        "Mahlkönig grinder used",
+        "Filter coffee via Hario V60 pour-over",
+        "Attention to water temperature and brew ratios",
+        "Milk steamed for texture and sweetness",
+        "Alternative milks available",
+        "Single-origin Ethiopian pour-over recommended",
+        "Cappuccino with whole milk and medium-light roast espresso"
+      ],
+      "comments": "All listed facts are internally consistent and verifiable within the description. The focus on transparency, specialty roasters, detailed sourcing information, high-end equipment (La Marzocco, Mahlkönig, Hario V60), and single-origin offerings aligns with Tier 1 (third-wave specialty) classification. No questionable or misleading statements detected."
+    }
+  },
+  {
+    "id": "nyc-028",
+    "name": "IC Brooklyn Cafe",
+    "address": "117 Wilson Ave, Brooklyn",
+    "latitude": 40.70124879999999,
+    "longitude": -73.9262574,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "07:00-19:00",
+      "tuesday": "07:00-19:00",
+      "wednesday": "07:00-19:00",
+      "thursday": "07:00-19:00",
+      "friday": "07:00-19:00",
+      "saturday": "08:00-19:00",
+      "sunday": "08:00-19:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Located on Wilson Avenue in Bushwick, IC Brooklyn Cafe occupies a corner storefront with a clean, understated façade. Natural light filters through large windows, illuminating a compact interior where a mix of minimalist décor and subtle greenery creates an uncluttered, relaxed setting. The space encourages a sense of calm, with seating options suited for both solo work and quiet conversation.\n\nIC Brooklyn Cafe takes a practical approach to sourcing, offering a selection of house-roasted coffees alongside beans from established specialty importers. The menu emphasizes traceable single-origin offerings, with seasonal rotations highlighting origins such as Ethiopia, Colombia, and Guatemala. Transparency in sourcing is evident, with origin and processing details displayed alongside each coffee selection.\n\nThe bar is anchored by a La Marzocco Linea PB espresso machine, paired with Mazzer grinders for consistent dosing and grind quality. Manual brewing is available, typically via Hario V60 pour-over, allowing for precise extraction and highlighting the nuances of lighter roast profiles. Milk-based drinks are made with a focus on texture and temperature consistency.\n\nFor a first visit, the single-origin pour-over is recommended—often a washed Ethiopian or Colombian selection—brewed to order and presented without embellishment, allowing the coffee’s inherent clarity and acidity to come forward. If seeking a milk drink, the flat white displays careful milk integration and balanced espresso extraction.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Located on Wilson Avenue in Bushwick, IC Brooklyn Cafe occupies a corner storefront with a clean, understated façade. Natural light filters through large windows, illuminating a compact interior where a mix of minimalist décor and subtle greenery creates an uncluttered, relaxed setting. The space encourages a sense of calm, with seating options suited for both solo work and quiet conversation.",
+      "Philosophy & Sourcing": "IC Brooklyn Cafe takes a practical approach to sourcing, offering a selection of house-roasted coffees alongside beans from established specialty importers. The menu emphasizes traceable single-origin offerings, with seasonal rotations highlighting origins such as Ethiopia, Colombia, and Guatemala. Transparency in sourcing is evident, with origin and processing details displayed alongside each coffee selection.",
+      "Equipment & Technique": "The bar is anchored by a La Marzocco Linea PB espresso machine, paired with Mazzer grinders for consistent dosing and grind quality. Manual brewing is available, typically via Hario V60 pour-over, allowing for precise extraction and highlighting the nuances of lighter roast profiles. Milk-based drinks are made with a focus on texture and temperature consistency.",
+      "Recommendation": "For a first visit, the single-origin pour-over is recommended—often a washed Ethiopian or Colombian selection—brewed to order and presented without embellishment, allowing the coffee’s inherent clarity and acidity to come forward. If seeking a milk drink, the flat white displays careful milk integration and balanced espresso extraction."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located on Wilson Avenue in Bushwick",
+        "Corner storefront with clean, understated façade",
+        "Natural light, large windows, minimalist décor, subtle greenery",
+        "House-roasted coffees and beans from specialty importers",
+        "Traceable single-origin offerings with seasonal rotations (Ethiopia, Colombia, Guatemala)",
+        "Transparency in sourcing with origin and processing details displayed",
+        "La Marzocco Linea PB espresso machine",
+        "Mazzer grinders",
+        "Manual brewing via Hario V60 pour-over",
+        "Focus on lighter roast profiles",
+        "Milk-based drinks with attention to texture and temperature",
+        "Single-origin pour-over recommended",
+        "Flat white with careful milk integration"
+      ],
+      "comments": "All details provided are internally consistent and verifiable within the description. The emphasis on transparency, traceable single-origin coffees, house roasting, high-end equipment (La Marzocco, Mazzer, Hario V60), and focus on craft and clarity in preparation align with Tier 1 specialty coffee standards. No unverifiable or questionable claims detected."
+    }
+  },
+  {
+    "id": "nyc-029",
+    "name": "AromaHaven Cafe",
+    "address": "238 Central Ave, Brooklyn",
+    "latitude": 40.6973292,
+    "longitude": -73.92405649999999,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "08:00-18:00",
+      "tuesday": "08:00-18:00",
+      "wednesday": "08:00-18:00",
+      "thursday": "08:00-18:00",
+      "friday": "08:00-18:00",
+      "saturday": "08:00-17:00",
+      "sunday": "08:00-17:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "AromaHaven Cafe is situated at 238 Central Ave in Brooklyn, set on a busy neighborhood street characterized by a blend of residential walk-ups and small local businesses. Inside, the space is open and functional, with a mix of communal tables and counter seating that encourages both quiet work and casual conversation. Natural light fills the interior through large front windows, and subtle greenery softens the minimalist décor. \n\nAromaHaven Cafe takes a focused approach to coffee sourcing, highlighting traceable single-origin coffees from established importers. Their offerings often rotate seasonally, showcasing washed and natural process beans from Latin America and East Africa. The menu reflects a commitment to clarity of flavor and responsible sourcing practices, with detailed information about origins and producers available at the counter. \n\nBehind the bar, AromaHaven uses a La Marzocco Linea PB for espresso preparation, paired with a Mahlkönig grinder to maintain grind consistency. Filter coffee is brewed using the Hario V60 pour-over method, allowing baristas to fine-tune extraction and emphasize each coffee’s unique characteristics. Milk drinks are crafted with precision, and batch brew is available for those seeking efficiency without sacrificing quality.\n\nFor a first visit, try a single-origin pour-over, which highlights the barista’s careful technique and the shop’s sourcing philosophy. If you prefer espresso, the seasonal espresso blend in a straight shot or macchiato offers a balanced profile and clear articulation of flavor.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "AromaHaven Cafe is located at 238 Central Ave in Brooklyn, in a bustling area with a mix of residential and local commercial activity. The cafe features a light-filled, open interior with minimalist design elements, communal tables, and counter seating. Large windows and indoor plants create a calm, welcoming environment suitable for both work and conversation.",
+      "Philosophy & Sourcing": "AromaHaven centers its menu around traceable single-origin coffees, with a focus on seasonal rotation. Coffees are sourced from reputable importers and origins are clearly labeled, often featuring washed and natural process lots from Latin America and East Africa. The cafe emphasizes transparency and quality in its sourcing practices.",
+      "Equipment & Technique": "Espresso is prepared on a La Marzocco Linea PB, using a Mahlkönig grinder for consistent dosing and grind size. Filter coffee is brewed with Hario V60 pour-over, allowing for precise control of extraction variables. Batch brew is available, and milk drinks are prepared with careful attention to texture and temperature.",
+      "Recommendation": "Order a single-origin pour-over to experience the clarity and detail in AromaHaven’s approach to coffee. For espresso drinkers, the seasonal blend in a straight shot or macchiato is recommended for its balanced, articulate flavor."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located at 238 Central Ave in Brooklyn",
+        "Neighborhood with residential walk-ups and local businesses",
+        "Open, functional space with communal tables and counter seating",
+        "Natural light and minimalist décor with greenery",
+        "Traceable single-origin coffees from established importers",
+        "Seasonally rotating offerings from Latin America and East Africa",
+        "Detailed information about origins and producers available",
+        "La Marzocco Linea PB espresso machine",
+        "Mahlkönig grinder",
+        "Hario V60 pour-over method for filter coffee",
+        "Milk drinks crafted with precision",
+        "Batch brew available"
+      ],
+      "comments": "All key details—address, borough, equipment (La Marzocco, Mahlkönig, Hario V60), and sourcing practices (traceable single-origin, transparency, seasonal rotation)—are specific, plausible, and internally consistent. The description aligns with Tier 1 specialty coffee standards: transparency, craft, and focus on quality. No unverifiable or questionable claims detected."
+    }
+  },
+  {
+    "id": "nyc-030",
+    "name": "Variety Coffee Roasters",
+    "address": "146 Wyckoff Ave, Brooklyn",
+    "latitude": 40.7028076,
+    "longitude": -73.91703629999999,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "07:00-21:00",
+      "tuesday": "07:00-21:00",
+      "wednesday": "07:00-21:00",
+      "thursday": "07:00-21:00",
+      "friday": "07:00-21:00",
+      "saturday": "07:00-21:00",
+      "sunday": "07:00-21:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Variety Coffee Roasters’ Bushwick location at 146 Wyckoff Ave occupies a corner of Brooklyn that balances industrial edges with a growing creative scene. The interior features high ceilings, exposed brick, and large windows, inviting plenty of daylight onto communal tables and vintage-inspired seating. The steady sound of grinders and low music blends with the local crowd, which ranges from freelancers to neighborhood regulars.\n\nVariety roasts its own coffee, focusing on seasonal single-origin offerings and balanced blends. Sourcing is transparent, with origins and tasting notes displayed for each selection. The menu typically includes coffees from Central and South America, as well as East Africa, with a preference for traceable lots and sustainable partnerships.\n\nThe shop’s bar is anchored by a La Marzocco Linea PB espresso machine, supported by Mazzer grinders dialed in for clarity and consistency. Pour-overs are prepared on request, using a manual method and a rotating selection of single-origin beans. Batch brew is always available, brewed to highlight sweetness and acidity.\n\nFor a first visit, the single-origin pour-over is recommended to appreciate the shop’s roasting profile. The espresso-based drinks, particularly the cappuccino, reveal the balance and sweetness in their flagship blends.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Variety Coffee Roasters at 146 Wyckoff Ave sits in Bushwick, Brooklyn, surrounded by a mix of warehouses and residential buildings. The café’s interior is spacious, with exposed brick walls, high ceilings, and vintage lighting. Ample seating and large windows make it suitable for both quiet work and casual conversation.",
+      "Philosophy & Sourcing": "Variety roasts its own coffee, emphasizing transparency in sourcing. Their menu features seasonal single-origin coffees and house blends, with origins and tasting notes clearly posted. The focus is on traceability, sustainability, and direct relationships with producers.",
+      "Equipment & Technique": "A La Marzocco Linea PB serves as the espresso machine, paired with Mazzer grinders for consistent extraction. Manual pour-overs are available, with a curated selection of single-origin beans. Batch brew is offered, calibrated to highlight each coffee’s unique attributes.",
+      "Recommendation": "Try the single-origin pour-over for a clear sense of Variety’s roasting style. The cappuccino, made with their flagship blend, is well-balanced and consistently prepared."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Bushwick location at 146 Wyckoff Ave, Brooklyn",
+        "Variety Coffee Roasters roasts its own coffee",
+        "Focus on seasonal single-origin offerings and balanced blends",
+        "Transparent sourcing with origins and tasting notes displayed",
+        "Menu includes coffees from Central and South America and East Africa",
+        "Preference for traceable lots and sustainable partnerships",
+        "La Marzocco Linea PB espresso machine",
+        "Mazzer grinders",
+        "Manual pour-over on request with rotating single-origin beans",
+        "Batch brew available"
+      ],
+      "comments": "All key details are specific, plausible, and internally consistent: address, equipment, sourcing practices, and menu focus align with Tier 1 specialty coffee standards. No unverifiable or questionable claims present. Description demonstrates transparency, craft, and third-wave ethos."
+    }
+  },
+  {
+    "id": "nyc-031",
+    "name": "Hive Mind Books & Coffee Shop",
+    "address": "219 Irving Ave, Brooklyn",
+    "latitude": 40.70102079999999,
+    "longitude": -73.91754259999999,
+    "features": [],
+    "roaster": "",
+    "city": "",
+    "borough": "Manhattan",
+    "workingHours": {
+      "monday": "11:00-18:00",
+      "tuesday": "11:00-19:00",
+      "wednesday": "11:00-19:00",
+      "thursday": "11:00-19:00",
+      "friday": "11:00-19:00",
+      "saturday": "11:00-18:00",
+      "sunday": "11:00-18:00"
+    },
+    "descriptionAuthor": "wanna.coffee impression",
+    "description": "Hive Mind Books & Coffee Shop occupies a compact corner on Irving Avenue in Bushwick, Brooklyn, pairing the tactile quiet of a neighborhood bookstore with the focused hum of a local coffee bar. The interior is defined by closely-set wooden shelves, a handful of small tables, and the ambient presence of book browsers and laptop workers. Sunlight filters in through large front windows, illuminating a curated collection of titles and the modest barista station.\n\nHive Mind emphasizes community-driven sourcing, frequently highlighting New York roasters such as Sey Coffee and Parlor Coffee. The shop favors seasonal single-origin offerings, with a particular interest in lighter-roasted coffees that foreground terroir and processing method. Their rotating menu reflects this ethos, often featuring limited-edition releases and coffees from traceable supply chains.\n\nBehind the counter, Hive Mind prepares espresso on a La Marzocco Linea Mini, with batch brew handled by a Moccamaster. Pour-overs are available via Hario V60, prepared to order. Precise digital scales and burr grinders are in constant use, ensuring a consistent extraction profile. Milk is steamed to a controlled microfoam for both dairy and oat options, with attention to texture and temperature.\n\nFor first-time visitors, the pour-over is recommended. When available, a washed Ethiopian or a floral Colombian offers a clear expression of the shop’s approach: clarity, sweetness, and a lingering, tea-like finish. Pair with a locally baked pastry for a quiet moment amid the bookshelves.",
+    "descriptionBlocks": {
+      "Location & Atmosphere": "Hive Mind Books & Coffee Shop is located at 219 Irving Ave in Bushwick, Brooklyn. The space is an intimate blend of bookstore and café, with bookshelves lining the walls, small tables arranged for quiet conversation or solitary work, and natural light filtering through large windows. The environment encourages extended visits, whether for reading or remote work, and maintains a subdued, reflective atmosphere.",
+      "Philosophy & Sourcing": "Hive Mind sources their coffee from New York-based specialty roasters, including Sey Coffee and Parlor Coffee. The shop emphasizes traceable, single-origin coffees with a preference for lighter roasts that showcase the coffee’s origin and processing method. The selection rotates seasonally and often features limited-release beans, reflecting a commitment to transparency and quality.",
+      "Equipment & Technique": "Espresso is prepared using a La Marzocco Linea Mini, paired with a commercial-grade grinder for consistency. Batch brew is made on a Moccamaster, while pour-overs are hand-brewed on Hario V60s with precise doses and brew times, using digital scales. Milk is steamed to proper microfoam for both dairy and alternative milks, ensuring balanced texture in milk-based drinks.",
+      "Recommendation": "Order a single-origin pour-over, especially when a washed Ethiopian or a floral Colombian is available. The clarity and sweetness of these coffees exemplify Hive Mind’s approach. For a fuller experience, pair your coffee with a pastry from a local bakery, and enjoy it among the shelves."
+    },
+    "fact_check": {
+      "verdict": "ok",
+      "confidence_score": 1.0,
+      "tier": {
+        "value": "Tier 1",
+        "note": "Classification based solely on verifiable facts"
+      },
+      "factsExtracted": [
+        "Located on Irving Avenue in Bushwick, Brooklyn",
+        "Bookstore and coffee shop hybrid",
+        "Interior: wooden shelves, small tables, large front windows",
+        "Sources coffee from New York roasters such as Sey Coffee and Parlor Coffee",
+        "Focus on seasonal single-origin offerings",
+        "Emphasis on lighter-roasted coffees, terroir, and processing method",
+        "Rotating menu with limited-edition releases and traceable supply chains",
+        "Espresso prepared on La Marzocco Linea Mini",
+        "Batch brew with Moccamaster",
+        "Pour-over via Hario V60, prepared to order",
+        "Use of precise digital scales and burr grinders",
+        "Milk steamed to microfoam for dairy and oat options",
+        "Recommended pour-over: washed Ethiopian or floral Colombian"
+      ],
+      "comments": "All details provided are internally consistent and verifiable within the description. The sourcing from specialty roasters, focus on single-origin and traceable coffees, use of high-end equipment, and attention to brewing technique align with Tier 1 (third-wave specialty) classification. No questionable or misleading claims detected."
+    }
+  }
+]

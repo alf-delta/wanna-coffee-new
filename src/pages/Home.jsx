@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import CoffeeMap from '../components/CoffeeMap';
-import FilterPanel from '../components/FilterPanel';
+import FilterPanel, { CustomCheckbox } from '../components/FilterPanel';
 import CoffeeList from '../components/CoffeeList';
 import { fetchCoffeeShops } from '../utils/coffeeShops';
 import * as turf from '@turf/turf';
@@ -13,15 +13,17 @@ const styles = {
   home: {
     display: 'flex',
     flexDirection: 'column',
-    height: '100vh',
+    height: 'calc(100vh - 88px)',
   },
   content: {
     display: 'flex',
     flexDirection: 'row',
     flex: 1,
     minHeight: 0,
+    height: 'calc(100vh - 88px)',
     '@media (max-width: 768px)': {
       flexDirection: 'column',
+      height: '100%',
     },
   },
   sidebar: {
@@ -32,14 +34,14 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     background: '#fff',
-    borderRadius: '16px',
+    borderRadius: '10px',
     boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
     zIndex: 2,
-    overflow: 'auto',
-    padding: '1rem',
-    gap: '0.75rem',
-    margin: '12px',
-    height: 'calc(100vh - 24px)',
+    overflow: 'hidden',
+    padding: '0.5rem',
+    gap: '0.5rem',
+    margin: '0 12px 12px 12px',
+    height: '100%',
     '@media (max-width: 768px)': {
       position: 'fixed',
       top: 0,
@@ -65,6 +67,7 @@ const styles = {
     minWidth: 0,
     height: '100%',
     position: 'relative',
+    overflow: 'hidden',
     '@media (max-width: 768px)': {
       height: 'calc(100vh - 60px)',
     },
@@ -72,6 +75,7 @@ const styles = {
   mapWrapper: {
     width: '100%',
     height: '100%',
+    minHeight: 0,
     overflow: 'hidden',
     borderRadius: '16px',
     boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
@@ -99,10 +103,11 @@ const styles = {
   },
   listBlock: {
     backgroundColor: 'white',
-    borderRadius: '12px',
-    padding: '1rem',
+    borderRadius: '8px',
+    padding: '0.5rem',
     boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
     flex: 1,
+    minHeight: 0,
     overflowY: 'auto',
   },
   mobileControls: {
@@ -303,7 +308,6 @@ const styles = {
     alignItems: 'center',
     gap: 12,
     padding: '0.75rem 1rem 0.5rem 0.5rem',
-    borderBottom: '1px solid #f2f2f2',
   },
   mobileListScrollFixed: {
     display: 'flex',
@@ -321,8 +325,9 @@ const styles = {
   mobileSliderContainer: {
     padding: '0.75rem 1rem 0.75rem 1rem',
     background: '#fff',
-    borderTop: '1px solid #f2f2f2',
+    borderTop: '1px solid #fff',
     borderRadius: '0 0 16px 16px',
+    paddingBottom: 22,
   },
   mobileSliderWrapper: {
     width: '85%',
@@ -424,12 +429,122 @@ const sliderStyle = {
   width: '100%',
   accentColor: '#d3914b',
   height: '4px',
-  borderRadius: '2px',
-  background: '#fff',
+  borderRadius: '8px',
+  background: '#bfae9c',
   outline: 'none',
   margin: '0',
-  marginBottom: '8px',
+  marginBottom: '0',
 };
+
+// Глобальные стили для кастомного слайдера (только для input[type=range])
+if (typeof document !== 'undefined' && !document.getElementById('custom-slider-style')) {
+  const style = document.createElement('style');
+  style.id = 'custom-slider-style';
+  style.textContent = `
+    input[type=range]::-webkit-slider-runnable-track {
+      height: 4px;
+      background: #bfae9c;
+      border-radius: 8px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: #d3914b;
+      border-radius: 50%;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+      border: 2px solid #fff;
+      margin-top: -8px;
+      transition: box-shadow 0.2s;
+    }
+    input[type=range]:focus::-webkit-slider-thumb {
+      box-shadow: 0 0 0 3px #e7d3b7;
+    }
+    input[type=range]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      background: #d3914b;
+      border-radius: 50%;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+      border: 2px solid #fff;
+      transition: box-shadow 0.2s;
+    }
+    input[type=range]:focus::-moz-range-thumb {
+      box-shadow: 0 0 0 3px #e7d3b7;
+    }
+    input[type=range]::-ms-fill-lower,
+    input[type=range]::-ms-fill-upper {
+      background: #bfae9c;
+      border-radius: 8px;
+    }
+    input[type=range]::-ms-thumb {
+      width: 20px;
+      height: 20px;
+      background: #d3914b;
+      border-radius: 50%;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+      border: 2px solid #fff;
+      transition: box-shadow 0.2s;
+    }
+    input[type=range]:focus::-ms-thumb {
+      box-shadow: 0 0 0 3px #e7d3b7;
+    }
+    input[type=range] {
+      outline: none;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+// Кастомные стили для горизонтального скроллбара карточек
+if (typeof document !== 'undefined' && !document.getElementById('custom-scrollbar-style')) {
+  const style = document.createElement('style');
+  style.id = 'custom-scrollbar-style';
+  style.textContent = `
+    .mobileListScrollFixed::-webkit-scrollbar {
+      height: 6px;
+      background: #f5f1ec;
+      border-radius: 6px;
+    }
+    .mobileListScrollFixed::-webkit-scrollbar-thumb {
+      background: #bfae9c;
+      border-radius: 6px;
+    }
+    .mobileListScrollFixed {
+      scrollbar-width: thin;
+      scrollbar-color: #bfae9c #f5f1ec;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+const waveInfoText = (
+  <div style={{ fontSize: '0.97em', color: '#333', lineHeight: 1.5 }}>
+    <div style={{ marginBottom: 10 }}>
+      <b>Discover cafés that suit your taste.</b><br/>
+      Each "wave" reflects a unique approach to coffee—from cozy familiarity to craft-driven precision.
+    </div>
+    <div style={{ borderTop: '1px solid #eee', margin: '12px 0' }} />
+    <div style={{ marginBottom: 8 }}>
+      <b>Second Wave</b><br/>
+      <span style={{ color: '#888', fontSize: '0.97em' }}>The Experience & The Brand</span><br/>
+      These cafés turned coffee into a lifestyle. Think lattes, cappuccinos, and a warm, reliable vibe. Expect consistency, comfort, and rich blends that fit right into your daily rhythm.
+    </div>
+    <div style={{ borderTop: '1px solid #eee', margin: '12px 0' }} />
+    <div style={{ marginBottom: 8 }}>
+      <b>Third Wave</b><br/>
+      <span style={{ color: '#888', fontSize: '0.97em' }}>The Craft & The Origin</span><br/>
+      Here, coffee is treated like fine wine. Every detail matters—from farm and roast to brewing. Baristas highlight flavor nuances using methods like pour-over, revealing bright citrus, florals, or fruit notes.
+    </div>
+    <div style={{ borderTop: '1px solid #eee', margin: '12px 0' }} />
+    <div>
+      <b>Not Defined</b><br/>
+      <span style={{ color: '#888', fontSize: '0.97em' }}>Awaiting Classification</span><br/>
+      These up-and-coming spots show promise, but we're still gathering details. They may be hidden gems—stay tuned as we learn more.
+    </div>
+  </div>
+);
 
 const Home = () => {
   const [coffeeShopsData, setCoffeeShopsData] = useState([]);
@@ -437,12 +552,14 @@ const Home = () => {
   const [error, setError] = useState(null);
   const [radiusIdx, setRadiusIdx] = useState(0); // минимальный радиус по умолчанию
   const [mapCenter, setMapCenter] = useState([-74.009, 40.707]); // Financial District, Manhattan
-  const [filters, setFilters] = useState({ openNow: false });
+  const [filters, setFilters] = useState({ openNow: false, wave: [] });
   const [selectedShop, setSelectedShop] = useState(null);
+  const [hoveredShopId, setHoveredShopId] = useState(null);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
   const [showSidebar, setShowSidebar] = useState(false);
   const [activeView, setActiveView] = useState('map'); // 'map' или 'list'
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [showWaveInfo, setShowWaveInfo] = useState(false);
 
   const mapRef = useRef(null);
 
@@ -505,11 +622,28 @@ const Home = () => {
         }
         return true;
       })
+      .filter(shop => {
+        // Wave filter
+        if (filters.wave && Array.isArray(filters.wave) && filters.wave.length > 0) {
+          const shopWave = shop.wave || shop.ai_classification?.wave;
+          if (!shopWave) return false;
+          return filters.wave.includes(shopWave);
+        }
+        return true;
+      })
       .sort((a, b) => a.distance - b.distance);
   }, [coffeeShopsData, visualCenter, radiusCircle, filters]);
 
   const handleShopClick = useCallback((shop) => {
     setSelectedShop(shop);
+  }, []);
+
+  const handleShopHover = useCallback((shopId) => {
+    setHoveredShopId(shopId);
+  }, []);
+
+  const handleShopLeave = useCallback(() => {
+    setHoveredShopId(null);
   }, []);
 
   // --- СИНХРОНИЗАЦИЯ FILTERS <-> URL ---
@@ -535,6 +669,9 @@ const Home = () => {
         newFilters[f.nested.key] = nestedVal || '';
       }
     });
+    // Read openNow from URL
+    const openNow = params.get('openNow');
+    newFilters.openNow = openNow === 'true';
     setFilters(newFilters);
     // eslint-disable-next-line
   }, []);
@@ -553,6 +690,10 @@ const Home = () => {
         params.set(f.nested.key, filters[f.nested.key]);
       }
     });
+    // Add openNow to URL
+    if (filters.openNow) {
+      params.set('openNow', 'true');
+    }
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     window.history.replaceState({}, '', newUrl);
   }, [filters]);
@@ -649,7 +790,7 @@ const Home = () => {
               </button>
             </div>
             <div style={{ marginBottom: 16 }}>
-              <label htmlFor="radius-slider" style={{ fontWeight: 500, fontSize: '1rem', color: '#d3914b', display: 'block', marginBottom: 6 }}>
+              <label htmlFor="radius-slider" style={{ fontWeight: 500, fontSize: '1rem', color: '#d3914b', display: 'block', marginBottom: 0 }}>
                 Search radius: {feetOptions[radiusIdx]} ft
               </label>
               <input
@@ -667,6 +808,9 @@ const Home = () => {
               <CoffeeList
                 coffeeShops={filteredShops}
                 onShopClick={handleShopClick}
+                onShopHover={handleShopHover}
+                onShopLeave={handleShopLeave}
+                hoveredShopId={hoveredShopId}
                 center={visualCenter}
                 radiusCircle={radiusCircle}
               />
@@ -687,6 +831,7 @@ const Home = () => {
               setMapCenter={setMapCenter}
               mapCenter={visualCenter}
               selectedShop={selectedShop}
+              hoveredShopId={hoveredShopId}
               mobileOffsetY={-400}
               onCloseSelectedShop={handleCloseSelectedShop}
             />
@@ -727,18 +872,18 @@ const Home = () => {
             <CoffeeList
               coffeeShops={filteredShops}
               onShopClick={handleShopClick}
+              onShopHover={handleShopHover}
+              onShopLeave={handleShopLeave}
+              hoveredShopId={hoveredShopId}
               horizontal
               showCount={false}
               center={visualCenter}
               radiusCircle={radiusCircle}
             />
           </div>
-          <div style={{
-            ...styles.mobileSliderContainer,
-            paddingBottom: '2.2rem',
-          }}>
+          <div style={styles.mobileSliderContainer}>
             <div style={styles.mobileSliderWrapper}>
-              <label htmlFor="radius-slider-mobile" style={{ fontWeight: 500, fontSize: '1rem', color: '#d3914b', display: 'block', marginBottom: 6 }}>
+              <label htmlFor="radius-slider-mobile" style={{ fontWeight: 500, fontSize: '1rem', color: '#d3914b', display: 'block', marginBottom: 0 }}>
                 Search radius: {feetOptions[radiusIdx]} ft
               </label>
               <input
@@ -748,7 +893,7 @@ const Home = () => {
                 max={feetOptions.length - 1}
                 value={radiusIdx}
                 onChange={e => setRadiusIdx(Number(e.target.value))}
-                style={sliderStyle}
+                style={{ ...sliderStyle, marginBottom: 0 }}
                 className="radius-slider"
               />
             </div>
@@ -789,18 +934,78 @@ const Home = () => {
       {/* Модальное окно фильтров */}
       {isFilterModalOpen && (
         <Modal onClose={() => setIsFilterModalOpen(false)}>
-          <div style={{ padding: 16 }}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', fontWeight: 500 }}>
-              <input
-                type="checkbox"
-                checked={filters.openNow}
-                onChange={e => setFilters(f => ({ ...f, openNow: e.target.checked }))}
-                style={{ width: 20, height: 20 }}
-              />
-              Open now
-            </label>
+          <div
+            style={{
+              padding: isMobileView ? 8 : 16,
+              maxHeight: isMobileView ? '70vh' : 'none',
+              minWidth: isMobileView ? 0 : 340,
+              overflowY: 'auto',
+              boxSizing: 'border-box',
+            }}
+          >
+            <h3 style={{ margin: isMobileView ? '0 0 10px 0' : '0 0 16px 0', fontSize: isMobileView ? '1.05rem' : '1.2rem', fontWeight: 600, color: '#333' }}>
+              Filters
+            </h3>
+            {isMobileView ? (
+              <>
+                <div style={{ marginBottom: 10 }}>
+                  <CustomCheckbox
+                    id="filter-open-now"
+                    checked={filters.openNow}
+                    onChange={e => setFilters(f => ({ ...f, openNow: !f.openNow }))}
+                    label={<span style={{ fontSize: '0.97em', marginTop: 2 }}>Open now</span>}
+                  />
+                </div>
+                <div style={{
+                  border: '1px solid #e0e0e0',
+                  borderRadius: 10,
+                  padding: '10px 8px 6px 8px',
+                  marginBottom: 6,
+                  background: '#fafbfc',
+                }}>
+                  <div style={{ display: 'flex', flexDirection: 'row', gap: 10, justifyContent: 'center' }}>
+                    {filtersConfig[0].options.map(opt => (
+                      <CustomCheckbox
+                        key={opt.value}
+                        id={`filter-wave-${opt.value}`}
+                        checked={Array.isArray(filters.wave) && filters.wave.includes(opt.value)}
+                        onChange={() => {
+                          const arr = Array.isArray(filters.wave) ? filters.wave : [];
+                          setFilters(f => ({
+                            ...f,
+                            wave: arr.includes(opt.value)
+                              ? arr.filter(v => v !== opt.value)
+                              : [...arr, opt.value],
+                          }));
+                        }}
+                        label={<span style={{ fontSize: '0.97em', marginTop: 2 }}>{opt.label}</span>}
+                      />
+                    ))}
+                  </div>
+                </div>
+                {showWaveInfo && (
+                  <Modal onClose={() => setShowWaveInfo(false)}>
+                    <div style={{ padding: 18, maxWidth: 340, fontSize: '1em' }}>
+                      <h3 style={{ margin: '0 0 10px 0', fontWeight: 600, fontSize: '1.1em', color: '#333' }}>Coffee shop style</h3>
+                      {waveInfoText}
+                    </div>
+                  </Modal>
+                )}
+              </>
+            ) : (
+              <>
+                <FilterPanel filters={filters} setFilters={setFilters} />
+                <div style={{ marginTop: 16 }}>
+                  <CustomCheckbox
+                    id="filter-open-now"
+                    checked={filters.openNow}
+                    onChange={e => setFilters(f => ({ ...f, openNow: !f.openNow }))}
+                    label="Open now"
+                  />
+                </div>
+              </>
+            )}
           </div>
-          <button style={styles.closeModalBtn} onClick={() => setIsFilterModalOpen(false)}>Close</button>
         </Modal>
       )}
     </div>

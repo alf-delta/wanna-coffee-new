@@ -9,6 +9,8 @@ const modalStyles = {
     right: 0,
     bottom: 0,
     background: 'rgba(0,0,0,0.35)',
+    backdropFilter: 'blur(8px)',
+    WebkitBackdropFilter: 'blur(8px)',
     zIndex: 2000,
     display: 'flex',
     alignItems: 'center',
@@ -16,7 +18,9 @@ const modalStyles = {
     padding: '0',
   },
   modal: {
-    background: '#fff',
+    background: 'rgba(255,255,255,0.9)',
+    backdropFilter: 'blur(12px)',
+    WebkitBackdropFilter: 'blur(12px)',
     borderRadius: 16,
     maxWidth: 420,
     width: '90vw',
@@ -25,6 +29,7 @@ const modalStyles = {
     boxShadow: '0 8px 32px rgba(0,0,0,0.18)',
     padding: '1.5rem 1rem 1rem 1rem',
     position: 'relative',
+    border: '1px solid rgba(255,255,255,0.2)',
     '@media (max-width: 768px)': {
       width: '98vw',
       minHeight: '60vh',
@@ -35,14 +40,28 @@ const modalStyles = {
   },
   closeBtn: {
     position: 'absolute',
-    top: 12,
-    right: 16,
-    background: 'none',
-    border: 'none',
-    fontSize: 28,
-    color: '#888',
+    top: -12,
+    right: -12,
+    background: 'rgba(255, 255, 255, 0.95)',
+    border: '1px solid #e0e0e0',
+    borderRadius: '50%',
+    width: '28px',
+    height: '28px',
+    fontSize: '18px',
+    color: '#666',
     cursor: 'pointer',
     zIndex: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+    '@media (max-width: 768px)': {
+      top: -8,
+      right: -8,
+      width: '24px',
+      height: '24px',
+      fontSize: '16px',
+    },
   },
 };
 
@@ -61,7 +80,6 @@ const Modal = ({ children, onClose }) => {
         style={modalStyles.modal}
         onClick={e => e.stopPropagation()}
       >
-        <button style={modalStyles.closeBtn} onClick={onClose} aria-label="Close">×</button>
         {children}
       </div>
     </div>

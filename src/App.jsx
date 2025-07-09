@@ -7,12 +7,11 @@ import EventsPage from './pages/EventsPage';
 import Couponator from './pages/Couponator';
 import Events from './pages/Events';
 import CoffeeSubscription from './pages/CoffeeSubscription';
-import Header from './components/Header';
+import GuideDemo from './pages/GuideDemo';
 
 const App = () => {
   return (
     <>
-      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -20,6 +19,7 @@ const App = () => {
         <Route path="/events" element={<Events />} />
         <Route path="/couponator" element={<Couponator />} />
         <Route path="/subscription" element={<CoffeeSubscription />} />
+        <Route path="/guide-demo" element={<GuideDemo />} />
       </Routes>
     </>
   );

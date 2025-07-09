@@ -1,14 +1,24 @@
 // Асинхронная функция для загрузки кофеен из JSON файла
 export const fetchCoffeeShops = async () => {
   try {
-    const response = await fetch('/coffeeShops.json');
+    // Пробуем загрузить новый super_list.json, если не получится - fallback на старый
+    let response = await fetch('/super_list.json');
+    let dataSource = 'super_list.json';
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      console.log('super_list.json не найден, используем coffeeShops.json');
+      response = await fetch('/coffeeShops.json');
+      dataSource = 'coffeeShops.json';
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+    } else {
+      console.log('✅ Загружаем данные из super_list.json');
     }
-    const data = await response.json();
-    console.log('Загружено кофеен:', data.length);
     
-    // Преобразуем новую структуру в старую для совместимости
+    const data = await response.json();
+    console.log(`📊 Загружено кофеен из ${dataSource}:`, data.length);
+    
+    // Преобразуем структуру для совместимости
     const transformedData = data.map(shop => {
       const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
       const today = days[new Date().getDay()];
@@ -44,14 +54,38 @@ export const fetchCoffeeShops = async () => {
           hours = null;
         }
       }
+      
       return {
         ...shop,
         hours: hours,
         rating: shop.rating || 0,
         reviews: shop.reviews || 0,
-        neighborhood: shop.borough || 'Unknown'
+        neighborhood: shop.borough || 'Unknown',
+        // Добавляем новые поля из super_list.json
+        wave: shop.ai_classification?.wave || 'not defined',
+        description: shop.descriptionData?.description || shop.description || '',
+        // Трансформируем ключи descriptionBlocks в нужный формат
+        descriptionBlocks: shop.descriptionData?.descriptionBlocks ? {
+          'Location & Atmosphere': shop.descriptionData.descriptionBlocks.locationAtmosphere,
+          'Philosophy & Sourcing': shop.descriptionData.descriptionBlocks.philosophySourcing,
+          'Equipment & Technique': shop.descriptionData.descriptionBlocks.equipmentTechnique,
+          'Recommendation': shop.descriptionData.descriptionBlocks.recommendation
+        } : {},
+        descriptionAuthor: shop.descriptionAuthor || ''
       };
     });
+    
+    // Логируем первые несколько кофеен для проверки новых полей
+    if (transformedData.length > 0) {
+      console.log('🔍 Пример данных первой кофейни:', {
+        name: transformedData[0].name,
+        wave: transformedData[0].wave,
+        hasDescription: !!transformedData[0].description,
+        hasDescriptionBlocks: !!transformedData[0].descriptionBlocks,
+        descriptionBlocksKeys: Object.keys(transformedData[0].descriptionBlocks || {}),
+        descriptionAuthor: transformedData[0].descriptionAuthor
+      });
+    }
     
     return transformedData;
   } catch (error) {

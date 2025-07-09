@@ -1,0 +1,243 @@
+.guide-demo {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 40px 20px;
+}
+
+.demo-header {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #2c3e50;
+}
+
+.demo-header h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.demo-header p {
+  font-size: 18px;
+  color: #7f8c8d;
+  margin: 0;
+}
+
+.shops-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.shop-preview {
+  background: white;
+  border-radius: 12px;
+  padding: 16px 20px 12px 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.shop-preview:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-color: #8B4513;
+}
+
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.preview-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c3e50;
+  flex: 1;
+  margin-right: 12px;
+}
+
+.preview-tier {
+  background: #8B4513;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.preview-address {
+  margin: 0 0 16px 0;
+  font-size: 14px;
+  color: #7f8c8d;
+  line-height: 1.4;
+}
+
+.preview-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start;
+  margin-bottom: 0;
+  margin-top: 8px;
+}
+
+.section-indicator,
+.fact-check-indicator {
+  background: #e8f5e8;
+  color: #155724;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.section-indicator {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 18px;
+  color: #7f8c8d;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.preview-impression-logo {
+  height: 48px;
+  width: auto;
+  margin-left: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+  display: inline-block;
+  vertical-align: middle;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.08));
+}
+
+.preview-sections-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  margin-bottom: 0;
+  min-height: 48px;
+}
+
+.preview-sections-left {
+  display: flex;
+  align-items: center;
+}
+
+.preview-sections-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.open-indicator {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 12px;
+  margin-right: 0;
+  background: #e9ecef;
+  color: #8B4513;
+  letter-spacing: 0.5px;
+  border: 1px solid #e0e0e0;
+}
+.open-indicator.open {
+  background: #e6f9e6;
+  color: #219150;
+  border-color: #b6eab6;
+}
+.open-indicator.closed {
+  background: #fbeaea;
+  color: #c0392b;
+  border-color: #f5b7b1;
+}
+
+.gmaps-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 4px 6px;
+  cursor: pointer;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  margin-left: 4px;
+}
+.gmaps-btn:hover {
+  border-color: #8B4513;
+  box-shadow: 0 2px 8px rgba(139,69,19,0.08);
+  background: #f8f5f2;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .guide-demo {
+    padding: 20px 16px;
+  }
+  
+  .demo-header h1 {
+    font-size: 28px;
+  }
+  
+  .demo-header p {
+    font-size: 16px;
+  }
+  
+  .shops-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .shop-preview {
+    padding: 16px;
+  }
+  
+  .preview-header h3 {
+    font-size: 16px;
+  }
+  
+  .modal-content {
+    max-width: 95vw;
+    max-height: 95vh;
+  }
+} 
