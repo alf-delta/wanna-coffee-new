@@ -73,6 +73,7 @@ const CoffeeMap = forwardRef(({
   disableMove = false, 
   mobileOffsetY = -120,
   highlightShopId = null,
+  hoveredShopId = null,
   mapCenter,
   setMapCenter,
   onCloseSelectedShop
@@ -147,26 +148,34 @@ const CoffeeMap = forwardRef(({
     markers.current.forEach(marker => marker.remove());
     markers.current = [];
     coffeeShops.forEach(shop => {
-      // Функция для проверки, открыта ли кофейня сейчас
-      const isOpenNow = (hoursStr) => {
-        if (!hoursStr) return null;
-        const [open, close] = hoursStr.split(/[–-]/).map(s => s.trim());
-        if (!open || !close) return null;
-        const now = new Date();
-        const pad = n => n.toString().padStart(2, '0');
-        const nowStr = pad(now.getHours()) + ':' + pad(now.getMinutes());
-        return open <= nowStr && nowStr < close;
-      };
-
-      const status = shop.hours ? isOpenNow(shop.hours) : null;
-      const statusText = status === null ? '—' : status ? 'Open' : 'Closed';
-      const statusColor = status === null ? '#ccc' : status ? '#4caf50' : '#e53935';
-      
-      const marker = new mapboxgl.Marker({ color: '#d3914b' })
+      const isHovered = hoveredShopId === shop.id;
+      // SVG-пин (размер зависит от isHovered)
+      const pin = document.createElement('div');
+      pin.className = 'coffee-marker';
+      pin.innerHTML = isHovered
+        ? `<svg width="48" height="60" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="16" cy="15" rx="12" ry="12" fill="#a86c2a"/>
+            <path d="M16 40C16 40 28 24 28 15C28 6.71573 22.2843 1 16 1C9.71573 1 4 6.71573 4 15C4 24 16 40 16 40Z" fill="#a86c2a" stroke="#fff" stroke-width="2"/>
+            <circle cx="16" cy="15" r="5" fill="#fff"/>
+          </svg>`
+        : `<svg width="32" height="40" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="16" cy="15" rx="12" ry="12" fill="#d3914b"/>
+            <path d="M16 40C16 40 28 24 28 15C28 6.71573 22.2843 1 16 1C9.71573 1 4 6.71573 4 15C4 24 16 40 16 40Z" fill="#d3914b" stroke="#fff" stroke-width="2"/>
+            <circle cx="16" cy="15" r="5" fill="#fff"/>
+          </svg>`;
+      pin.style.width = isHovered ? '48px' : '32px';
+      pin.style.height = isHovered ? '60px' : '40px';
+      pin.style.display = 'flex';
+      pin.style.alignItems = 'flex-end';
+      pin.style.justifyContent = 'center';
+      const marker = new mapboxgl.Marker({
+        element: pin,
+        anchor: 'bottom',
+      })
         .setLngLat([shop.longitude, shop.latitude])
         .addTo(map.current);
       marker._shopId = shop.id;
-      marker.getElement().addEventListener('click', (e) => {
+      pin.addEventListener('click', (e) => {
         e.stopPropagation();
         setInternalSelectedShop(shop);
       });
@@ -309,6 +318,30 @@ const CoffeeMap = forwardRef(({
     }
   }, [setMapCenter, radiusCircle, coffeeShops]);
 
+  // Обновление маркеров при изменении hoveredShopId
+  useEffect(() => {
+    if (!isMapLoaded || !layersCreated.current || !markers.current.length) return;
+    markers.current.forEach(marker => {
+      if (marker && marker._shopId) {
+        const isHovered = hoveredShopId === marker._shopId;
+        const markerElement = marker.getElement();
+        markerElement.innerHTML = isHovered
+          ? `<svg width="48" height="60" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="16" cy="15" rx="12" ry="12" fill="#a86c2a"/>
+              <path d="M16 40C16 40 28 24 28 15C28 6.71573 22.2843 1 16 1C9.71573 1 4 6.71573 4 15C4 24 16 40 16 40Z" fill="#a86c2a" stroke="#fff" stroke-width="2"/>
+              <circle cx="16" cy="15" r="5" fill="#fff"/>
+            </svg>`
+          : `<svg width="32" height="40" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="16" cy="15" rx="12" ry="12" fill="#d3914b"/>
+              <path d="M16 40C16 40 28 24 28 15C28 6.71573 22.2843 1 16 1C9.71573 1 4 6.71573 4 15C4 24 16 40 16 40Z" fill="#d3914b" stroke="#fff" stroke-width="2"/>
+              <circle cx="16" cy="15" r="5" fill="#fff"/>
+            </svg>`;
+        markerElement.style.width = isHovered ? '48px' : '32px';
+        markerElement.style.height = isHovered ? '60px' : '40px';
+      }
+    });
+  }, [hoveredShopId, isMapLoaded]);
+
   // Синхронизация центра при перемещении карты
   useEffect(() => {
     if (!map.current || !setMapCenter) return;
@@ -366,8 +399,46 @@ const CoffeeMap = forwardRef(({
     <div ref={mapContainer} style={{ width: '100%', height: '100%' }} />
     {shopToShow && (
       <div style={{ position: 'fixed', left: 0, top: 0, width: '100vw', height: '100vh', zIndex: 2000, background: 'rgba(0,0,0,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={handleClosePopup}>
-        <div style={{ maxWidth: 500, width: '90vw', maxHeight: '90vh', overflowY: 'auto' }} onClick={e => e.stopPropagation()}>
-          <GuideCoffeeCard coffeeShop={shopToShow} onClose={handleClosePopup} />
+        <div style={{ position: 'relative', maxWidth: 500, width: '90vw', maxHeight: '90vh', overflowY: 'auto' }} onClick={e => e.stopPropagation()}>
+          {/* Кнопка закрытия вне карточки */}
+          <button
+            onClick={handleClosePopup}
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              width: '28px',
+              height: '28px',
+              minWidth: '0',
+              minHeight: '0',
+              boxSizing: 'border-box',
+              padding: 0,
+              margin: 0,
+              lineHeight: '1',
+              fontSize: '18px',
+              fontFamily: 'inherit',
+              outline: 'none',
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.5) 100%)',
+              color: '#666',
+              border: '1.2px solid rgba(224, 224, 224, 0.7)',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+              borderRadius: '50%',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 20,
+              backdropFilter: 'blur(5px)',
+              WebkitBackdropFilter: 'blur(5px)',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseOver={e => e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0.75) 100%)'}
+            onMouseOut={e => e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.5) 100%)'}
+            aria-label="Закрыть"
+          >
+            ×
+          </button>
+          <GuideCoffeeCard coffeeShop={shopToShow} />
         </div>
       </div>
     )}

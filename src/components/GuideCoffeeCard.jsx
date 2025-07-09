@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './GuideCoffeeCard.css';
 import WcImpressionLogo from '../assets/WC_IMPRESSION.svg';
+import BeansImage from '../assets/Beans.png';
+import Modal from './Modal.jsx';
 
 const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = false }) => {
+  const [showWaveInfo, setShowWaveInfo] = useState(false);
+  
   if (!coffeeShop) return null;
 
   const {
@@ -10,25 +14,17 @@ const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = 
     address,
     description,
     descriptionBlocks,
-    fact_check,
     workingHours,
     features = [],
     isOpen,
   } = coffeeShop;
 
-  const getTierColor = (tier) => {
-    switch (tier?.value) {
-      case 'Tier 1': return '#4CAF50';
-      case 'Tier 2': return '#FF9800';
-      default: return '#9E9E9E';
-    }
-  };
-
-  const getTierLabel = (tier) => {
-    switch (tier?.value) {
-      case 'Tier 1': return 'Premium';
-      case 'Tier 2': return 'Quality';
-      default: return 'Standard';
+  // Цвет для бейджа wave
+  const getWaveColor = (wave) => {
+    switch ((wave || '').toLowerCase()) {
+      case '2nd wave': return '#3b82f6'; // синий
+      case '3rd wave': return '#22c55e'; // зелёный
+      default: return '#9E9E9E'; // серый
     }
   };
 
@@ -50,6 +46,33 @@ const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = 
       );
     }).filter(Boolean);
   };
+
+  const waveInfoText = (
+    <div style={{ fontSize: '0.97em', color: '#333', lineHeight: 1.5 }}>
+      <div style={{ marginBottom: 10 }}>
+        <b>Discover cafés that suit your taste.</b><br/>
+        Each "wave" reflects a unique approach to coffee—from cozy familiarity to craft-driven precision.
+      </div>
+      <div style={{ borderTop: '1px solid #eee', margin: '12px 0' }} />
+      <div style={{ marginBottom: 8 }}>
+        <b>Second Wave</b><br/>
+        <span style={{ color: '#888', fontSize: '0.97em' }}>The Experience & The Brand</span><br/>
+        These cafés turned coffee into a lifestyle. Think lattes, cappuccinos, and a warm, reliable vibe. Expect consistency, comfort, and rich blends that fit right into your daily rhythm.
+      </div>
+      <div style={{ borderTop: '1px solid #eee', margin: '12px 0' }} />
+      <div style={{ marginBottom: 8 }}>
+        <b>Third Wave</b><br/>
+        <span style={{ color: '#888', fontSize: '0.97em' }}>The Craft & The Origin</span><br/>
+        Here, coffee is treated like fine wine. Every detail matters—from farm and roast to brewing. Baristas highlight flavor nuances using methods like pour-over, revealing bright citrus, florals, or fruit notes.
+      </div>
+      <div style={{ borderTop: '1px solid #eee', margin: '12px 0' }} />
+      <div>
+        <b>Not Defined</b><br/>
+        <span style={{ color: '#888', fontSize: '0.97em' }}>Awaiting Classification</span><br/>
+        These up-and-coming spots show promise, but we're still gathering details. They may be hidden gems—stay tuned as we learn more.
+      </div>
+    </div>
+  );
 
   if (compact) {
     return (
@@ -87,13 +110,52 @@ const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = 
         <div className="header-content">
           <h2 className="shop-name">{name}</h2>
           <p className="shop-address">{address}</p>
-          {showTierBadge && (
-            <div className="tier-badge" style={{ backgroundColor: getTierColor(fact_check?.tier) }}>
-              {getTierLabel(fact_check?.tier)}
+          {/* Бейдж wave */}
+          {coffeeShop.wave && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div className="tier-badge" style={{ backgroundColor: getWaveColor(coffeeShop.wave) }}>
+                {coffeeShop.wave}
+              </div>
+              {/* Кнопка с вопросительным знаком */}
+              <div 
+                style={{ 
+                  backgroundColor: 'rgba(245, 245, 245, 0.8)', 
+                  color: '#666',
+                  width: '25px',
+                  height: '25px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '14px',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  border: '1px solid rgba(224, 224, 224, 0.8)',
+                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+                  opacity: 0.8
+                }}
+                onClick={() => setShowWaveInfo(true)}
+              >
+                ?
+              </div>
             </div>
           )}
         </div>
-        {onClose && <button className="close-button" onClick={onClose}>×</button>}
+        {/* AI Guide бейдж */}
+        <div style={{ position: 'absolute', top: 16, right: 16, zIndex: 2 }}>
+          <span style={{
+            display: 'inline-block',
+            background: 'linear-gradient(90deg, #cc9042 60%, #b87333 100%)',
+            color: '#fff',
+            fontWeight: 700,
+            fontSize: '0.93rem',
+            borderRadius: '12px',
+            padding: '4px 14px',
+            boxShadow: '0 2px 8px rgba(204,144,66,0.10)',
+            letterSpacing: '0.5px',
+            textShadow: '0 1px 2px rgba(0,0,0,0.07)',
+          }}>AI Guide</span>
+        </div>
       </div>
 
       <div className="card-content">
@@ -153,7 +215,7 @@ const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = 
         </div>
 
         {/* Wanna Coffee Impression Logo */}
-        {fact_check && (
+        {coffeeShop.fact_check && (
           <div className="impression-logo-section">
             <div className="logo-container">
               <img src={WcImpressionLogo} alt="Wanna Coffee Impression" className="impression-logo" />
@@ -165,7 +227,22 @@ const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = 
             </div>
           </div>
         )}
+        {/* Автор гайда */}
+        <div className="guide-author">
+          <span className="guide-author-label">Guide by:</span>
+          <img src={WcImpressionLogo} alt="Wanna Coffee Impression" className="guide-author-logo" />
+        </div>
       </div>
+      
+      {/* Модальное окно с объяснением волн */}
+      {showWaveInfo && (
+        <Modal onClose={() => setShowWaveInfo(false)}>
+          <div style={{ padding: 18, maxWidth: 340, fontSize: '1em' }}>
+            <h3 style={{ margin: '0 0 10px 0', fontWeight: 600, fontSize: '1.3em', color: '#333' }}>Coffee shop style</h3>
+            {waveInfoText}
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };

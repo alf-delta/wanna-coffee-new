@@ -115,10 +115,47 @@ const GuideDemo = () => {
 
       {selectedShop && (
         <div className="modal-overlay" onClick={handleCloseCard}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ position: 'relative' }}>
+            {/* Кнопка закрытия вне карточки */}
+            <button
+              onClick={handleCloseCard}
+              style={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                width: '28px',
+                height: '28px',
+                minWidth: '0',
+                minHeight: '0',
+                boxSizing: 'border-box',
+                padding: 0,
+                margin: 0,
+                lineHeight: '1',
+                fontSize: '18px',
+                fontFamily: 'inherit',
+                outline: 'none',
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.5) 100%)',
+                color: '#666',
+                border: '1.2px solid rgba(224, 224, 224, 0.7)',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+                borderRadius: '50%',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 20,
+                backdropFilter: 'blur(5px)',
+                WebkitBackdropFilter: 'blur(5px)',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseOver={e => e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0.75) 100%)'}
+              onMouseOut={e => e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.5) 100%)'}
+              aria-label="Закрыть"
+            >
+              ×
+            </button>
             <GuideCoffeeCard 
               coffeeShop={selectedShop} 
-              onClose={handleCloseCard} 
             />
           </div>
         </div>
