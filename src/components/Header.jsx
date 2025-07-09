@@ -5,6 +5,7 @@ import logo from '../assets/logo.svg';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [hoveredBtn, setHoveredBtn] = useState(null);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -19,10 +20,18 @@ const Header = () => {
     margin: '0 0.25rem',
     fontWeight: 600,
     boxShadow: '0 2px 8px rgba(204,144,66,0.12)',
-    transition: 'background 0.2s, box-shadow 0.2s',
+    transition: 'box-shadow 0.22s, transform 0.22s',
     textDecoration: 'none',
     border: '2px solid transparent',
     display: 'inline-block',
+    background: 'linear-gradient(90deg, #cc9042 60%, #b87333 100%)',
+    fontSize: '1.13rem',
+    position: 'relative',
+  };
+
+  const accentButtonHover = {
+    transform: 'translateY(-6px)',
+    boxShadow: '0 8px 24px rgba(204,144,66,0.18)',
   };
 
   const soonBadge = {
@@ -81,24 +90,41 @@ const Header = () => {
                 <span style={styles.menuIcon}>{isMenuOpen ? '✕' : '☰'}</span>
                 <span style={styles.burgerDot}></span>
               </button>
-              {isMenuOpen && (
-                <div style={styles.mobileMenu}>
-                  <Link to="/" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>Home</Link>
-                  <Link to="/about" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>About</Link>
-                  <Link to="/contact" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>Contact</Link>
-                  <span style={{ position: 'relative', display: 'block' }}>
-                    <Link to="/couponator" className="accent-btn" style={{ ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Coffee Pass</Link>
-                    <span style={soonDot}></span>
-                  </span>
-                  <span style={{ position: 'relative', display: 'block' }}>
-                    <Link to="/events" className="accent-btn" style={{ ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Events</Link>
-                    <span style={soonDot}></span>
-                  </span>
-                  <span style={{ position: 'relative', display: 'block' }}>
-                    <Link to="/subscription" className="accent-btn" style={{ ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Shop</Link>
-                    <span style={soonDot}></span>
-                  </span>
-                </div>
+              {isMobile && isMenuOpen && (
+                <>
+                  {/* Overlay */}
+                  <div
+                    onClick={() => setIsMenuOpen(false)}
+                    style={{
+                      position: 'fixed',
+                      top: 0,
+                      left: 0,
+                      width: '100vw',
+                      height: '100vh',
+                      background: 'rgba(30,24,10,0.10)',
+                      zIndex: 2000,
+                      transition: 'background 0.2s',
+                    }}
+                  />
+                  {/* Мобильное меню */}
+                  <div style={styles.mobileMenu}>
+                    <Link to="/" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>Home</Link>
+                    <Link to="/about" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>About</Link>
+                    <Link to="/contact" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>Contact</Link>
+                    <span style={{ position: 'relative', display: 'block' }}>
+                      <Link to="/couponator" className="accent-btn" style={{ ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Coffee Pass</Link>
+                      <span style={soonDot}></span>
+                    </span>
+                    <span style={{ position: 'relative', display: 'block' }}>
+                      <Link to="/events" className="accent-btn" style={{ ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Events</Link>
+                      <span style={soonDot}></span>
+                    </span>
+                    <span style={{ position: 'relative', display: 'block' }}>
+                      <Link to="/subscription" className="accent-btn" style={{ ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Shop</Link>
+                      <span style={soonDot}></span>
+                    </span>
+                  </div>
+                </>
               )}
             </>
           ) : (
@@ -107,15 +133,48 @@ const Header = () => {
               <Link to="/about" style={styles.link}>About</Link>
               <Link to="/contact" style={styles.link}>Contact</Link>
               <span style={{ position: 'relative', display: 'inline-block' }}>
-                <Link to="/couponator" className="accent-btn" style={accentButton}>Coffee Pass</Link>
+                <Link
+                  to="/couponator"
+                  className="accent-btn"
+                  style={{
+                    ...accentButton,
+                    ...(hoveredBtn === 'couponator' ? accentButtonHover : {}),
+                  }}
+                  onMouseEnter={() => setHoveredBtn('couponator')}
+                  onMouseLeave={() => setHoveredBtn(null)}
+                >
+                  Coffee Pass
+                </Link>
                 <span style={soonBadge}>Soon</span>
               </span>
               <span style={{ position: 'relative', display: 'inline-block' }}>
-                <Link to="/events" className="accent-btn" style={accentButton}>Events</Link>
+                <Link
+                  to="/events"
+                  className="accent-btn"
+                  style={{
+                    ...accentButton,
+                    ...(hoveredBtn === 'events' ? accentButtonHover : {}),
+                  }}
+                  onMouseEnter={() => setHoveredBtn('events')}
+                  onMouseLeave={() => setHoveredBtn(null)}
+                >
+                  Events
+                </Link>
                 <span style={soonBadge}>Soon</span>
               </span>
               <span style={{ position: 'relative', display: 'inline-block' }}>
-                <Link to="/subscription" className="accent-btn" style={accentButton}>Shop</Link>
+                <Link
+                  to="/subscription"
+                  className="accent-btn"
+                  style={{
+                    ...accentButton,
+                    ...(hoveredBtn === 'shop' ? accentButtonHover : {}),
+                  }}
+                  onMouseEnter={() => setHoveredBtn('shop')}
+                  onMouseLeave={() => setHoveredBtn(null)}
+                >
+                  Shop
+                </Link>
                 <span style={soonBadge}>Soon</span>
               </span>
             </div>

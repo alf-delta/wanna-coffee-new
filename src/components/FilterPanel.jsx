@@ -9,10 +9,10 @@ export const CustomCheckbox = ({ checked, onChange, label, id }) => (
   }} htmlFor={id}>
     <span style={{
       display: 'inline-block',
-      width: 13,
-      height: 13,
-      minWidth: 13,
-      minHeight: 13,
+      width: 17,
+      height: 17,
+      minWidth: 17,
+      minHeight: 17,
       border: '1.1px solid #bdbdbd',
       borderRadius: 4,
       background: checked ? '#fff' : '#fff',
@@ -29,8 +29,8 @@ export const CustomCheckbox = ({ checked, onChange, label, id }) => (
         onChange={onChange}
         style={{
           opacity: 0,
-          width: 13,
-          height: 13,
+          width: 17,
+          height: 17,
           position: 'absolute',
           left: 0,
           top: 0,
@@ -39,13 +39,13 @@ export const CustomCheckbox = ({ checked, onChange, label, id }) => (
         }}
       />
       {checked && (
-        <svg viewBox="0 0 13 13" width={10} height={10} style={{ position: 'absolute', left: 1.5, top: 0.5 }}>
+        <svg viewBox="0 0 17 17" width={13} height={13} style={{ position: 'absolute', left: 2, top: 1 }}>
           <polyline
-            points="1,7 5,11 11,3"
+            points="2,9 7,14 15,4"
             style={{
               fill: 'none',
               stroke: '#d3914b',
-              strokeWidth: 1.7,
+              strokeWidth: 2.1,
               strokeLinecap: 'round',
               strokeLinejoin: 'round',
             }}

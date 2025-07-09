@@ -6,6 +6,7 @@ import { fetchCoffeeShops } from '../utils/coffeeShops';
 import * as turf from '@turf/turf';
 import { filtersConfig } from '../filtersConfig';
 import Modal from '../components/Modal';
+import SearchBar from '../components/SearchBar';
 
 const feetOptions = [750, 1500, 2500, 3500, 5000];
 
@@ -306,7 +307,7 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    gap: 12,
+    gap: 0,
     padding: '0.75rem 1rem 0.5rem 0.5rem',
   },
   mobileListScrollFixed: {
@@ -546,6 +547,11 @@ const waveInfoText = (
   </div>
 );
 
+// Стили для белого текста в подзаголовках волн
+const waveSubTitleStyle = { color: '#e0dbd7', fontWeight: 500, fontSize: '1em', margin: 0 };
+
+const waveTitleStyle = { fontWeight: 700, margin: '10px 0 0 0', color: '#222' };
+
 const Home = () => {
   const [coffeeShopsData, setCoffeeShopsData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -560,6 +566,10 @@ const Home = () => {
   const [activeView, setActiveView] = useState('map'); // 'map' или 'list'
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [showWaveInfo, setShowWaveInfo] = useState(false);
+  const [searchMobileOpen, setSearchMobileOpen] = useState(false);
+  const [isFilterPopoverOpen, setIsFilterPopoverOpen] = useState(false);
+  const filterBtnRef = useRef(null);
+  const filterPopoverRef = useRef(null);
 
   const mapRef = useRef(null);
 
@@ -772,6 +782,32 @@ const Home = () => {
     setSelectedShop(null);
   }, []);
 
+  // Функция для выбора кофейни из поиска
+  const handleSearchSelect = (shop) => {
+    setSelectedShop(shop);
+    if (mapRef.current && mapRef.current.flyTo) {
+      mapRef.current.flyTo([shop.longitude, shop.latitude], 16);
+    }
+    setSearchMobileOpen(false);
+  };
+
+  // Клик вне поповера закрывает его
+  useEffect(() => {
+    if (!isFilterPopoverOpen) return;
+    function handleClickOutside(e) {
+      if (
+        filterPopoverRef.current &&
+        !filterPopoverRef.current.contains(e.target) &&
+        filterBtnRef.current &&
+        !filterBtnRef.current.contains(e.target)
+      ) {
+        setIsFilterPopoverOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isFilterPopoverOpen]);
+
   return (
     <div style={styles.home}>
       <div style={styles.content}>
@@ -783,11 +819,123 @@ const Home = () => {
           }}>
             <div style={styles.desktopTopRow}>
               <button
+                ref={filterBtnRef}
                 style={styles.fabFilterDesktop}
-                onClick={() => setIsFilterModalOpen(true)}
+                onClick={() => setIsFilterPopoverOpen(v => !v)}
               >
                 <span role="img" aria-label="filter">🔎</span> Filters
               </button>
+              {/* Поповер фильтров */}
+              {isFilterPopoverOpen && (
+                <>
+                  {/* Overlay */}
+                  <div
+                    onClick={() => setIsFilterPopoverOpen(false)}
+                    style={{
+                      position: 'fixed',
+                      top: 0,
+                      left: 0,
+                      width: '100vw',
+                      height: '100vh',
+                      background: 'rgba(30,24,10,0.08)',
+                      zIndex: 2001,
+                      transition: 'background 0.2s',
+                    }}
+                  />
+                  {/* Панель фильтров */}
+                  <div
+                    ref={filterPopoverRef}
+                    style={{
+                      position: 'absolute',
+                      top: filterBtnRef.current ? (filterBtnRef.current.getBoundingClientRect().bottom + window.scrollY + 6) : 60,
+                      left: filterBtnRef.current ? (filterBtnRef.current.getBoundingClientRect().left + window.scrollX) : 60,
+                      zIndex: 2002,
+                      background: 'rgba(255,255,255,0.2)',
+                      backdropFilter: 'blur(15px)',
+                      WebkitBackdropFilter: 'blur(15px)',
+                      border: '1px solid #d3914b',
+                      borderRadius: 14,
+                      boxShadow: '0 8px 32px 0 rgba(204,144,66,0.18), 0 0 0 2px rgba(255,255,255,0.18)',
+                      padding: '10px 14px 8px 14px',
+                      minWidth: 280,
+                      maxWidth: 340,
+                      transition: 'background 0.2s',
+                    }}
+                  >
+                    <div style={{ marginBottom: 8 }}>
+                      <CustomCheckbox
+                        id="filter-open-now"
+                        checked={filters.openNow}
+                        onChange={e => setFilters(f => ({ ...f, openNow: !f.openNow }))}
+                        label={<span style={{ fontSize: '1.13em', fontWeight: 700, marginTop: 2 }}>Open now</span>}
+                      />
+                    </div>
+                    <div style={{
+                      border: '1px solid #e0e0e0',
+                      borderRadius: 10,
+                      padding: '8px 12px 8px 12px',
+                      marginBottom: 4,
+                      background: '#fafbfc',
+                    }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 6 }}>
+                        <span style={{ fontWeight: 600, fontSize: '1.05em', color: '#b87333', letterSpacing: 0.2 }}>
+                          Waves
+                        </span>
+                        <button
+                          onClick={() => setShowWaveInfo(true)}
+                          style={{
+                            width: 15,
+                            height: 15,
+                            minWidth: 0,
+                            minHeight: 0,
+                            borderRadius: '50%',
+                            background: 'rgba(220,220,220,0.7)',
+                            color: '#666',
+                            border: '1px solid #e0e0e0',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontWeight: 700,
+                            fontSize: 11,
+                            lineHeight: 1,
+                            marginLeft: 2,
+                            boxShadow: '0 1px 4px rgba(0,0,0,0.07)',
+                            cursor: 'pointer',
+                            transition: 'background 0.18s',
+                            outline: 'none',
+                            padding: 0,
+                            boxSizing: 'border-box',
+                          }}
+                          onMouseOver={e => e.currentTarget.style.background = 'rgba(200,200,200,0.95)'}
+                          onMouseOut={e => e.currentTarget.style.background = 'rgba(220,220,220,0.7)'}
+                          aria-label="What are waves?"
+                        >
+                          ?
+                        </button>
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'row', gap: 6, justifyContent: 'center', alignItems: 'center' }}>
+                        {filtersConfig[0].options.map(opt => (
+                          <CustomCheckbox
+                            key={opt.value}
+                            id={`filter-wave-${opt.value}`}
+                            checked={Array.isArray(filters.wave) && filters.wave.includes(opt.value)}
+                            onChange={() => {
+                              const arr = Array.isArray(filters.wave) ? filters.wave : [];
+                              setFilters(f => ({
+                                ...f,
+                                wave: arr.includes(opt.value)
+                                  ? arr.filter(v => v !== opt.value)
+                                  : [...arr, opt.value],
+                              }));
+                            }}
+                            label={<span style={{ fontSize: '0.93em', whiteSpace: 'nowrap', lineHeight: 1 }}>{opt.label}</span>}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
             <div style={{ marginBottom: 16 }}>
               <label htmlFor="radius-slider" style={{ fontWeight: 500, fontSize: '1rem', color: '#d3914b', display: 'block', marginBottom: 0 }}>
@@ -803,6 +951,9 @@ const Home = () => {
                 style={sliderStyle}
                 className="radius-slider"
               />
+            </div>
+            <div style={{ margin: '16px 0' }}>
+              <SearchBar coffeeShops={coffeeShopsData} onSelect={handleSearchSelect} placeholder="Search for a coffee shop..." />
             </div>
             <div style={styles.listBlock}>
               <CoffeeList
@@ -860,13 +1011,41 @@ const Home = () => {
               <span role="img" aria-label="filter">🔎</span> Filters
             </button>
             <span style={styles.coffeeCount}>{filteredShops.length} found</span>
+            {/* FLEX-КОНТЕЙНЕР ДЛЯ КНОПОК */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <button
-              style={styles.mobileGeoButton}
+                style={{
+                  ...styles.mobileGeoButton,
+                  border: 'none',
+                  boxShadow: styles.mobileGeoButton.boxShadow,
+                  background: '#fff',
+                  width: 44,
+                  height: 44,
+                  padding: '8px 12px',
+                  minWidth: 0,
+                  minHeight: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 22,
+                  marginRight: 2,
+                }}
+                onClick={() => setSearchMobileOpen(true)}
+                title="Search"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="11" cy="11" r="7" stroke="#b87333" strokeWidth="2" />
+                  <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="#b87333" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              </button>
+              <button
+                style={{ ...styles.mobileGeoButton, border: 'none', boxShadow: styles.mobileGeoButton.boxShadow, background: '#fff', width: 44, height: 44, padding: '8px 12px', minWidth: 0, minHeight: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 22 }}
               onClick={handleUseLocation}
-              title="Моё местоположение"
+                title="My location"
             >
               <LocationIcon size={20} color="#d3914b" />
             </button>
+            </div>
           </div>
           <div style={styles.mobileListScrollFixed}>
             <CoffeeList
@@ -936,11 +1115,7 @@ const Home = () => {
         <Modal onClose={() => setIsFilterModalOpen(false)}>
           <div
             style={{
-              padding: isMobileView ? 8 : 16,
-              maxHeight: isMobileView ? '70vh' : 'none',
-              minWidth: isMobileView ? 0 : 340,
-              overflowY: 'auto',
-              boxSizing: 'border-box',
+              padding: isMobileView ? '4px 8px 8px 8px' : '8px 16px',
             }}
           >
             <h3 style={{ margin: isMobileView ? '0 0 10px 0' : '0 0 16px 0', fontSize: isMobileView ? '1.05rem' : '1.2rem', fontWeight: 600, color: '#333' }}>
@@ -951,19 +1126,55 @@ const Home = () => {
                 <div style={{ marginBottom: 10 }}>
                   <CustomCheckbox
                     id="filter-open-now"
-                    checked={filters.openNow}
+                checked={filters.openNow}
                     onChange={e => setFilters(f => ({ ...f, openNow: !f.openNow }))}
-                    label={<span style={{ fontSize: '0.97em', marginTop: 2 }}>Open now</span>}
-                  />
-                </div>
+                    label={<span style={{ fontSize: '1.13em', fontWeight: 700, marginTop: 2 }}>Open now</span>}
+              />
+          </div>
                 <div style={{
                   border: '1px solid #e0e0e0',
                   borderRadius: 10,
-                  padding: '10px 8px 6px 8px',
+                  padding: '10px 16px 10px 16px',
                   marginBottom: 6,
                   background: '#fafbfc',
                 }}>
-                  <div style={{ display: 'flex', flexDirection: 'row', gap: 10, justifyContent: 'center' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 6 }}>
+                    <span style={{ fontWeight: 600, fontSize: '1.05em', color: '#b87333', letterSpacing: 0.2 }}>
+                      Waves
+                    </span>
+                    <button
+                      onClick={() => setShowWaveInfo(true)}
+                      style={{
+                        width: 15,
+                        height: 15,
+                        minWidth: 0,
+                        minHeight: 0,
+                        borderRadius: '50%',
+                        background: 'rgba(220,220,220,0.7)',
+                        color: '#666',
+                        border: '1px solid #e0e0e0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontWeight: 700,
+                        fontSize: 11,
+                        lineHeight: 1,
+                        marginLeft: 2,
+                        boxShadow: '0 1px 4px rgba(0,0,0,0.07)',
+                        cursor: 'pointer',
+                        transition: 'background 0.18s',
+                        outline: 'none',
+                        padding: 0,
+                        boxSizing: 'border-box',
+                      }}
+                      onMouseOver={e => e.currentTarget.style.background = 'rgba(200,200,200,0.95)'}
+                      onMouseOut={e => e.currentTarget.style.background = 'rgba(220,220,220,0.7)'}
+                      aria-label="What are waves?"
+                    >
+                      ?
+                    </button>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'row', gap: 6, justifyContent: 'center', alignItems: 'center' }}>
                     {filtersConfig[0].options.map(opt => (
                       <CustomCheckbox
                         key={opt.value}
@@ -978,33 +1189,178 @@ const Home = () => {
                               : [...arr, opt.value],
                           }));
                         }}
-                        label={<span style={{ fontSize: '0.97em', marginTop: 2 }}>{opt.label}</span>}
+                        label={<span style={{ fontSize: '0.93em', whiteSpace: 'nowrap', lineHeight: 1 }}>{opt.label}</span>}
                       />
                     ))}
                   </div>
                 </div>
-                {showWaveInfo && (
-                  <Modal onClose={() => setShowWaveInfo(false)}>
-                    <div style={{ padding: 18, maxWidth: 340, fontSize: '1em' }}>
-                      <h3 style={{ margin: '0 0 10px 0', fontWeight: 600, fontSize: '1.1em', color: '#333' }}>Coffee shop style</h3>
-                      {waveInfoText}
-                    </div>
-                  </Modal>
-                )}
               </>
             ) : (
               <>
-                <FilterPanel filters={filters} setFilters={setFilters} />
-                <div style={{ marginTop: 16 }}>
+                <div style={{ marginBottom: 10 }}>
                   <CustomCheckbox
                     id="filter-open-now"
                     checked={filters.openNow}
                     onChange={e => setFilters(f => ({ ...f, openNow: !f.openNow }))}
-                    label="Open now"
+                    label={<span style={{ fontSize: '1.13em', fontWeight: 700, marginTop: 2 }}>Open now</span>}
                   />
+                </div>
+                <div style={{
+                  border: '1px solid #e0e0e0',
+                  borderRadius: 10,
+                  padding: '10px 16px 10px 16px',
+                  marginBottom: 6,
+                  background: '#fafbfc',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 6 }}>
+                    <span style={{ fontWeight: 600, fontSize: '1.05em', color: '#b87333', letterSpacing: 0.2 }}>
+                      Waves
+                    </span>
+                    <button
+                      onClick={() => setShowWaveInfo(true)}
+                      style={{
+                        width: 15,
+                        height: 15,
+                        minWidth: 0,
+                        minHeight: 0,
+                        borderRadius: '50%',
+                        background: 'rgba(220,220,220,0.7)',
+                        color: '#666',
+                        border: '1px solid #e0e0e0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontWeight: 700,
+                        fontSize: 11,
+                        lineHeight: 1,
+                        marginLeft: 2,
+                        boxShadow: '0 1px 4px rgba(0,0,0,0.07)',
+                        cursor: 'pointer',
+                        transition: 'background 0.18s',
+                        outline: 'none',
+                        padding: 0,
+                        boxSizing: 'border-box',
+                      }}
+                      onMouseOver={e => e.currentTarget.style.background = 'rgba(200,200,200,0.95)'}
+                      onMouseOut={e => e.currentTarget.style.background = 'rgba(220,220,220,0.7)'}
+                      aria-label="What are waves?"
+                    >
+                      ?
+                    </button>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'row', gap: 6, justifyContent: 'center', alignItems: 'center' }}>
+                    {filtersConfig[0].options.map(opt => (
+                      <CustomCheckbox
+                        key={opt.value}
+                        id={`filter-wave-${opt.value}`}
+                        checked={Array.isArray(filters.wave) && filters.wave.includes(opt.value)}
+                        onChange={() => {
+                          const arr = Array.isArray(filters.wave) ? filters.wave : [];
+                          setFilters(f => ({
+                            ...f,
+                            wave: arr.includes(opt.value)
+                              ? arr.filter(v => v !== opt.value)
+                              : [...arr, opt.value],
+                          }));
+                        }}
+                        label={<span style={{ fontSize: '0.93em', whiteSpace: 'nowrap', lineHeight: 1 }}>{opt.label}</span>}
+                      />
+                    ))}
+                  </div>
                 </div>
               </>
             )}
+          </div>
+        </Modal>
+      )}
+      {/* Модальный поиск на мобильном */}
+      {searchMobileOpen && (
+        <div className="mobile-search-overlay" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(40,30,10,0.22)', zIndex: 2000, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', paddingTop: 32 }} onClick={() => setSearchMobileOpen(false)}>
+          <div style={{ width: '96%', maxWidth: 420, margin: '0 auto', background: 'rgba(255,255,255,0.98)', borderRadius: 18, boxShadow: '0 8px 32px rgba(204,144,66,0.13)', padding: '18px 10px 10px 10px', position: 'relative' }} onClick={e => e.stopPropagation()}>
+            <SearchBar coffeeShops={coffeeShopsData} onSelect={handleSearchSelect} placeholder="Search for a coffee shop..." />
+            <button onClick={() => setSearchMobileOpen(false)} style={{ position: 'absolute', top: 8, right: 8, background: 'none', border: 'none', fontSize: 22, color: '#b87333', cursor: 'pointer' }}>×</button>
+          </div>
+        </div>
+      )}
+      {/* Модальное окно с аннотацией по волнам */}
+      {showWaveInfo && (
+        <Modal onClose={() => setShowWaveInfo(false)}>
+          <button
+            onClick={() => setShowWaveInfo(false)}
+            style={{
+              position: 'absolute',
+              top: isMobileView ? 6 : 18,
+              right: isMobileView ? 6 : 18,
+              width: isMobileView ? 22 : 28,
+              height: isMobileView ? 22 : 28,
+              minWidth: 0,
+              minHeight: 0,
+              boxSizing: 'border-box',
+              padding: 0,
+              margin: 0,
+              lineHeight: 1,
+              fontSize: isMobileView ? 15 : 18,
+              fontFamily: 'inherit',
+              outline: 'none',
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.5) 100%)',
+              color: '#666',
+              border: '1.2px solid rgba(224,224,224,0.7)',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+              borderRadius: '50%',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 20,
+              backdropFilter: 'blur(5px)',
+              WebkitBackdropFilter: 'blur(5px)',
+              transition: 'all 0.2s ease'
+            }}
+            aria-label="Close"
+          >
+            ×
+          </button>
+          <div
+            style={{
+              padding: isMobileView ? '10px 6px 6px 6px' : '18px 18px 10px 18px',
+              maxWidth: isMobileView ? '96vw' : 340,
+              fontSize: isMobileView ? '0.97em' : '1em',
+              position: 'relative',
+            }}>
+            <h3 style={{
+              margin: isMobileView ? '0 0 10px 0' : '0 0 18px 0',
+              fontWeight: 800,
+              fontSize: isMobileView ? '1.18em' : '1.5em',
+              color: '#e0dbd7',
+              letterSpacing: 0.1,
+              textAlign: 'center',
+            }}>
+              Coffee shop style
+            </h3>
+            <div>
+              <b>Discover cafés that suit your taste.</b>
+              <div style={{ color: '#e0dbd7', fontWeight: 400, margin: '6px 0 16px 0' }}>
+                Each "wave" reflects a unique approach to coffee—from cozy familiarity to craft-driven precision.
+              </div>
+              <hr style={{ border: 'none', borderTop: '1px solid #e0dbd7', opacity: 0.5, margin: '12px 0' }} />
+              <div style={waveTitleStyle}>Second Wave</div>
+              <div style={waveSubTitleStyle}>The Experience & The Brand</div>
+              <div style={{ margin: '6px 0 16px 0' }}>
+                These cafés turned coffee into a lifestyle. Think lattes, cappuccinos, and a warm, reliable vibe. Expect consistency, comfort, and rich blends that fit right into your daily rhythm.
+              </div>
+              <hr style={{ border: 'none', borderTop: '1px solid #e0dbd7', opacity: 0.5, margin: '12px 0' }} />
+              <div style={waveTitleStyle}>Third Wave</div>
+              <div style={waveSubTitleStyle}>The Craft & The Origin</div>
+              <div style={{ margin: '6px 0 16px 0' }}>
+                Here, coffee is treated like fine wine. Every detail matters—from farm and roast to brewing. Baristas highlight flavor nuances using methods like pour-over, revealing bright citrus, florals, or fruit notes.
+              </div>
+              <hr style={{ border: 'none', borderTop: '1px solid #e0dbd7', opacity: 0.5, margin: '12px 0' }} />
+              <div style={waveTitleStyle}>Not Defined</div>
+              <div style={waveSubTitleStyle}>Awaiting Classification</div>
+              <div style={{ margin: '6px 0 0 0' }}>
+                These up-and-coming spots show promise, but we're still gathering details. They may be hidden gems—stay tuned as we learn more.
+              </div>
+            </div>
           </div>
         </Modal>
       )}
