@@ -107,13 +107,13 @@ const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = 
   return (
     <div className="guide-coffee-card">
       <div className="card-header">
-        <div className="header-content">
+        <div className="header-content" style={{ padding: '0 16px' }}>
           <h2 className="shop-name">{name}</h2>
           <p className="shop-address">{address}</p>
-          {/* Бейдж wave */}
+          {/* Бейдж wave и Route */}
           {coffeeShop.wave && (
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <div className="tier-badge" style={{ backgroundColor: getWaveColor(coffeeShop.wave) }}>
+              <div className="tier-badge" style={{ backgroundColor: getWaveColor(coffeeShop.wave), display: 'flex', alignItems: 'center', height: 38, borderRadius: 19, fontWeight: 700, fontSize: '1.01rem', padding: '0 22px', letterSpacing: 0.5 }}>
                 {coffeeShop.wave}
               </div>
               {/* Кнопка с вопросительным знаком */}
@@ -121,18 +121,19 @@ const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = 
                 style={{ 
                   backgroundColor: 'rgba(245, 245, 245, 0.8)', 
                   color: '#666',
-                  width: '25px',
-                  height: '25px',
+                  width: 32,
+                  height: 32,
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '14px',
+                  fontSize: '16px',
                   fontWeight: 'bold',
                   cursor: 'pointer',
                   border: '1px solid rgba(224, 224, 224, 0.8)',
                   boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
-                  opacity: 0.8
+                  opacity: 0.8,
+                  marginLeft: 4,
                 }}
                 onClick={() => setShowWaveInfo(true)}
               >
@@ -162,9 +163,44 @@ const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = 
         {/* Location & Atmosphere */}
         {descriptionBlocks?.['Location & Atmosphere'] && (
           <div className="guide-section">
-            <div className="section-header">
-              <div className="section-icon">📍</div>
-              <h3>Location & Atmosphere</h3>
+            <div className="section-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div className="section-icon">📍</div>
+                <h3 style={{ margin: 0 }}>Location & Atmosphere</h3>
+              </div>
+              {/* Кнопка Route справа */}
+              <button
+                className="route-btn"
+                style={{
+                  padding: '0 22px',
+                  height: 38,
+                  borderRadius: 19,
+                  border: 'none',
+                  background: '#fff',
+                  color: '#b87333',
+                  fontWeight: 700,
+                  fontSize: '1.01rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  boxShadow: '0 1px 4px rgba(0,0,0,0.07)',
+                  cursor: 'pointer',
+                  letterSpacing: 0.5,
+                  transition: 'box-shadow 0.18s',
+                  marginRight: 0,
+                }}
+                onClick={() => {
+                  const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + address)}`;
+                  window.open(url, '_blank');
+                }}
+              >
+                <span className="route-pin-icon" style={{display: 'flex', alignItems: 'center', marginRight: 8}}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335"/>
+                    <circle cx="12" cy="9" r="2.5" fill="#fff"/>
+                  </svg>
+                </span>
+                Route
+              </button>
             </div>
             <p>{descriptionBlocks['Location & Atmosphere']}</p>
           </div>
