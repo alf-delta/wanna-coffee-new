@@ -1,5 +1,7 @@
 import React from 'react';
 import WCShopLogo from '../assets/WC_SHOP.svg';
+import WaitlistForm from '../components/WaitlistForm';
+import CustomerWaitlistForm from '../components/CustomerWaitlistForm';
 
 const categories = [
   { icon: '☕', title: 'Coffee', desc: 'Whole beans, ground coffee, single origin, blends, cold brew, drip bags, and more' },
@@ -136,6 +138,29 @@ const CoffeeSubscription = () => (
       </div>
     </section>
 
+    {/* Customer Waitlist Form */}
+    <section style={{ 
+      maxWidth: 900, 
+      margin: '0 auto', 
+      padding: '2.5rem 1rem 1.5rem 1rem',
+      background: 'linear-gradient(135deg, #cc9042 60%, #b87333 100%)',
+      borderRadius: '28px',
+      marginTop: '2rem',
+      marginBottom: '2rem',
+      color: '#fff'
+    }}>
+      <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '1rem', color: '#fff', textAlign: 'center' }}>
+        Ready to Shop Specialty Coffee?
+      </h2>
+      <p style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '2rem', lineHeight: 1.6, maxWidth: 600, margin: '0 auto 2rem auto', textAlign: 'center' }}>
+        Join our waitlist to be the first to know when our coffee marketplace launches. Discover fresh beans, brewing equipment, and curated coffee products from the best local roasters.
+      </p>
+      <CustomerWaitlistForm onSubmit={(data) => {
+        console.log('Shop customer waitlist submission:', data);
+        // Здесь можно добавить логику отправки данных
+      }} />
+    </section>
+
     {/* Нижняя часть для бизнеса */}
     <section style={styles.businessSectionWrapper}>
       <div style={styles.businessWaveContainer}>
@@ -180,7 +205,10 @@ const CoffeeSubscription = () => (
           </ol>
         </div>
         <div style={styles.partnerCtaWrapper}>
-          <button style={styles.partnerCta}>Become a Partner</button>
+          <WaitlistForm onSubmit={(data) => {
+            console.log('Shop waitlist submission:', data);
+            // Здесь можно добавить логику отправки данных
+          }} />
         </div>
       </div>
     </section>
@@ -458,18 +486,6 @@ const styles = {
   partnerCtaWrapper: {
     textAlign: 'center',
     marginTop: '2rem',
-  },
-  partnerCta: {
-    background: '#fff',
-    color: '#cc9042',
-    fontWeight: 700,
-    fontSize: '1.1rem',
-    border: 'none',
-    borderRadius: '24px',
-    padding: '0.75rem 2.5rem',
-    boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
-    cursor: 'pointer',
-    transition: 'background 0.2s, color 0.2s',
   },
   businessBenefitCardFull: {
     background: 'rgba(255,255,255,0.10)',

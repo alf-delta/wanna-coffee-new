@@ -110,12 +110,12 @@ const FilterPanel = ({ filters, setFilters }) => {
                     <CustomCheckbox
                       key={opt.value}
                       id={`filter-${filter.key}-${opt.value}`}
-                      checked={Array.isArray(filters[filter.key])
-                        ? filters[filter.key].includes(opt.value)
-                        : filters[filter.key] === opt.value || filters[filter.key] === true}
-                      onChange={() => handleCheckbox(filter.key, opt.value, filter.multi)}
+                        checked={Array.isArray(filters[filter.key])
+                          ? filters[filter.key].includes(opt.value)
+                          : filters[filter.key] === opt.value || filters[filter.key] === true}
+                        onChange={() => handleCheckbox(filter.key, opt.value, filter.multi)}
                       label={opt.label}
-                    />
+                      />
                   ))}
                 </div>
               )}

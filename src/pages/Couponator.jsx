@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import WCTicketsLogo from '../assets/WC_TICKETS.svg';
+import WaitlistForm from '../components/WaitlistForm';
+import CustomerWaitlistForm from '../components/CustomerWaitlistForm';
 
 const faqsUsers = [
   {
@@ -247,6 +249,29 @@ const Couponator = () => {
           </div>
         </section>
 
+        {/* Customer Waitlist Form */}
+        <section style={{ 
+          maxWidth: 900, 
+          margin: '0 auto', 
+          padding: '2.5rem 1rem 1.5rem 1rem',
+          background: 'linear-gradient(135deg, #cc9042 60%, #b87333 100%)',
+          borderRadius: '28px',
+          marginTop: '2rem',
+          marginBottom: '2rem',
+          color: '#fff'
+        }}>
+          <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '1rem', color: '#fff', textAlign: 'center' }}>
+            Ready to Experience Coffee Freedom?
+          </h2>
+          <p style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '2rem', lineHeight: 1.6, maxWidth: 600, margin: '0 auto 2rem auto', textAlign: 'center' }}>
+            Join our waitlist to be the first to know when Wanna Coffee launches. Get early access to all our features including Coffee Pass, Shop, Events, and more.
+          </p>
+          <CustomerWaitlistForm onSubmit={(data) => {
+            console.log('Coffee Pass customer waitlist submission:', data);
+            // Здесь можно добавить логику отправки данных
+          }} />
+        </section>
+
         {/* FAQ for Users */}
         <section style={styles.sectionNarrow} className="couponator-section-narrow">
           <h2 style={styles.sectionTitle}>☕️ FAQ — For Coffee Lovers</h2>
@@ -334,6 +359,29 @@ const Couponator = () => {
               </div>
             ))}
           </div>
+        </section>
+
+        {/* Call to Action with Form */}
+        <section style={{ 
+          maxWidth: 900, 
+          margin: '0 auto', 
+          padding: '2.5rem 1rem 1.5rem 1rem',
+          background: 'linear-gradient(135deg, #cc9042 60%, #b87333 100%)',
+          borderRadius: '28px',
+          marginTop: '2rem',
+          marginBottom: '2rem',
+          color: '#fff'
+        }}>
+          <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '1rem', color: '#fff', textAlign: 'center' }}>
+            Ready to Join the Coffee Pass Community?
+          </h2>
+          <p style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '2rem', lineHeight: 1.6, maxWidth: 600, margin: '0 auto 2rem auto', textAlign: 'center' }}>
+            Whether you're a coffee shop owner looking to accept tickets, or a coffee lover wanting to explore the city with flexible coffee passes, join our waitlist to be the first to know when we launch our ticket system.
+          </p>
+          <WaitlistForm onSubmit={(data) => {
+            console.log('Coffee Pass waitlist submission:', data);
+            // Здесь можно добавить логику отправки данных
+          }} />
         </section>
       </div>
     </>

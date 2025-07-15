@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import WCEventsLogo from '../assets/WC_EVENTS.svg';
+import WaitlistForm from '../components/WaitlistForm';
+import CustomerWaitlistForm from '../components/CustomerWaitlistForm';
 // Можно добавить фирменную иконку/логотип для Events, если появится
 
 // Блоки преимуществ для гостей
@@ -151,10 +153,24 @@ const Events = () => {
               </div>
             ))}
           </div>
-          <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-            <span style={{ background: '#e7d2b8', color: '#b87333', borderRadius: '12px', padding: '0.7rem 1.5rem', fontWeight: 700, fontSize: '1.1rem', display: 'inline-block' }}>
-              → Submit your event via the form. It's quick, curated, and built for the community.
-            </span>
+          <div style={{ 
+            textAlign: 'center', 
+            marginTop: '2.5rem',
+            background: 'linear-gradient(135deg, #cc9042 60%, #b87333 100%)',
+            borderRadius: '28px',
+            padding: '2rem 1.5rem',
+            color: '#fff'
+          }}>
+            <h3 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '1rem', color: '#fff', textAlign: 'center' }}>
+              Stay Updated on Coffee Events
+            </h3>
+            <p style={{ fontSize: '1rem', color: '#fff', marginBottom: '1.5rem', lineHeight: 1.6, maxWidth: 500, margin: '0 auto 1.5rem auto', textAlign: 'center' }}>
+              Join our waitlist to be notified when our events platform launches. Discover tastings, workshops, and coffee culture events across the city.
+            </p>
+            <CustomerWaitlistForm onSubmit={(data) => {
+              console.log('Events submission waitlist:', data);
+              // Здесь можно добавить логику отправки данных
+            }} />
           </div>
         </section>
 
@@ -178,6 +194,29 @@ const Events = () => {
               </div>
             ))}
           </div>
+        </section>
+
+        {/* Call to Action with Form */}
+        <section style={{ 
+          maxWidth: 900, 
+          margin: '0 auto', 
+          padding: '2.5rem 1rem 1.5rem 1rem',
+          background: 'linear-gradient(135deg, #cc9042 60%, #b87333 100%)',
+          borderRadius: '28px',
+          marginTop: '2rem',
+          marginBottom: '2rem',
+          color: '#fff'
+        }}>
+          <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '1rem', color: '#fff', textAlign: 'center' }}>
+            Ready to Join the Coffee Community?
+          </h2>
+          <p style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '2rem', lineHeight: 1.6, maxWidth: 600, margin: '0 auto 2rem auto', textAlign: 'center' }}>
+            Whether you're a coffee shop owner looking to host events, or a coffee lover wanting to stay updated on the latest happenings, join our waitlist to be the first to know when we launch our events platform.
+          </p>
+          <WaitlistForm onSubmit={(data) => {
+            console.log('Events waitlist submission:', data);
+            // Здесь можно добавить логику отправки данных
+          }} />
         </section>
 
         <div style={{ textAlign: 'center', margin: '2.5rem 0' }}>

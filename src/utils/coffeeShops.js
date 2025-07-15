@@ -8,8 +8,8 @@ export const fetchCoffeeShops = async () => {
       console.log('super_list.json не найден, используем coffeeShops.json');
       response = await fetch('/coffeeShops.json');
       dataSource = 'coffeeShops.json';
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
       }
     } else {
       console.log('✅ Загружаем данные из super_list.json');

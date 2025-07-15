@@ -85,7 +85,7 @@ const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = 
         </div>
         <div className="card-content compact-content-row" style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
           <div style={{display: 'flex', alignItems: 'center'}}>
-            <div className={`open-status ${isOpen === false ? 'closed' : 'open'}`}>{isOpen === false ? 'Closed' : 'Open'}</div>
+          <div className={`open-status ${isOpen === false ? 'closed' : 'open'}`}>{isOpen === false ? 'Closed' : 'Open'}</div>
           </div>
           <button className="route-btn" onClick={() => {
             const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + address)}`;
@@ -165,7 +165,7 @@ const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = 
           <div className="guide-section">
             <div className="section-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <div className="section-icon">📍</div>
+              <div className="section-icon">📍</div>
                 <h3 style={{ margin: 0 }}>Location & Atmosphere</h3>
               </div>
               {/* Кнопка Route справа */}

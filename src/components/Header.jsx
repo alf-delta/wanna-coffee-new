@@ -107,23 +107,27 @@ const Header = () => {
                     }}
                   />
                   {/* Мобильное меню */}
-                  <div style={styles.mobileMenu}>
-                    <Link to="/" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>Home</Link>
-                    <Link to="/about" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>About</Link>
-                    <Link to="/contact" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>Contact</Link>
-                    <span style={{ position: 'relative', display: 'block' }}>
+                <div style={styles.mobileMenu}>
+                  <Link to="/" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>Home</Link>
+                  <Link to="/about" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>About</Link>
+                  <Link to="/contact" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>Contact</Link>
+                  <span style={{ position: 'relative', display: 'block' }}>
                       <Link to="/couponator" className="accent-btn" style={{ ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Coffee Pass</Link>
-                      <span style={soonDot}></span>
-                    </span>
-                    <span style={{ position: 'relative', display: 'block' }}>
+                    <span style={soonDot}></span>
+                  </span>
+                  <span style={{ position: 'relative', display: 'block' }}>
                       <Link to="/events" className="accent-btn" style={{ ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Events</Link>
-                      <span style={soonDot}></span>
-                    </span>
-                    <span style={{ position: 'relative', display: 'block' }}>
+                    <span style={soonDot}></span>
+                  </span>
+                  <span style={{ position: 'relative', display: 'block' }}>
                       <Link to="/subscription" className="accent-btn" style={{ ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Shop</Link>
-                      <span style={soonDot}></span>
-                    </span>
-                  </div>
+                    <span style={soonDot}></span>
+                  </span>
+                  <span style={{ position: 'relative', display: 'block' }}>
+                      <Link to="/foresight" className="accent-btn" style={{ ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Foresight</Link>
+                    <span style={soonDot}></span>
+                  </span>
+                </div>
                 </>
               )}
             </>
@@ -174,6 +178,21 @@ const Header = () => {
                   onMouseLeave={() => setHoveredBtn(null)}
                 >
                   Shop
+                </Link>
+                <span style={soonBadge}>Soon</span>
+              </span>
+              <span style={{ position: 'relative', display: 'inline-block' }}>
+                <Link
+                  to="/foresight"
+                  className="accent-btn"
+                  style={{
+                    ...accentButton,
+                    ...(hoveredBtn === 'foresight' ? accentButtonHover : {}),
+                  }}
+                  onMouseEnter={() => setHoveredBtn('foresight')}
+                  onMouseLeave={() => setHoveredBtn(null)}
+                >
+                  Foresight
                 </Link>
                 <span style={soonBadge}>Soon</span>
               </span>
@@ -271,9 +290,12 @@ const styles = {
     top: 64,
     right: 16,
     left: 16,
-    background: '#fff',
-    borderRadius: 12,
-    boxShadow: '0 4px 24px rgba(0,0,0,0.12)',
+    background: 'rgba(255, 255, 255, 0.6)',
+    backdropFilter: 'blur(25px)',
+    WebkitBackdropFilter: 'blur(25px)',
+    borderRadius: 16,
+    boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
+    border: '1px solid rgba(255, 255, 255, 0.3)',
     zIndex: 2001,
     display: 'flex',
     flexDirection: 'column',
@@ -285,17 +307,17 @@ const styles = {
   },
   mobileMenuLink: {
     padding: '1rem',
-    color: '#333',
+    color: '#2c2c2c',
     textDecoration: 'none',
-    fontWeight: 500,
+    fontWeight: 600,
     fontSize: '1.1rem',
-    borderBottom: '1px solid #eee',
+    borderBottom: '1px solid rgba(0,0,0,0.06)',
     transition: 'background 0.2s',
     ':last-child': {
       borderBottom: 'none',
     },
     ':hover': {
-      background: '#f7f7f7',
+      background: 'rgba(255,255,255,0.4)',
     },
   },
   '@media (max-width: 768px)': {
@@ -314,8 +336,10 @@ const styles = {
     background: 'linear-gradient(90deg, #cc9042 60%, #b87333 100%)',
     color: '#fff',
     fontWeight: 700,
-    boxShadow: '0 2px 8px rgba(204,144,66,0.13)',
-    border: 'none',
+    boxShadow: '0 4px 16px rgba(204,144,66,0.2)',
+    border: '1px solid rgba(255,255,255,0.2)',
+    backdropFilter: 'blur(10px)',
+    WebkitBackdropFilter: 'blur(10px)',
   },
   burgerDot: {
     position: 'absolute',
