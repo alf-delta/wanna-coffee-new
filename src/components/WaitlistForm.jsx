@@ -95,6 +95,9 @@ const WaitlistForm = ({ onSubmit }) => {
       >
         {isSubmitting ? 'Joining...' : 'Join Waitlist'}
       </button>
+      <p style={styles.disclaimer}>
+        We'll notify you when we launch our business features. No spam, just updates about Wanna Coffee for partners.
+      </p>
     </form>
   );
 };
@@ -104,8 +107,11 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     gap: '1rem',
-    maxWidth: '400px',
-    margin: '0 auto',
+    width: '100%',
+    background: 'linear-gradient(90deg, #cc9042 60%, #b87333 100%)',
+    borderRadius: '18px',
+    boxShadow: '0 2px 12px rgba(204,144,66,0.07)',
+    padding: '2rem 1.5rem',
   },
   inputGroup: {
     display: 'flex',
@@ -120,6 +126,7 @@ const styles = {
     textShadow: '0 1px 2px rgba(0,0,0,0.3)',
   },
   input: {
+    width: '100%',
     padding: '0.75rem 1rem',
     borderRadius: '12px',
     border: '2px solid rgba(255,255,255,0.3)',
@@ -150,6 +157,7 @@ const styles = {
     fontWeight: 500,
   },
   submitButton: {
+    width: '100%',
     background: 'linear-gradient(135deg, #fff 0%, #f8f9fa 100%)',
     color: '#cc9042',
     fontWeight: 700,
@@ -195,6 +203,14 @@ const styles = {
     fontSize: '1rem',
     color: '#555',
     lineHeight: 1.6,
+  },
+  disclaimer: {
+    fontSize: '0.85rem',
+    color: 'rgba(80,60,20,0.7)',
+    textAlign: 'center',
+    marginTop: '1rem',
+    lineHeight: 1.4,
+    fontStyle: 'italic',
   },
 };
 

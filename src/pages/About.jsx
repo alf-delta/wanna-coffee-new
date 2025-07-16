@@ -1,281 +1,184 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import logo from '../assets/logo.svg';
+import WaitlistTabs from '../components/WaitlistTabs';
 
 const About = () => {
   return (
-    <div style={styles.container}>
-      <div style={styles.hero}>
-        <div style={styles.heroContent}>
-          <h1 style={styles.title}>About WannaCoffee</h1>
-          <p style={styles.subtitle}>
-            Your complete coffee discovery and loyalty platform
-          </p>
-        </div>
-      </div>
+    <div style={styles.pageBg}>
+      <section style={styles.heroSection}>
+        <img src={logo} alt="Wanna Coffee Logo" style={styles.logo} />
+        <h1 style={styles.heroTitle}>About</h1>
+        <p style={styles.heroSubtitle}>Vision & Mission Focused</p>
+      </section>
 
-      <div style={styles.content}>
-        <div style={styles.missionSection}>
-          <h2 style={styles.sectionTitle}>Our Mission</h2>
-          <p style={styles.missionText}>
-            WannaCoffee is a personal project built by a solo coffee enthusiast with a mission: 
-            to make the community of coffee lovers more connected and empowered to discover their favorite spots.
-          </p>
-          <p style={styles.missionText}>
-            The platform helps you find specialty coffee shops nearby, explore the best brews, 
-            and support local coffee culture. Built with love in New York City.
-          </p>
-        </div>
+      <section style={styles.glassSection}>
+        <h2 style={styles.sectionTitle}>Great Coffee Should Be for Everyone.</h2>
+        <p style={styles.sectionText}>
+          It's a simple idea, but one that gets lost in a world of complex choices and compromises. We started Wanna Coffee because we believe in the power of a great cup of coffee—not just as a drink, but as a cornerstone of community, craft, and daily ritual.<br/><br/>
+          We saw a gap between the passionate local artisans who pour their hearts into every bean, and the people who want to enjoy their craft without it feeling like a luxury. We knew there had to be a smarter, fairer way for everyone to win.
+        </p>
+      </section>
 
-        <div style={styles.featuresSection}>
-          <h2 style={styles.sectionTitle}>Current & Upcoming Features</h2>
-          
-          <div style={styles.featuresGrid}>
-            <div style={styles.featureCard}>
-              <div style={styles.featureIcon}>🗺️</div>
-              <h3 style={styles.featureTitle}>Coffee Map</h3>
-              <p style={styles.featureDescription}>
-                Discover coffee shops near you with our interactive map. 
-                Filter by distance, ratings, and preferences.
-              </p>
-              <div style={styles.statusBadge}>
-                <span style={styles.liveBadge}>Live</span>
-              </div>
-            </div>
+      <section style={styles.glassSection}>
+        <h2 style={styles.sectionTitle}>Our Vision: An Ecosystem, Not Just an App.</h2>
+        <p style={styles.sectionText}>
+          We are building a technology platform designed to rebalance the scales of the local coffee economy. Our vision is to create a seamless world where enjoying the best coffee is effortless for customers, and running a successful coffee business is more achievable for independent entrepreneurs.<br/><br/>
+          We're moving beyond simple discounts or directory listings. We're creating a sustainable ecosystem where technology empowers connection, supports local businesses, and makes the simple pleasure of a great coffee more accessible than ever before.
+        </p>
+      </section>
 
-            <div style={styles.featureCard}>
-              <div style={styles.featureIcon}>🎫</div>
-              <h3 style={styles.featureTitle}>Couponator</h3>
-              <p style={styles.featureDescription}>
-                Exclusive deals and discounts for coffee lovers. 
-                Daily offers, birthday rewards, and VIP access.
-              </p>
-              <div style={styles.statusBadge}>
-                <span style={styles.comingSoonBadge}>Coming Soon</span>
-              </div>
-              <Link to="/couponator" style={styles.previewLink}>
-                Preview Interface →
-              </Link>
-            </div>
+      <section style={styles.glassSection}>
+        <h2 style={styles.sectionTitle}>How We're Doing It: The Wanna Coffee Pass.</h2>
+        <p style={styles.sectionText}>
+          At the heart of our platform is the Wanna Coffee Pass—a single, digital key that unlocks the city's independent coffee scene.<br/><br/>
+          It's a simple concept: pre-load your Pass and use it to seamlessly pay at a growing network of curated partner cafés. This isn't just a new way to pay; it's a new way to experience coffee. It's about freedom, discovery, and the confidence that you're always getting fair value while supporting the businesses that make our neighborhoods unique.
+        </p>
+      </section>
 
-            <div style={styles.featureCard}>
-              <div style={styles.featureIcon}>🏆</div>
-              <h3 style={styles.featureTitle}>Events</h3>
-              <p style={styles.featureDescription}>
-                Earn points with every purchase and unlock exclusive benefits. 
-                Bronze, Silver, and Gold membership tiers.
-              </p>
-              <div style={styles.statusBadge}>
-                <span style={styles.comingSoonBadge}>Coming Soon</span>
-              </div>
-              <Link to="/events" style={styles.previewLink}>
-                Preview Interface →
-              </Link>
-            </div>
-
-            <div style={styles.featureCard}>
-              <div style={styles.featureIcon}>☕</div>
-              <h3 style={styles.featureTitle}>Shop</h3>
-              <p style={styles.featureDescription}>
-                Fresh coffee delivered to your door, tailored to your taste. 
-                Flexible delivery schedules and personalized blends.
-              </p>
-              <div style={styles.statusBadge}>
-                <span style={styles.comingSoonBadge}>Coming Soon</span>
-              </div>
-              <Link to="/subscription" style={styles.previewLink}>
-                Preview Interface →
-              </Link>
-            </div>
+      <section style={{...styles.glassSection, ...styles.valueSection}}>
+        <div style={styles.valueColumns}>
+          <div style={styles.valueCol}>
+            <h3 style={styles.valueTitle}>For Coffee Lovers:</h3>
+            <ul style={styles.valueList}>
+              <li><b>Freedom to Explore.</b> The Wanna Coffee Pass is your ticket to a city-wide coffee adventure.</li>
+              <li><b>Discover:</b> Find hidden gems and support the passionate people behind the counter.</li>
+              <li><b>Enjoy Seamlessly:</b> Forget fumbling for cards or cash. A simple scan is all it takes.</li>
+              <li><b>Be Part of a Community:</b> Join a network of people who, like you, value quality, craft, and supporting local.</li>
+            </ul>
+          </div>
+          <div style={styles.valueCol}>
+            <h3 style={styles.valueTitle}>For Coffee Shops:</h3>
+            <ul style={styles.valueList}>
+              <li><b>Your Partner in Growth.</b> We know your focus is on making incredible coffee. Ours is on helping you build a thriving business.</li>
+              <li><b>Connect with New Customers:</b> We bring a motivated, high-intent audience directly to your door.</li>
+              <li><b>Unlock Actionable Insights:</b> Our partner dashboard provides valuable data to help you understand trends and make smarter decisions.</li>
+              <li><b>A Platform for Your Brand:</b> We give you the tools to not only serve customers but to grow your brand, sell your products, and host your events.</li>
+            </ul>
           </div>
         </div>
+      </section>
 
-        <div style={styles.ctaSection}>
-          <h2 style={styles.ctaTitle}>Stay Updated</h2>
-          <p style={styles.ctaDescription}>
-            Be the first to know when new features launch and get exclusive early access
-          </p>
-          <div style={styles.emailSignup}>
-            <input 
-              type="email" 
-              placeholder="Enter your email address"
-              style={styles.emailInput}
-            />
-            <button style={styles.signupButton}>
-              Subscribe to Updates
-            </button>
-          </div>
-        </div>
-      </div>
+      <section style={styles.glassSection}>
+        <h2 style={styles.sectionTitle}>Founded on Passion.</h2>
+        <p style={styles.sectionText}>
+          Wanna Coffee was born from a genuine love for coffee culture and a deep respect for the entrepreneurs who build it. We're a team of thinkers, creators, and coffee drinkers dedicated to using technology as a force for good. We believe in building things that are not only smart and efficient but also human-centric and community-focused.<br/><br/>
+          We're starting this journey by listening, learning, and collaborating with the very people we aim to serve.
+        </p>
+      </section>
+
+      <section style={styles.ctaSection}>
+        <h2 style={styles.sectionTitle}>The Future of Coffee is Collaborative.</h2>
+        <p style={styles.sectionText}>
+          This is more than a platform—it's a movement to build a more sustainable, connected, and vibrant local coffee culture. And it's just getting started.<br/>
+          <b>Be the first to know what's brewing.</b>
+        </p>
+        <WaitlistTabs />
+      </section>
     </div>
   );
 };
 
 const styles = {
-  container: {
+  pageBg: {
     minHeight: '100vh',
-    backgroundColor: '#f8f9fa',
+    background: 'linear-gradient(120deg, #f7f7f7 0%, #e9e4df 100%)',
+    paddingBottom: 40,
   },
-  hero: {
-    background: 'linear-gradient(135deg, #d3914b 0%, #b87333 100%)',
-    color: 'white',
-    padding: '4rem 2rem',
+  heroSection: {
     textAlign: 'center',
+    padding: '3.5rem 1.5rem 2.5rem 1.5rem',
+    background: 'linear-gradient(135deg, #fff8f0 60%, #f7e3c6 100%)',
+    borderRadius: '0 0 32px 32px',
+    boxShadow: '0 4px 32px rgba(204,144,66,0.08)',
+    marginBottom: 32,
   },
-  heroContent: {
-    maxWidth: '800px',
-    margin: '0 auto',
+  logo: {
+    width: 180,
+    marginBottom: 16,
   },
-  title: {
-    fontSize: '3.5rem',
-    fontWeight: 'bold',
-    margin: '0 0 1rem 0',
-    '@media (max-width: 768px)': {
-      fontSize: '2.5rem',
-    },
-  },
-  subtitle: {
-    fontSize: '1.25rem',
+  heroTitle: {
+    fontSize: '2.8rem',
+    fontWeight: 800,
+    color: '#a97845',
     margin: 0,
-    opacity: 0.9,
+    letterSpacing: '-1px',
   },
-  content: {
-    maxWidth: '1200px',
-    margin: '0 auto',
-    padding: '3rem 2rem',
+  heroSubtitle: {
+    fontSize: '1.25rem',
+    color: '#b87333',
+    margin: '0.5rem 0 0 0',
+    fontWeight: 600,
+    letterSpacing: '0.5px',
   },
-  missionSection: {
-    textAlign: 'center',
-    marginBottom: '4rem',
+  glassSection: {
+    maxWidth: 900,
+    margin: '2.5rem auto',
+    background: 'rgba(255,255,255,0.65)',
+    borderRadius: 24,
+    boxShadow: '0 8px 32px rgba(204,144,66,0.10)',
+    padding: '2.5rem 2rem',
+    backdropFilter: 'blur(16px)',
+    WebkitBackdropFilter: 'blur(16px)',
   },
   sectionTitle: {
-    fontSize: '2.5rem',
-    fontWeight: '600',
-    margin: '0 0 2rem 0',
-    color: '#333',
-  },
-  missionText: {
-    fontSize: '1.1rem',
-    lineHeight: '1.8',
-    color: '#666',
-    margin: '0 0 1.5rem 0',
-    maxWidth: '800px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
-  featuresSection: {
-    marginBottom: '4rem',
-  },
-  featuresGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-    gap: '2rem',
-  },
-  featureCard: {
-    background: 'white',
-    padding: '2rem',
-    borderRadius: '12px',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+    fontSize: '2rem',
+    fontWeight: 700,
+    color: '#a97845',
+    marginBottom: 18,
     textAlign: 'center',
-    transition: 'transform 0.2s',
-    position: 'relative',
-    ':hover': {
-      transform: 'translateY(-4px)',
-    },
   },
-  featureIcon: {
-    fontSize: '3rem',
-    marginBottom: '1rem',
+  sectionText: {
+    fontSize: '1.15rem',
+    color: '#3a2d1a',
+    lineHeight: 1.7,
+    textAlign: 'center',
+    margin: 0,
   },
-  featureTitle: {
-    fontSize: '1.5rem',
-    fontWeight: '600',
-    margin: '0 0 1rem 0',
-    color: '#333',
+  valueSection: {
+    padding: '2.5rem 1rem',
   },
-  featureDescription: {
-    color: '#666',
-    lineHeight: '1.6',
-    marginBottom: '1.5rem',
+  valueColumns: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: 32,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
-  statusBadge: {
-    marginBottom: '1rem',
+  valueCol: {
+    flex: '1 1 320px',
+    minWidth: 260,
+    maxWidth: 400,
+    background: 'rgba(255,255,255,0.85)',
+    borderRadius: 18,
+    boxShadow: '0 2px 12px rgba(204,144,66,0.07)',
+    padding: '1.5rem 1.2rem',
+    margin: '0.5rem 0',
   },
-  liveBadge: {
-    background: '#28a745',
-    color: 'white',
-    padding: '0.25rem 0.75rem',
-    borderRadius: '12px',
-    fontSize: '0.875rem',
-    fontWeight: '600',
+  valueTitle: {
+    fontSize: '1.2rem',
+    color: '#b87333',
+    fontWeight: 700,
+    marginBottom: 12,
+    textAlign: 'center',
   },
-  comingSoonBadge: {
-    background: '#ffc107',
-    color: '#333',
-    padding: '0.25rem 0.75rem',
-    borderRadius: '12px',
-    fontSize: '0.875rem',
-    fontWeight: '600',
-  },
-  previewLink: {
-    color: '#d3914b',
-    textDecoration: 'none',
-    fontSize: '0.9rem',
-    fontWeight: '600',
-    ':hover': {
-      textDecoration: 'underline',
-    },
+  valueList: {
+    color: '#3a2d1a',
+    fontSize: '1.05rem',
+    lineHeight: 1.7,
+    paddingLeft: 18,
+    margin: 0,
+    listStyle: 'disc',
   },
   ctaSection: {
+    maxWidth: 500,
+    margin: '2.5rem auto 3.5rem auto',
+    background: 'rgba(255,255,255,0.7)',
+    borderRadius: 24,
+    boxShadow: '0 8px 32px rgba(204,144,66,0.13)',
+    padding: '2.5rem 2rem',
     textAlign: 'center',
-    background: 'white',
-    padding: '3rem',
-    borderRadius: '12px',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-  },
-  ctaTitle: {
-    fontSize: '2rem',
-    fontWeight: '600',
-    margin: '0 0 1rem 0',
-    color: '#333',
-  },
-  ctaDescription: {
-    fontSize: '1.1rem',
-    color: '#666',
-    margin: '0 0 2rem 0',
-  },
-  emailSignup: {
-    display: 'flex',
-    gap: '1rem',
-    maxWidth: '500px',
-    margin: '0 auto',
-    '@media (max-width: 768px)': {
-      flexDirection: 'column',
-    },
-  },
-  emailInput: {
-    flex: 1,
-    padding: '0.75rem 1rem',
-    border: '2px solid #eee',
-    borderRadius: '8px',
-    fontSize: '1rem',
-    ':focus': {
-      outline: 'none',
-      borderColor: '#d3914b',
-    },
-  },
-  signupButton: {
-    background: '#d3914b',
-    color: 'white',
-    border: 'none',
-    padding: '0.75rem 1.5rem',
-    borderRadius: '8px',
-    fontSize: '1rem',
-    fontWeight: '600',
-    cursor: 'pointer',
-    transition: 'background-color 0.2s',
-    ':hover': {
-      background: '#b87333',
-    },
+    backdropFilter: 'blur(18px)',
+    WebkitBackdropFilter: 'blur(18px)',
   },
 };
 

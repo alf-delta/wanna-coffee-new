@@ -200,7 +200,7 @@ const Couponator = () => {
         <div style={styles.hero}>
           <img src={WCTicketsLogo} alt="Wanna Coffee Couponator Logo" className="hero-logo-unified" />
           <p style={styles.heroDesc} className="couponator-hero-desc">
-            Wanna Coffee Tickets isn't about discounts — it's about making coffee culture more open, convenient, and rewarding. With a single purchase, you unlock a flexible digital wallet of coffee "tickets" that can be used at any participating café across the city. It's freedom in your pocket — no punch cards, no small change, no guesswork.
+            Wanna Coffee Brews isn't about discounts — it's about making coffee culture more open, sustainable, and rewarding for everyone. With a single purchase, you unlock a flexible digital wallet of coffee "Brews" that can be used at any participating café. It's a vote for local craft in your pocket — no punch cards, no small change, no guesswork.
           </p>
         </div>
 
@@ -208,13 +208,21 @@ const Couponator = () => {
         <section style={styles.section}>
           <h2 style={styles.sectionTitle}>For Coffee Lovers</h2>
           <div style={styles.benefitsGrid}>
-            {loversBenefits.map(b => (
-              <div key={b.title} style={styles.benefitCard}>
-                <span style={styles.benefitIcon}>{b.icon}</span>
-                <h3 style={styles.benefitTitle}>{b.title}</h3>
-                <p style={styles.benefitDesc}>{b.desc}</p>
-              </div>
-            ))}
+            <div style={styles.benefitCard}>
+              <span style={styles.benefitIcon}>☕️</span>
+              <h3 style={styles.benefitTitle}>Freedom to Explore, Power to Support</h3>
+              <p style={styles.benefitDesc}>Use your Brews at any café with the 'Wanna Coffee Partner' badge. Each scan is not just a payment; it's a direct signal of support to the independent businesses that make our coffee scene vibrant. You're covered citywide.</p>
+            </div>
+            <div style={styles.benefitCard}>
+              <span style={styles.benefitIcon}>⚡️</span>
+              <h3 style={styles.benefitTitle}>Simple & Seamless</h3>
+              <p style={styles.benefitDesc}>Buy once, sip anytime. Just pull up our site on your phone to redeem — no app, no fumbling. It's modern, fast, and frictionless, letting you focus on the coffee, not the transaction.</p>
+            </div>
+            <div style={styles.benefitCard}>
+              <span style={styles.benefitIcon}>🧮</span>
+              <h3 style={styles.benefitTitle}>A Smarter System for Everyone</h3>
+              <p style={styles.benefitDesc}>Buying in packs lets you plan ahead and enjoy specialty coffee through a fairer, more intelligent value system. We've re-engineered the economics so that your consistent support allows our partners to thrive.</p>
+            </div>
           </div>
         </section>
 
@@ -224,27 +232,27 @@ const Couponator = () => {
           <div style={styles.roadmapGrid34final} className="couponator-roadmap-grid">
             <div style={styles.roadmapStepCard2x2} className="couponator-roadmap-step">
               <div style={styles.roadmapStepIcon2x2}>1</div>
-              <div style={styles.roadmapStepTitle2x2}>Buy your ticket pack</div>
-              <div style={styles.roadmapStepDesc2x2}>Choose a bundle of 5, 10, 20, 45, or 100 tickets in the app. One secure payment via Apple Pay, Google Pay, or card — and you're set for weeks of coffee.</div>
+              <div style={styles.roadmapStepTitle2x2}>Fuel Up with a Brew Pack</div>
+              <div style={styles.roadmapStepDesc2x2}>Choose a bundle of 5, 10, 20, 45, or 100 Brews on our site. One secure payment via Apple Pay, Google Pay, or card — and you're ready to fuel both your day and the local coffee economy.</div>
             </div>
             <div style={styles.roadmapStepCard2x2} className="couponator-roadmap-step">
               <div style={styles.roadmapStepIcon2x2}>2</div>
-              <div style={styles.roadmapStepTitle2x2}>Explore and discover</div>
-              <div style={styles.roadmapStepDesc2x2}>Browse the map of participating cafés — each one marked with a 'Wanna Tickets accepted' badge. Try a favorite or discover something new.</div>
+              <div style={styles.roadmapStepTitle2x2}>Explore and Discover</div>
+              <div style={styles.roadmapStepDesc2x2}>Browse the map of our curated partner cafés. Try a trusted favorite or discover a new gem, knowing every spot is part of our mission-driven network.</div>
             </div>
             <div style={styles.roadmapStepCard2x2} className="couponator-roadmap-step">
               <div style={styles.roadmapStepIcon2x2}>3</div>
-              <div style={styles.roadmapStepTitle2x2}>Redeem with one tap</div>
-              <div style={styles.roadmapStepDesc2x2}>Order your drink, open the app, and tap 'Redeem.' A 90-second QR code appears — show it to the barista, and your ticket is instantly deducted.</div>
+              <div style={styles.roadmapStepTitle2x2}>Redeem with One Tap</div>
+              <div style={styles.roadmapStepDesc2x2}>Order your drink, open our site, and tap 'Redeem.' A 90-second QR code appears — show it to the barista, and your Brews are instantly transferred, strengthening the ecosystem.</div>
             </div>
             <div style={styles.roadmapStepCard2x2} className="couponator-roadmap-step">
               <div style={styles.roadmapStepIcon2x2}>4</div>
-              <div style={styles.roadmapStepTitle2x2}>Track and repeat</div>
-              <div style={styles.roadmapStepDesc2x2}>See your balance in the Wallet tab, earn badges as you sip, and reload your ticket pack when you're ready for more.</div>
+              <div style={styles.roadmapStepTitle2x2}>Track and Repeat</div>
+              <div style={styles.roadmapStepDesc2x2}>See your balance in your Wallet, earn badges for your support, and reload your Brew pack when you're ready to continue making an impact.</div>
             </div>
             <div style={styles.roadmapFinalCard34} className="couponator-roadmap-final">
-              <div style={styles.roadmapFinalTitle}>Coffee freedom, finally.</div>
-              <div style={styles.roadmapFinalDesc}>Your ticket isn't just a way to pay — it's a mindset. No stamps, no change, no awkward moments at the register. Just real coffee, real people, and a smoother, more rewarding way to enjoy it all.<br/><br/>Use it your way. Refill when you're ready. Share with someone. Explore more. Coffee's never felt this good.</div>
+              <div style={styles.roadmapFinalTitle}>Coffee with a conscience, finally.</div>
+              <div style={styles.roadmapFinalDesc}>Your Brew isn't just a way to pay — it's a statement. No stamps, no change, no awkward moments. Just real coffee, real people, and a smoother, more meaningful way to enjoy it all.<br/><br/>Use it your way. Refill when you're ready. Share with someone. Explore more. Supporting local has never felt this good.</div>
             </div>
           </div>
         </section>
@@ -272,39 +280,30 @@ const Couponator = () => {
           }} />
         </section>
 
-        {/* FAQ for Users */}
-        <section style={styles.sectionNarrow} className="couponator-section-narrow">
-          <h2 style={styles.sectionTitle}>☕️ FAQ — For Coffee Lovers</h2>
-          <div style={styles.faqGrid}>
-            {faqsUsers.map((faq, i) => (
-              <div key={i} style={styles.faqBlock} className="couponator-faq-block">
-                <button
-                  style={styles.faqQBtn}
-                  onClick={() => setOpenFaqUser(openFaqUser === i ? null : i)}
-                  aria-expanded={openFaqUser === i}
-                >
-                  {faq.q}
-                  <span style={styles.faqArrow}>{openFaqUser === i ? '▲' : '▼'}</span>
-                </button>
-                {openFaqUser === i && (
-                  <div style={styles.faqA}>{faq.a}</div>
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
-
         {/* For Coffee Shops */}
         <section style={styles.section}>
           <h2 style={styles.sectionTitle}>For Coffee Shops</h2>
           <div style={styles.benefitsGrid}>
-            {shopBenefits.map(b => (
-              <div key={b.title} style={styles.benefitCard}>
-                <span style={styles.benefitIcon}>{b.icon}</span>
-                <h3 style={styles.benefitTitle}>{b.title}</h3>
-                <p style={styles.benefitDesc}>{b.desc}</p>
-              </div>
-            ))}
+            <div style={styles.benefitCard}>
+              <span style={styles.benefitIcon}>📈</span>
+              <h3 style={styles.benefitTitle}>Connect with Committed Customers</h3>
+              <p style={styles.benefitDesc}>Our users aren't just walk-ins; they are invested members of the local coffee community. They've pre-committed by purchasing Brews and are actively seeking quality independent cafés. Becoming a Wanna Coffee Partner puts you directly in the path of these high-intent, appreciative customers.</p>
+            </div>
+            <div style={styles.benefitCard}>
+              <span style={styles.benefitIcon}>🔁</span>
+              <h3 style={styles.benefitTitle}>Build a More Resilient Business</h3>
+              <p style={styles.benefitDesc}>A customer with a balance of Brews is a customer locked into the local ecosystem. Our platform fosters loyalty not just to us, but to the entire network of independent shops—creating a reliable, recurring customer base that is less susceptible to market fluctuations.</p>
+            </div>
+            <div style={styles.benefitCard}>
+              <span style={styles.benefitIcon}>🖥️</span>
+              <h3 style={styles.benefitTitle}>Technology That Empowers, Not Complicates</h3>
+              <p style={styles.benefitDesc}>Use any device with a camera to accept Brews. Our web-based system requires no new hardware, no POS integration, and no IT headaches. We handle the tech so you can focus on the craft.</p>
+            </div>
+            <div style={styles.benefitCard}>
+              <span style={styles.benefitIcon}>💵</span>
+              <h3 style={styles.benefitTitle}>Predictive Insights, Not Just Data</h3>
+              <p style={styles.benefitDesc}>We offer more than just analytics. Our Foresight platform analyzes market-wide traffic patterns to give you actionable predictions on customer flow and demand. Stop guessing, start planning. This is data that helps you reduce waste, optimize staffing, and increase profitability.</p>
+            </div>
           </div>
         </section>
 
@@ -314,50 +313,28 @@ const Couponator = () => {
           <div style={styles.roadmapGrid34final} className="couponator-roadmap-grid">
             <div style={styles.roadmapStepCard2x2} className="couponator-roadmap-step">
               <div style={styles.roadmapStepIcon2x2}>1</div>
-              <div style={styles.roadmapStepTitle2x2}>Apply to join</div>
-              <div style={styles.roadmapStepDesc2x2}>Submit your café through the Partner Portal. Once approved, you'll appear in the app as a 'Ticket Partner' with a badge and boosted visibility.</div>
+              <div style={styles.roadmapStepTitle2x2}>Join the Network</div>
+              <div style={styles.roadmapStepDesc2x2}>Apply through our Partner Portal. Once approved, you become a key part of our curated network, showcased to a community that values what you do.</div>
             </div>
             <div style={styles.roadmapStepCard2x2} className="couponator-roadmap-step">
               <div style={styles.roadmapStepIcon2x2}>2</div>
-              <div style={styles.roadmapStepTitle2x2}>Set up your ticket rules</div>
-              <div style={styles.roadmapStepDesc2x2}>In your dashboard, define how many tickets each drink requires — typically 1 for basics, 2–3 for premium drinks. You stay in control.</div>
+              <div style={styles.roadmapStepTitle2x2}>Set Your Fair Value</div>
+              <div style={styles.roadmapStepDesc2x2}>In your dashboard, define how many Brews each drink requires. You have full control to reflect the value of your craft, typically with 1 Brew for basics and more for premium drinks.</div>
             </div>
             <div style={styles.roadmapStepCard2x2} className="couponator-roadmap-step">
               <div style={styles.roadmapStepIcon2x2}>3</div>
-              <div style={styles.roadmapStepTitle2x2}>Accept redemptions easily</div>
-              <div style={styles.roadmapStepDesc2x2}>Use any phone, tablet, or laptop with a camera to scan ticket QR codes — or enter a 6-digit code manually. No hardware or POS changes needed.</div>
+              <div style={styles.roadmapStepTitle2x2}>Accept Brews Seamlessly</div>
+              <div style={styles.roadmapStepDesc2x2}>Use any phone, tablet, or laptop to scan customer QR codes. The process is instant, secure, and designed to fit perfectly into your existing workflow.</div>
             </div>
             <div style={styles.roadmapStepCard2x2} className="couponator-roadmap-step">
               <div style={styles.roadmapStepIcon2x2}>4</div>
-              <div style={styles.roadmapStepTitle2x2}>Get paid & track insights</div>
-              <div style={styles.roadmapStepDesc2x2}>Receive 80% of each sale weekly through our payment partner. Monitor impressions, taps, redemptions, and customer return rates via your dashboard.</div>
+              <div style={styles.roadmapStepTitle2x2}>Get Paid & Unlock Growth</div>
+              <div style={styles.roadmapStepDesc2x2}>Receive consistent weekly payouts. But more importantly, use your dashboard to transform data into decisions. Monitor traffic forecasts, understand customer preferences, and discover new opportunities for growth.</div>
             </div>
             <div style={styles.roadmapFinalCard34} className="couponator-roadmap-final">
-              <div style={styles.roadmapFinalTitle}>Built to spotlight what makes you special.</div>
-              <div style={styles.roadmapFinalDesc}>We know how hard it is for independent cafés to stand out in a crowded city. That's exactly why we're here. Wanna Coffee helps showcase your individuality, attract the right audience, and turn every visit into a relationship — without changing your workflow or giving up control. You set the rules, we amplify your story.</div>
+              <div style={styles.roadmapFinalTitle}>Built to Amplify What Makes You Unique.</div>
+              <div style={styles.roadmapFinalDesc}>We know how hard it is for independent cafés to thrive. That's exactly why we're here. Wanna Coffee isn't just a platform; it's your strategic partner. We help showcase your individuality, attract the right audience, and turn every visit into a sustainable relationship — without changing your workflow or giving up control. You create the coffee, we help you build the future.</div>
             </div>
-          </div>
-        </section>
-
-        {/* FAQ for Shops */}
-        <section style={styles.sectionNarrow} className="couponator-section-narrow">
-          <h2 style={styles.sectionTitle}>🏪 FAQ — For Coffee Shops</h2>
-          <div style={styles.faqGrid}>
-            {faqsShops.map((faq, i) => (
-              <div key={i} style={styles.faqBlock} className="couponator-faq-block">
-                <button
-                  style={styles.faqQBtn}
-                  onClick={() => setOpenFaqShop(openFaqShop === i ? null : i)}
-                  aria-expanded={openFaqShop === i}
-                >
-                  {faq.q}
-                  <span style={styles.faqArrow}>{openFaqShop === i ? '▲' : '▼'}</span>
-                </button>
-                {openFaqShop === i && (
-                  <div style={styles.faqA}>{faq.a}</div>
-                )}
-              </div>
-            ))}
           </div>
         </section>
 

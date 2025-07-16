@@ -105,7 +105,7 @@ const CustomerWaitlistForm = ({ onSubmit }) => {
         }}
         disabled={isSubmitting}
       >
-        {isSubmitting ? 'Joining...' : 'Join Wanna Coffee Waitlist'}
+        {isSubmitting ? 'Joining...' : 'Join Waitlist'}
       </button>
       
       <p style={styles.disclaimer}>
@@ -120,8 +120,11 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     gap: '1rem',
-    maxWidth: '400px',
-    margin: '0 auto',
+    width: '100%',
+    background: 'rgba(255,255,255,0.85)',
+    borderRadius: '18px',
+    boxShadow: '0 2px 12px rgba(204,144,66,0.07)',
+    padding: '2rem 1.5rem',
   },
   inputGroup: {
     display: 'flex',
@@ -131,11 +134,12 @@ const styles = {
   label: {
     fontSize: '0.95rem',
     fontWeight: 700,
-    color: '#fff',
+    color: '#a97845',
     marginBottom: '0.5rem',
-    textShadow: '0 1px 2px rgba(0,0,0,0.3)',
+    textShadow: '0 1px 2px rgba(0,0,0,0.08)',
   },
   input: {
+    width: '100%',
     padding: '0.75rem 1rem',
     borderRadius: '12px',
     border: '2px solid rgba(255,255,255,0.3)',
@@ -150,8 +154,9 @@ const styles = {
       background: '#fff',
       boxShadow: '0 4px 16px rgba(204,144,66,0.2)',
     },
-    '&::placeholder': {
-      color: '#999',
+    '::placeholder': {
+      color: '#b87333',
+      opacity: 1,
     },
   },
   error: {
@@ -166,6 +171,7 @@ const styles = {
     fontWeight: 500,
   },
   submitButton: {
+    width: '100%',
     background: 'linear-gradient(135deg, #fff 0%, #f8f9fa 100%)',
     color: '#cc9042',
     fontWeight: 700,
@@ -214,7 +220,8 @@ const styles = {
   },
   disclaimer: {
     fontSize: '0.85rem',
-    color: 'rgba(255,255,255,0.7)',
+    color: '#a97845',
+    fontWeight: 500,
     textAlign: 'center',
     marginTop: '1rem',
     lineHeight: 1.4,
