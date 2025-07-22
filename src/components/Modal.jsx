@@ -56,6 +56,31 @@ const Modal = ({ children, onClose }) => {
         style={modalStyles}
         onClick={e => e.stopPropagation()}
       >
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          style={{
+            position: 'absolute',
+            top: isMobile ? 10 : 16,
+            right: isMobile ? 10 : 18,
+            background: 'rgba(255,255,255,0.85)',
+            border: 'none',
+            borderRadius: '50%',
+            width: isMobile ? 36 : 40,
+            height: isMobile ? 36 : 40,
+            fontSize: isMobile ? '1.7rem' : '2rem',
+            color: '#a97845',
+            cursor: 'pointer',
+            boxShadow: '0 2px 8px rgba(204,144,66,0.10)',
+            zIndex: 10,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'background 0.18s',
+          }}
+        >
+          ×
+        </button>
         {children}
       </div>
     </div>
