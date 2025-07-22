@@ -11,27 +11,40 @@ const About = () => {
         <p style={styles.heroSubtitle}>Vision & Mission Focused</p>
       </section>
 
-      <section style={styles.glassSection}>
-        <h2 style={styles.sectionTitle}>Great Coffee Should Be for Everyone.</h2>
-        <p style={styles.sectionText}>
-          It's a simple idea, but one that gets lost in a world of complex choices and compromises. We started Wanna Coffee because we believe in the power of a great cup of coffee—not just as a drink, but as a cornerstone of community, craft, and daily ritual.<br/><br/>
-          We saw a gap between the passionate local artisans who pour their hearts into every bean, and the people who want to enjoy their craft without it feeling like a luxury. We knew there had to be a smarter, fairer way for everyone to win.
+      <section style={styles.earlyInfoBlock}>
+        <p style={styles.earlyInfoText}>
+          We're brewing something special for you, dear coffee lovers of New York City and specialty cafés.<br/>
+          Below, you'll find a bit of early information — we can't reveal much just yet, but if you're eager to see us in action, subscribe at the bottom of this page.<br/>
+          Whether you're a coffee enthusiast or a café owner, your support will help us move faster — and we hope to see you very soon.
+        </p>
+      </section>
+
+      <section style={{
+        ...styles.glassSection,
+        background: 'linear-gradient(120deg, #fff8f0 60%, #f7e3c6 100%)',
+        borderRadius: 24,
+        boxShadow: '0 8px 32px rgba(204,144,66,0.13)',
+        padding: '2.7rem 2.1rem',
+      }}>
+        <h2 style={styles.sectionTitle}>How can we help you right now? For now, it's all very simple…</h2>
+        <p style={{
+          ...styles.sectionText,
+          color: '#6a4a24',
+          fontWeight: 500,
+        }}>
+          We're currently testing everything we've built so far. Our database includes around 1,200 coffee shops, each with a short guide verified by our team using AI — we call it the WannaCoffee Impression.<br/><br/>
+          You can explore great specialty cafés wherever you are across New York City and Long Island.<br/><br/>
+          Please keep in mind that there may be occasional inaccuracies or outdated information — this project is created by a small group of enthusiasts for the residents and visitors of NYC, driven by a genuine love for the craft of true coffee making.<br/><br/>
+          Thank you for your interest in our project. If you have any feedback, suggestions, or questions, feel free to reach out to the email listed in the Contact section.
         </p>
       </section>
 
       <section style={styles.glassSection}>
-        <h2 style={styles.sectionTitle}>Our Vision: An Ecosystem, Not Just an App.</h2>
+        <h2 style={styles.sectionTitle}>TrueCost coming soon.</h2>
         <p style={styles.sectionText}>
-          We are building a technology platform designed to rebalance the scales of the local coffee economy. Our vision is to create a seamless world where enjoying the best coffee is effortless for customers, and running a successful coffee business is more achievable for independent entrepreneurs.<br/><br/>
-          We're moving beyond simple discounts or directory listings. We're creating a sustainable ecosystem where technology empowers connection, supports local businesses, and makes the simple pleasure of a great coffee more accessible than ever before.
-        </p>
-      </section>
-
-      <section style={styles.glassSection}>
-        <h2 style={styles.sectionTitle}>How We're Doing It: The Wanna Coffee Pass.</h2>
-        <p style={styles.sectionText}>
-          At the heart of our platform is the Wanna Coffee Pass—a single, digital key that unlocks the city's independent coffee scene.<br/><br/>
-          It's a simple concept: pre-load your Pass and use it to seamlessly pay at a growing network of curated partner cafés. This isn't just a new way to pay; it's a new way to experience coffee. It's about freedom, discovery, and the confidence that you're always getting fair value while supporting the businesses that make our neighborhoods unique.
+          We want to make coffee prices fair for coffee lovers — and we're confident that many cafés feel the same. But market realities often get in the way, because at the end of the day, it's still a business.<br/><br/>
+          That's why we've developed a special economic model that bridges the gap: offering great coffee prices for customers while increasing margins for cafés. Our goal is to bring this community even closer together.<br/><br/>
+          If we can gather enough subscriptions in a short time, we'll be able to show you everything we've been working on very soon.
         </p>
       </section>
 
@@ -40,19 +53,19 @@ const About = () => {
           <div style={styles.valueCol}>
             <h3 style={styles.valueTitle}>For Coffee Lovers:</h3>
             <ul style={styles.valueList}>
-              <li><b>Freedom to Explore.</b> The Wanna Coffee Pass is your ticket to a city-wide coffee adventure.</li>
-              <li><b>Discover:</b> Find hidden gems and support the passionate people behind the counter.</li>
-              <li><b>Enjoy Seamlessly:</b> Forget fumbling for cards or cash. A simple scan is all it takes.</li>
-              <li><b>Be Part of a Community:</b> Join a network of people who, like you, value quality, craft, and supporting local.</li>
+              <li><b>Stay Curious.</b> We're building something new for New York's specialty coffee lovers — and it's just the beginning.</li>
+              <li><b>Explore Early.</b> Our AI-verified guide already includes 1,200+ cafés across NYC and Long Island.</li>
+              <li><b>Support the Craft.</b> Every visit helps keep independent coffee culture alive and thriving.</li>
+              <li><b>Join the Journey.</b> Subscribe below to be among the first to know when we launch something exciting.</li>
             </ul>
           </div>
           <div style={styles.valueCol}>
             <h3 style={styles.valueTitle}>For Coffee Shops:</h3>
             <ul style={styles.valueList}>
-              <li><b>Your Partner in Growth.</b> We know your focus is on making incredible coffee. Ours is on helping you build a thriving business.</li>
-              <li><b>Connect with New Customers:</b> We bring a motivated, high-intent audience directly to your door.</li>
-              <li><b>Unlock Actionable Insights:</b> Our partner dashboard provides valuable data to help you understand trends and make smarter decisions.</li>
-              <li><b>A Platform for Your Brand:</b> We give you the tools to not only serve customers but to grow your brand, sell your products, and host your events.</li>
+              <li><b>We See You.</b> We care deeply about cafés that put heart into their craft — and we built this guide to celebrate exactly that.</li>
+              <li><b>Help Us Get It Right.</b> If your café is already listed and something's off, just send us a quick note — we'd love to update it.</li>
+              <li><b>Not Listed Yet?</b> Reach out and tell us about your shop — we'll make sure to include you soon.</li>
+              <li><b>No Forms. No Fees. Just You.</b> Share your info however you like — email, a few lines, a photo, or even a DM. We'll take care of the rest.</li>
             </ul>
           </div>
         </div>
@@ -179,6 +192,24 @@ const styles = {
     textAlign: 'center',
     backdropFilter: 'blur(18px)',
     WebkitBackdropFilter: 'blur(18px)',
+  },
+  earlyInfoBlock: {
+    maxWidth: 700,
+    margin: '0 auto 2.2rem auto',
+    background: 'rgba(255,255,255,0.7)',
+    borderRadius: 20,
+    boxShadow: '0 4px 24px rgba(204,144,66,0.10)',
+    padding: '1.7rem 1.3rem',
+    textAlign: 'center',
+    backdropFilter: 'blur(10px)',
+    WebkitBackdropFilter: 'blur(10px)',
+  },
+  earlyInfoText: {
+    color: '#a97845',
+    fontSize: '1.13rem',
+    fontWeight: 500,
+    lineHeight: 1.7,
+    margin: 0,
   },
 };
 

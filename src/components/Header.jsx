@@ -109,24 +109,18 @@ const Header = () => {
                   {/* Мобильное меню */}
                 <div style={styles.mobileMenu}>
                   <Link to="/" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>Home</Link>
-                  <Link to="/about" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>About</Link>
+                  <Link
+                    to="/about"
+                    style={{
+                      ...styles.mobileMenuLink,
+                      ...styles.mobileAccentAbout,
+                      textAlign: 'center',
+                    }}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    About
+                  </Link>
                   <Link to="/contact" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>Contact</Link>
-                  <span style={{ position: 'relative', display: 'block' }}>
-                      <Link to="/couponator" className="accent-btn" style={{ ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Coffee Pass</Link>
-                    <span style={soonDot}></span>
-                  </span>
-                  <span style={{ position: 'relative', display: 'block' }}>
-                      <Link to="/events" className="accent-btn" style={{ ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Events</Link>
-                    <span style={soonDot}></span>
-                  </span>
-                  <span style={{ position: 'relative', display: 'block' }}>
-                      <Link to="/subscription" className="accent-btn" style={{ ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Shop</Link>
-                    <span style={soonDot}></span>
-                  </span>
-                  <span style={{ position: 'relative', display: 'block' }}>
-                      <Link to="/foresight" className="accent-btn" style={{ ...styles.mobileAccentBtn }} onClick={() => setIsMenuOpen(false)}>Foresight</Link>
-                    <span style={soonDot}></span>
-                  </span>
                 </div>
                 </>
               )}
@@ -134,68 +128,18 @@ const Header = () => {
           ) : (
             <div style={styles.links}>
               <Link to="/" style={styles.link}>Home</Link>
-              <Link to="/about" style={styles.link}>About</Link>
+              <Link
+                to="/about"
+                style={{
+                  ...styles.link,
+                  ...styles.accentAbout,
+                }}
+                onMouseEnter={e => e.currentTarget.style.boxShadow = '0 0 16px 2px #cc9042, 0 2px 8px rgba(204,144,66,0.18)'}
+                onMouseLeave={e => e.currentTarget.style.boxShadow = styles.accentAbout.boxShadow}
+              >
+                About
+              </Link>
               <Link to="/contact" style={styles.link}>Contact</Link>
-              <span style={{ position: 'relative', display: 'inline-block' }}>
-                <Link
-                  to="/couponator"
-                  className="accent-btn"
-                  style={{
-                    ...accentButton,
-                    ...(hoveredBtn === 'couponator' ? accentButtonHover : {}),
-                  }}
-                  onMouseEnter={() => setHoveredBtn('couponator')}
-                  onMouseLeave={() => setHoveredBtn(null)}
-                >
-                  Coffee Pass
-                </Link>
-                <span style={soonBadge}>Soon</span>
-              </span>
-              <span style={{ position: 'relative', display: 'inline-block' }}>
-                <Link
-                  to="/events"
-                  className="accent-btn"
-                  style={{
-                    ...accentButton,
-                    ...(hoveredBtn === 'events' ? accentButtonHover : {}),
-                  }}
-                  onMouseEnter={() => setHoveredBtn('events')}
-                  onMouseLeave={() => setHoveredBtn(null)}
-                >
-                  Events
-                </Link>
-                <span style={soonBadge}>Soon</span>
-              </span>
-              <span style={{ position: 'relative', display: 'inline-block' }}>
-                <Link
-                  to="/subscription"
-                  className="accent-btn"
-                  style={{
-                    ...accentButton,
-                    ...(hoveredBtn === 'shop' ? accentButtonHover : {}),
-                  }}
-                  onMouseEnter={() => setHoveredBtn('shop')}
-                  onMouseLeave={() => setHoveredBtn(null)}
-                >
-                  Shop
-                </Link>
-                <span style={soonBadge}>Soon</span>
-              </span>
-              <span style={{ position: 'relative', display: 'inline-block' }}>
-                <Link
-                  to="/foresight"
-                  className="accent-btn"
-                  style={{
-                    ...accentButton,
-                    ...(hoveredBtn === 'foresight' ? accentButtonHover : {}),
-                  }}
-                  onMouseEnter={() => setHoveredBtn('foresight')}
-                  onMouseLeave={() => setHoveredBtn(null)}
-                >
-                  Foresight
-                </Link>
-                <span style={soonBadge}>Soon</span>
-              </span>
             </div>
           )}
         </div>
@@ -354,6 +298,26 @@ const styles = {
     border: '2px solid #fff',
     display: 'inline-block',
     pointerEvents: 'none',
+  },
+  accentAbout: {
+    background: 'linear-gradient(90deg, #cc9042 60%, #b87333 100%)',
+    color: '#fff',
+    borderRadius: '22px',
+    padding: '0.5rem 1.5rem',
+    fontWeight: 700,
+    boxShadow: '0 2px 8px rgba(204,144,66,0.12)',
+    transition: 'box-shadow 0.22s, transform 0.22s',
+    border: '2px solid transparent',
+    margin: '0 0.25rem',
+  },
+  mobileAccentAbout: {
+    background: 'linear-gradient(90deg, #cc9042 60%, #b87333 100%)',
+    color: '#fff',
+    borderRadius: '18px',
+    fontWeight: 700,
+    boxShadow: '0 2px 8px rgba(204,144,66,0.12)',
+    border: '2px solid transparent',
+    margin: '0.5rem 0',
   },
 };
 
