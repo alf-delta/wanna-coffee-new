@@ -200,49 +200,8 @@ const CoffeeMap = forwardRef(({
       center: initialConfig.center,
       zoom: initialConfig.zoom,
       attributionControl: false,
-      scrollZoom: IS_MOBILE ? false : { around: 'center' },
+      scrollZoom: { around: 'center' },
     });
-
-    // Кастомный zoom для мобильных: масштабируем относительно визуального центра
-    if (IS_MOBILE) {
-      map.current.on('wheel', (e) => {
-        e.preventDefault();
-        const container = map.current.getContainer();
-        const rect = container.getBoundingClientRect();
-        const screenX = rect.width / 2;
-        const screenY = rect.height / 2 - mobileOffsetY;
-        const visualCenter = map.current.unproject([screenX, screenY]);
-        map.current.easeTo({
-          zoom: map.current.getZoom() + (e.originalEvent.deltaY < 0 ? 0.2 : -0.2),
-          around: visualCenter,
-          duration: 180
-        });
-      });
-      // Для pinch-zoom (touch)
-      map.current.on('touchstart', (e) => {
-        if (e.points && e.points.length === 2) {
-          map.current._touchZoomCenter = (() => {
-            const container = map.current.getContainer();
-            const rect = container.getBoundingClientRect();
-            const screenX = rect.width / 2;
-            const screenY = rect.height / 2 - mobileOffsetY;
-            return map.current.unproject([screenX, screenY]);
-          })();
-        }
-      });
-      map.current.on('touchmove', (e) => {
-        if (e.points && e.points.length === 2 && map.current._touchZoomCenter) {
-          // Mapbox сам обработает zoom, но мы можем сбросить around после
-          setTimeout(() => {
-            map.current.easeTo({
-              zoom: map.current.getZoom(),
-              around: map.current._touchZoomCenter,
-              duration: 0
-            });
-          }, 0);
-        }
-      });
-    }
 
     map.current.on('load', () => {
       setIsMapLoaded(true);
