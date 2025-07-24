@@ -1,7 +1,9 @@
 import React from 'react';
 import WaitlistTabs from '../components/WaitlistTabs';
-import heroPhoto from '../assets/jakub-kapusnak-2HWYiXdTKOQ-unsplash.jpg';
+import heroPhoto from '../assets/lee-campbell-31QfYo1h32o-unsplash.jpg';
 import numbersPhoto from '../assets/brent-gorwin-vhQUnmnOLys-unsplash.jpg';
+import loversPhoto from '../assets/jakub-kapusnak-2HWYiXdTKOQ-unsplash.jpg';
+import shopsPhoto from '../assets/quan-le-GKnCGtuR4xs-unsplash.jpg';
 
 function HighlightBlock({ children }) {
   return <div style={styles.highlightBlock}><span style={styles.highlightText}>{children}</span></div>;
@@ -35,75 +37,168 @@ function NumbersBlock() {
 }
 
 export default function About() {
+  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 900 : false;
   return (
     <div style={styles.gridRoot}>
-      {/* Hero: две колонки */}
+      {/* Hero: фото и фейд на весь блок, текст поверх */}
       <div style={styles.heroGrid}>
-        <div style={styles.heroTextCol}>
-          <h1 style={styles.heroHeadline}>Closer than you think, there’s a café that understands.</h1>
-          <p style={styles.heroSubtext}>
-            Wanna Coffee is a mobile-first discovery platform for independent cafés in NYC.<br />
-            You’re here early — and that means something.
-          </p>
-          <a href="#waitlist" style={styles.heroBtn}>Join the Waitlist</a>
+        <div style={styles.heroBgWrap}>
+          <img src={heroPhoto} alt="Cafe" style={styles.heroBgImg} />
+          <div style={styles.heroBgFade}></div>
         </div>
-        <div style={styles.heroImgCol}>
-          <img src={heroPhoto} alt="Cafe" style={styles.heroImg} />
+        <div style={styles.heroContentWrap}>
+          <div style={styles.heroTextCol}>
+            <div style={styles.heroTextContent}>
+              <h1 style={{
+                ...styles.heroHeadline,
+                textShadow: '0 4px 18px rgba(40,30,10,0.45)',
+                color: '#f7e3c6'
+              }}>Closer than you think, there’s a café that understands.</h1>
+              <p style={styles.heroSubtext}>
+                Wanna Coffee is a mobile-first discovery platform for independent cafés in NYC.<br />
+                You’re here early — and that means something.
+              </p>
+              <a href="#waitlist" style={styles.heroBtn}>Join the Waitlist</a>
+            </div>
+          </div>
+          <div style={styles.heroImgCol}></div>
         </div>
       </div>
 
-      {/* NumbersBlock: 4 колонки */}
-      <NumbersBlock />
+      {/* NumbersBlock: только на десктопе сразу после hero */}
+      {!isMobile
+        ? <div style={styles.mainContent}><NumbersBlock /></div>
+        : null}
 
       {/* Основной grid-контент */}
-      <div style={styles.sectionsGrid}>
-        <HighlightBlock>AI-verified café profiles, written with care.</HighlightBlock>
-        <div style={styles.cardSection}>
-          <h2 style={styles.sectionTitle}>Not another app. Not another feed.</h2>
-          <div style={styles.sectionText}>
-            Wanna Coffee helps you find cafés worth walking to.<br />
-            We’ve verified over 1,200 specialty coffee shops across NYC and Long Island.<br />
-            Each listing includes a short guide we call the Wanna Coffee Impression —<br />
-            a mix of AI assistance and human insight.
+      {isMobile ? (
+        <div style={styles.sectionsGrid}>
+          <HighlightBlock>AI-verified café profiles, written with care.</HighlightBlock>
+          <div style={styles.cardSection}>
+            <h2 style={{...styles.sectionTitle, fontSize: window.innerWidth >= 900 ? '2rem' : '1.5rem'}}>Not another app. Not another feed.</h2>
+            <div style={styles.sectionText}>
+              Wanna Coffee helps you find cafés worth walking to.<br />
+              We’ve verified over 1,200 specialty coffee shops across NYC and Long Island.<br />
+              Each listing includes a short guide we call the Wanna Coffee Impression —<br />
+              a mix of AI assistance and human insight.
+            </div>
+          </div>
+          <HighlightBlock>Each café comes with a real review — not a rating.</HighlightBlock>
+          <div style={styles.cardSection}>
+            <h2 style={{...styles.sectionTitle, fontSize: window.innerWidth >= 900 ? '2rem' : '1.5rem'}}>What makes us different</h2>
+            <ul style={styles.bulletList}>
+              <li>1,200+ verified independent cafés</li>
+              <li>No chains. No paid placements</li>
+              <li>Real content. No spam. No ads.</li>
+            </ul>
+          </div>
+          <HighlightBlock>
+            Zero ads. Zero pay-to-play.<br />Just good coffee.
+          </HighlightBlock>
+        </div>
+      ) : (
+        <div style={styles.mainContent}>
+          <div style={styles.sectionsGrid}>
+            {/* 1-я строка: слева хайлайт, справа текст */}
+            <div style={{...styles.highlightBlock, gridColumn: 1, gridRow: 1}}>AI-verified café profiles, written with care.</div>
+            <div style={{...styles.cardSection, gridColumn: 2, gridRow: 1}}>
+              <h2 style={{...styles.sectionTitle, fontSize: window.innerWidth >= 900 ? '2rem' : '1.5rem'}}>Not another app. Not another feed.</h2>
+              <div style={styles.sectionText}>
+                Wanna Coffee helps you find cafés worth walking to.<br />
+                We’ve verified over 1,200 specialty coffee shops across NYC and Long Island.<br />
+                Each listing includes a short guide we call the Wanna Coffee Impression —<br />
+                a mix of AI assistance and human insight.
+              </div>
+            </div>
+            {/* 2-я строка: слева текст, справа хайлайт */}
+            <div style={{...styles.cardSection, gridColumn: 1, gridRow: 2}}>
+              <h2 style={{...styles.sectionTitle, fontSize: window.innerWidth >= 900 ? '2rem' : '1.5rem'}}>What makes us different</h2>
+              <ul style={styles.bulletList}>
+                <li>1,200+ verified independent cafés</li>
+                <li>No chains. No paid placements</li>
+                <li>Real content. No spam. No ads.</li>
+              </ul>
+            </div>
+            <div style={{...styles.highlightBlock, gridColumn: 2, gridRow: 2}}>Each café comes with a real review — not a rating.</div>
+            {/* 3-я строка: слева хайлайт, справа текст */}
+            <div style={{...styles.highlightBlock, gridColumn: 1, gridRow: 3}}>
+              Zero ads. Zero pay-to-play. Just good coffee.
+            </div>
+            <div style={{...styles.cardSection, gridColumn: 2, gridRow: 3}}></div>
           </div>
         </div>
-        <HighlightBlock>Each café comes with a real review — not a rating.</HighlightBlock>
-        <div style={styles.cardSection}>
-          <h2 style={styles.sectionTitle}>What makes us different</h2>
-          <ul style={styles.bulletList}>
-            <li>1,200+ verified independent cafés</li>
-            <li>No chains. No paid placements</li>
-            <li>Real content. No spam. No ads.</li>
-          </ul>
-        </div>
-        <HighlightBlock>Zero ads. Zero pay-to-play. Just good coffee.</HighlightBlock>
-      </div>
+      )}
 
       {/* Split-блок: две карточки в ряд */}
-      <div style={styles.splitGrid}>
-        <div style={styles.splitPanel}>
-          <h3 style={styles.splitTitle}>For Coffee Lovers</h3>
-          <ul style={styles.splitList}>
-            <li><b>Stay Curious.</b><br />We’re building a new way to discover great cafés — made for people who care.</li>
-            <li><b>Explore Early.</b><br />Our guide already covers 1,200+ verified spots across NYC and Long Island.</li>
-            <li><b>Support the Craft.</b><br />Every visit helps independent coffee thrive — one cup at a time.</li>
-            <li><b>Join the Journey.</b><br />This is just the beginning. Be part of something grounded, local, and real.</li>
+      {!isMobile
+        ? <div style={styles.mainContent}><div style={styles.splitGrid}>
+        <div style={{...styles.splitPanel, ...styles.splitPanelWithBg, backgroundImage: `linear-gradient(180deg, rgba(40,25,10,0.82) 0%, rgba(40,25,10,0.45) 70%, rgba(40,25,10,0.08) 100%), url(${loversPhoto})`}}>
+          <h3 style={{
+            ...styles.splitTitle,
+            fontSize: window.innerWidth >= 900 ? '2.4rem' : '1.8rem',
+            color: '#f7e3c6',
+            textShadow: '0 4px 18px rgba(40,30,10,0.45)'
+          }}>For Coffee Lovers</h3>
+          <ul style={{...styles.splitList, color: '#ffe7c2'}}>
+            <li><b>Stay Curious.</b><br /><span style={{fontSize: '0.97em', fontWeight: 300}}>We’re building a new way to discover great cafés — made for people who care.</span></li>
+            <li><b>Explore Early.</b><br /><span style={{fontSize: '0.97em', fontWeight: 300}}>Our guide already covers 1,200+ verified spots across NYC and Long Island.</span></li>
+            <li><b>Support the Craft.</b><br /><span style={{fontSize: '0.97em', fontWeight: 300}}>Every visit helps independent coffee thrive — one cup at a time.</span></li>
+            <li><b>Join the Journey.</b><br /><span style={{fontSize: '0.97em', fontWeight: 300}}>This is just the beginning. Be part of something grounded, local, and real.</span></li>
           </ul>
         </div>
-        <div style={styles.splitPanel}>
-          <h3 style={styles.splitTitle}>For Coffee Shops</h3>
-          <ul style={styles.splitList}>
-            <li><b>We Notice Craft.</b><br />We celebrate cafés that care — you’re the reason this platform exists.</li>
-            <li><b>Let’s Get It Right.</b><br />Already listed but something’s off? Let us know, we’ll fix it fast.</li>
-            <li><b>Not on the Map Yet?</b><br />Reach out and we’ll make sure your shop gets included soon.</li>
-            <li><b>No Portals. No Hassle. Just Real Contact.</b><br />Send a DM, an email, even a photo — we’ll handle the rest.</li>
+        <div style={{...styles.splitPanel, ...styles.splitPanelWithBg, backgroundImage: `linear-gradient(180deg, rgba(40,25,10,0.82) 0%, rgba(40,25,10,0.45) 70%, rgba(40,25,10,0.08) 100%), url(${shopsPhoto})`}}>
+          <h3 style={{
+            ...styles.splitTitle,
+            fontSize: window.innerWidth >= 900 ? '2.4rem' : '1.8rem',
+            color: '#f7e3c6',
+            textShadow: '0 4px 18px rgba(40,30,10,0.45)'
+          }}>For Coffee Shops</h3>
+          <ul style={{...styles.splitList, color: '#ffe7c2'}}>
+            <li><b>We Notice Craft.</b><br /><span style={{fontSize: '0.97em', fontWeight: 300}}>We celebrate cafés that care — you’re the reason this platform exists.</span></li>
+            <li><b>Let’s Get It Right.</b><br /><span style={{fontSize: '0.97em', fontWeight: 300}}>Already listed but something’s off? Let us know, we’ll fix it fast.</span></li>
+            <li><b>Not on the Map Yet?</b><br /><span style={{fontSize: '0.97em', fontWeight: 300}}>Reach out and we’ll make sure your shop gets included soon.</span></li>
+            <li><b>No Portals. No Hassle. Just Real Contact.</b><br /><span style={{fontSize: '0.97em', fontWeight: 300}}>Send a DM, an email, even a photo — we’ll handle the rest.</span></li>
           </ul>
         </div>
-      </div>
+      </div></div>
+        : <div style={styles.splitGrid}>
+        <div style={{...styles.splitPanel, ...styles.splitPanelWithBg, backgroundImage: `linear-gradient(180deg, rgba(40,25,10,0.82) 0%, rgba(40,25,10,0.45) 70%, rgba(40,25,10,0.08) 100%), url(${loversPhoto})`}}>
+          <h3 style={{
+            ...styles.splitTitle,
+            fontSize: window.innerWidth >= 900 ? '2.4rem' : '1.8rem',
+            color: '#f7e3c6',
+            textShadow: '0 4px 18px rgba(40,30,10,0.45)'
+          }}>For Coffee Lovers</h3>
+          <ul style={{...styles.splitList, color: '#ffe7c2'}}>
+            <li><b>Stay Curious.</b><br /><span style={{fontSize: '0.97em', fontWeight: 300}}>We’re building a new way to discover great cafés — made for people who care.</span></li>
+            <li><b>Explore Early.</b><br /><span style={{fontSize: '0.97em', fontWeight: 300}}>Our guide already covers 1,200+ verified spots across NYC and Long Island.</span></li>
+            <li><b>Support the Craft.</b><br /><span style={{fontSize: '0.97em', fontWeight: 300}}>Every visit helps independent coffee thrive — one cup at a time.</span></li>
+            <li><b>Join the Journey.</b><br /><span style={{fontSize: '0.97em', fontWeight: 300}}>This is just the beginning. Be part of something grounded, local, and real.</span></li>
+          </ul>
+        </div>
+        <div style={{...styles.splitPanel, ...styles.splitPanelWithBg, backgroundImage: `linear-gradient(180deg, rgba(40,25,10,0.82) 0%, rgba(40,25,10,0.45) 70%, rgba(40,25,10,0.08) 100%), url(${shopsPhoto})`}}>
+          <h3 style={{
+            ...styles.splitTitle,
+            fontSize: window.innerWidth >= 900 ? '2.4rem' : '1.8rem',
+            color: '#f7e3c6',
+            textShadow: '0 4px 18px rgba(40,30,10,0.45)'
+          }}>For Coffee Shops</h3>
+          <ul style={{...styles.splitList, color: '#ffe7c2'}}>
+            <li><b>We Notice Craft.</b><br /><span style={{fontSize: '0.97em', fontWeight: 300}}>We celebrate cafés that care — you’re the reason this platform exists.</span></li>
+            <li><b>Let’s Get It Right.</b><br /><span style={{fontSize: '0.97em', fontWeight: 300}}>Already listed but something’s off? Let us know, we’ll fix it fast.</span></li>
+            <li><b>Not on the Map Yet?</b><br /><span style={{fontSize: '0.97em', fontWeight: 300}}>Reach out and we’ll make sure your shop gets included soon.</span></li>
+            <li><b>No Portals. No Hassle. Just Real Contact.</b><br /><span style={{fontSize: '0.97em', fontWeight: 300}}>Send a DM, an email, even a photo — we’ll handle the rest.</span></li>
+          </ul>
+        </div>
+      </div>}
+
+      {/* NumbersBlock: на мобильной версии перед формой */}
+      {isMobile && <NumbersBlock />}
 
       {/* CTA: широкая карточка */}
-      <div style={styles.ctaCard} id="waitlist">
-        <h2 style={styles.sectionTitle}>Ready to join?</h2>
+      {!isMobile
+        ? <div style={styles.mainContent}><div style={styles.ctaCard} id="waitlist">
+        <h2 style={{...styles.sectionTitle, fontSize: window.innerWidth >= 900 ? '2rem' : '1.5rem'}}>Ready to join?</h2>
         <div style={styles.sectionText}>
           Wanna Coffee is still taking shape. But if you’ve read this far, you’re probably the kind of person we’re building it for.
         </div>
@@ -113,7 +208,19 @@ export default function About() {
             No algorithms. No spam. Just honest updates and something good in the works.
           </div>
         </div>
-      </div>
+      </div></div>
+        : <div style={styles.ctaCard} id="waitlist">
+        <h2 style={{...styles.sectionTitle, fontSize: window.innerWidth >= 900 ? '2rem' : '1.5rem'}}>Ready to join?</h2>
+        <div style={styles.sectionText}>
+          Wanna Coffee is still taking shape. But if you’ve read this far, you’re probably the kind of person we’re building it for.
+        </div>
+        <div style={styles.finalFormWrap}>
+          <WaitlistTabs />
+          <div style={styles.finalFormNote}>
+            No algorithms. No spam. Just honest updates and something good in the works.
+          </div>
+        </div>
+      </div>}
     </div>
   );
 }
@@ -125,11 +232,12 @@ const styles = {
     margin: '0 auto',
     display: 'flex',
     flexDirection: 'column',
-    gap: 40,
+    gap: 24,
     padding: '0 16px 48px 16px',
     boxSizing: 'border-box',
   },
   heroGrid: {
+    position: 'relative',
     display: 'grid',
     gridTemplateColumns: '1fr',
     gap: 0,
@@ -140,19 +248,68 @@ const styles = {
     minHeight: 320,
     marginTop: 24,
     marginBottom: 0,
+  },
+  heroBgWrap: {
+    display: 'block',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
+    zIndex: 0,
+    pointerEvents: 'none',
+  },
+  heroBgImg: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    zIndex: 0,
+  },
+  heroBgFade: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
+    zIndex: 1,
+    pointerEvents: 'none',
+    background: 'linear-gradient(90deg, rgba(40,25,10,0.92) 0%, rgba(40,25,10,0.85) 40%, rgba(40,25,10,0.01) 100%)',
+  },
+  heroContentWrap: {
     position: 'relative',
+    zIndex: 2,
+    display: 'grid',
+    gridTemplateColumns: '1fr',
+    width: '100%',
+    height: '100%',
   },
   heroTextCol: {
+    position: 'relative',
     padding: '2.2rem 1.2rem 1.2rem 1.2rem',
-    zIndex: 2,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    background: 'linear-gradient(135deg, rgba(120,80,40,0.92) 0%, rgba(100,65,30,0.96) 50%, rgba(80,50,20,0.99) 100%)',
+    minHeight: 220,
+    width: '100%',
+    background: 'none',
+    overflow: 'visible',
+  },
+  heroTextContent: {
+    position: 'relative',
+    zIndex: 2,
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   },
   heroImgCol: {
     display: 'none',
+    width: '100%',
+    height: '100%',
   },
   heroImg: {
     width: '100%',
@@ -199,9 +356,10 @@ const styles = {
     position: 'relative',
     borderRadius: 16,
     overflow: 'hidden',
-    margin: '1.2rem 0',
+    margin: 0,
     minHeight: 180,
-    boxShadow: '0 2px 12px rgba(204,144,66,0.07)',
+    border: '1.5px solid #e6c18a',
+    boxShadow: '0 2px 16px 0 rgba(204,144,66,0.10), 0 0 0 2px #f7e3c6',
     background: '#fff',
   },
   numbersBgImg: {
@@ -267,6 +425,8 @@ const styles = {
     margin: '0 auto',
     width: '100%',
     maxWidth: 900,
+    paddingLeft: 0,
+    paddingRight: 0,
   },
   cardSection: {
     background: '#fff',
@@ -301,16 +461,17 @@ const styles = {
     padding: 0,
     margin: '0.7rem 0 0 0',
     color: '#6a4a24',
-    fontSize: '1.08rem',
+    fontSize: '1.15rem',
     textAlign: 'left',
-    maxWidth: 420,
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    maxWidth: '100%',
+    marginLeft: 0,
+    marginRight: 0,
     lineHeight: 1.7,
     fontWeight: 500,
+    gap: '0.5em',
   },
   highlightBlock: {
-    background: 'linear-gradient(90deg, #ffe7c2 0%, #fff8f0 60%, #f7e3c6 100%)',
+    background: 'linear-gradient(90deg, #ffe7c2 0%, #f7e3c6 100%)',
     color: '#b87333',
     borderRadius: 18,
     boxShadow: '0 2px 16px 0 rgba(204,144,66,0.10), 0 0 0 2px #f7e3c6',
@@ -343,6 +504,8 @@ const styles = {
     width: '100%',
     maxWidth: 900,
     margin: '0 auto',
+    marginTop: 0,
+    marginBottom: 0,
   },
   splitPanel: {
     flex: 1,
@@ -383,7 +546,7 @@ const styles = {
     maxWidth: 700,
     margin: '0 auto',
     textAlign: 'left',
-    marginTop: 24,
+    marginTop: 16,
   },
   finalFormWrap: {
     margin: '1.2rem auto 0 auto',
@@ -397,17 +560,41 @@ const styles = {
     textAlign: 'left',
     fontStyle: 'italic',
   },
+  splitPanelWithBg: {
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    position: 'relative',
+    color: '#fff',
+    textShadow: '0 2px 12px rgba(40,30,10,0.18)',
+  },
+  mainContent: {
+    maxWidth: 1100,
+    margin: '0 auto',
+    width: '100%',
+  },
 };
 
 // Desktop grid
 if (typeof window !== 'undefined' && window.innerWidth >= 900) {
   styles.gridRoot.maxWidth = 1440;
-  styles.gridRoot.gap = 56;
-  styles.heroGrid.gridTemplateColumns = '1fr 1fr';
+  styles.gridRoot.gap = 32;
+  styles.heroGrid.gridTemplateColumns = '1fr';
   styles.heroGrid.minHeight = 420;
+  styles.heroBgWrap.display = 'block';
+  styles.heroBgWrap.position = 'absolute';
+  styles.heroBgWrap.left = 0;
+  styles.heroBgWrap.top = 0;
+  styles.heroBgWrap.width = '100%';
+  styles.heroBgWrap.height = '100%';
+  styles.heroBgWrap.zIndex = 0;
+  styles.heroContentWrap.gridTemplateColumns = '1fr 1fr';
   styles.heroTextCol.padding = '3.5rem 2.5rem 2.5rem 2.5rem';
+  styles.heroTextCol.minHeight = 320;
+  styles.heroTextCol.alignItems = 'flex-start';
   styles.heroImgCol.display = 'block';
-  styles.heroImg.minHeight = 320;
+  styles.heroImgCol.width = '100%';
+  styles.heroImgCol.height = '100%';
   styles.numbersBlock.gridTemplateColumns = 'repeat(4, 1fr)';
   styles.numbersBlock.maxWidth = 1100;
   styles.numbersBlock.padding = '2.2rem 1.5rem';
@@ -425,4 +612,8 @@ if (typeof window !== 'undefined' && window.innerWidth >= 900) {
   styles.ctaCard.padding = '3rem 2.5rem 2.5rem 2.5rem';
   styles.finalFormWrap.maxWidth = 480;
   styles.finalFormNote.fontSize = '1.08rem';
+  styles.heroTextCol.background = 'none';
+  styles.heroTextCol.overflow = 'visible';
+  styles.numbersBlockWrap.margin = 0;
+  styles.ctaCard.marginTop = 24;
 }
