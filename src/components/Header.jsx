@@ -5,7 +5,6 @@ import logo from '../assets/logo.svg';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const [hoveredBtn, setHoveredBtn] = useState(null);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -13,312 +12,48 @@ const Header = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const accentButton = {
-    color: '#fff',
-    borderRadius: '22px',
-    padding: '0.5rem 1.5rem',
-    margin: '0 0.25rem',
-    fontWeight: 600,
-    boxShadow: '0 2px 8px rgba(204,144,66,0.12)',
-    transition: 'box-shadow 0.22s, transform 0.22s',
-    textDecoration: 'none',
-    border: '2px solid transparent',
-    display: 'inline-block',
-    background: 'linear-gradient(90deg, #cc9042 60%, #b87333 100%)',
-    fontSize: '1.13rem',
-    position: 'relative',
-  };
-
-  const accentButtonHover = {
-    transform: 'translateY(-6px)',
-    boxShadow: '0 8px 24px rgba(204,144,66,0.18)',
-  };
-
-  const soonBadge = {
-    position: 'absolute',
-    top: -16,
-    right: -8,
-    background: '#e53935',
-    color: '#fff',
-    fontSize: '0.85rem',
-    fontWeight: 700,
-    borderRadius: '12px',
-    padding: '2px 10px',
-    zIndex: 10,
-    boxShadow: '0 2px 8px rgba(204,144,66,0.10)',
-    opacity: 0.7,
-    transition: 'top 0.2s, right 0.2s, opacity 0.2s',
-    '@media (max-width: 768px)': {
-      top: -8,
-      right: 8,
-      fontSize: '0.8rem',
-      padding: '2px 8px',
-    },
-  };
-
-  // Красная точка для мобильной версии
-  const soonDot = {
-    position: 'absolute',
-    top: 2,
-    right: 10,
-    width: 14,
-    height: 14,
-    borderRadius: '50%',
-    background: '#e53935',
-    zIndex: 10,
-    boxShadow: '0 1px 4px rgba(204,144,66,0.10)',
-    border: '2px solid #fff',
-    display: 'inline-block',
-  };
-
-
-
   return (
-    <header style={styles.header}>
-      <nav style={styles.nav}>
+    <header className="wc-header">
+      <nav className="wc-header-nav">
         <Link to="/" className="logo-link">
           <img src={logo} alt="Wanna Coffee Logo" className="header-logo" />
         </Link>
-        <div style={styles.rightControls}>
+        <div className="wc-header-right">
           {isMobile ? (
             <>
               <button
-                style={styles.menuButton}
+                className="wc-header-menu-btn"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Toggle menu"
               >
-                <span style={styles.menuIcon}>{isMenuOpen ? '✕' : '☰'}</span>
-                <span style={styles.burgerDot}></span>
+                <span className="wc-header-menu-icon">{isMenuOpen ? '✕' : '☰'}</span>
+                <span className="wc-header-burger-dot"></span>
               </button>
-              {isMobile && isMenuOpen && (
+              {isMenuOpen && (
                 <>
-                  {/* Overlay */}
                   <div
+                    className="wc-header-mobile-overlay"
                     onClick={() => setIsMenuOpen(false)}
-                    style={{
-                      position: 'fixed',
-                      top: 0,
-                      left: 0,
-                      width: '100vw',
-                      height: '100vh',
-                      background: 'rgba(30,24,10,0.10)',
-                      zIndex: 2000,
-                      transition: 'background 0.2s',
-                    }}
                   />
-                  {/* Мобильное меню */}
-                <div style={styles.mobileMenu}>
-                  <Link to="/" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>Home</Link>
-                  <Link
-                    to="/about"
-                    style={{
-                      ...styles.mobileMenuLink,
-                      ...styles.mobileAccentAbout,
-                      textAlign: 'center',
-                    }}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    About
-                  </Link>
-                  <Link to="/contact" style={{ ...styles.mobileMenuLink, textAlign: 'center' }} onClick={() => setIsMenuOpen(false)}>Contact</Link>
-                </div>
+                  <div className="wc-header-mobile-menu">
+                    <Link to="/" className="wc-header-mobile-link" onClick={() => setIsMenuOpen(false)}>Home</Link>
+                    <Link to="/about" className="wc-header-mobile-link wc-header-mobile-accent" onClick={() => setIsMenuOpen(false)}>About</Link>
+                    <Link to="/contact" className="wc-header-mobile-link" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+                  </div>
                 </>
               )}
             </>
           ) : (
-            <div style={styles.links}>
-              <Link to="/" style={styles.link}>Home</Link>
-              <Link
-                to="/about"
-                style={{
-                  ...styles.link,
-                  ...styles.accentAbout,
-                }}
-                onMouseEnter={e => e.currentTarget.style.boxShadow = '0 0 16px 2px #cc9042, 0 2px 8px rgba(204,144,66,0.18)'}
-                onMouseLeave={e => e.currentTarget.style.boxShadow = styles.accentAbout.boxShadow}
-              >
-                About
-              </Link>
-              <Link to="/contact" style={styles.link}>Contact</Link>
+            <div className="wc-header-links">
+              <Link to="/" className="wc-header-link">Home</Link>
+              <Link to="/about" className="wc-header-link wc-header-accent">About</Link>
+              <Link to="/contact" className="wc-header-link">Contact</Link>
             </div>
           )}
         </div>
       </nav>
     </header>
   );
-};
-
-const styles = {
-  header: {
-    padding: '1rem',
-    backgroundColor: '#f7f7f7',
-    position: 'sticky',
-    top: 0,
-    zIndex: 1000,
-    '@media (max-width: 768px)': {
-      padding: '0.75rem 1rem',
-    },
-  },
-  nav: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    position: 'relative',
-    zIndex: 1001,
-    height: 56,
-  },
-  logoLink: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    flex: 'none',
-    position: 'relative',
-    zIndex: 2,
-  },
-  logo: {
-    height: '64px',
-    '@media (max-width: 768px)': {
-      height: '32px',
-    },
-  },
-  rightControls: {
-    display: 'flex',
-    alignItems: 'center',
-    zIndex: 3,
-    gap: '1rem',
-    height: '100%',
-    position: 'static',
-  },
-  links: {
-    display: 'flex',
-    gap: '1rem',
-    '@media (max-width: 768px)': {
-      display: 'none',
-    },
-  },
-  linksOpen: {
-    '@media (max-width: 768px)': {
-      display: 'flex',
-    },
-  },
-  link: {
-    color: '#333',
-    textDecoration: 'none',
-    padding: '0.5rem',
-    borderRadius: '4px',
-    transition: 'background-color 0.2s',
-    '@media (max-width: 768px)': {
-      padding: '0.75rem',
-      fontSize: '1.1rem',
-    },
-    '&:hover': {
-      backgroundColor: '#eee',
-    },
-  },
-  spacer: {
-    flex: 1,
-  },
-  menuButton: {
-    background: 'none',
-    border: 'none',
-    padding: '0.5rem',
-    cursor: 'pointer',
-    zIndex: 2002,
-  },
-  menuIcon: {
-    fontSize: '1.5rem',
-    color: '#333',
-  },
-  mobileMenu: {
-    position: 'fixed',
-    top: 64,
-    right: 16,
-    left: 16,
-    background: 'rgba(255, 255, 255, 0.6)',
-    backdropFilter: 'blur(25px)',
-    WebkitBackdropFilter: 'blur(25px)',
-    borderRadius: 16,
-    boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
-    border: '1px solid rgba(255, 255, 255, 0.3)',
-    zIndex: 2001,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 0,
-    padding: '0.5rem 0',
-    '@media (min-width: 769px)': {
-      display: 'none',
-    },
-  },
-  mobileMenuLink: {
-    padding: '1rem',
-    color: '#2c2c2c',
-    textDecoration: 'none',
-    fontWeight: 600,
-    fontSize: '1.1rem',
-    borderBottom: '1px solid rgba(0,0,0,0.06)',
-    transition: 'background 0.2s',
-    ':last-child': {
-      borderBottom: 'none',
-    },
-    ':hover': {
-      background: 'rgba(255,255,255,0.4)',
-    },
-  },
-  '@media (max-width: 768px)': {
-    logoLink: {
-      maxWidth: '70vw',
-    },
-  },
-  mobileAccentBtn: {
-    width: 'calc(100% - 32px)',
-    margin: '0.5rem 16px',
-    display: 'block',
-    textAlign: 'center',
-    fontSize: '1.13rem',
-    padding: '0.9rem 1.5rem',
-    borderRadius: '18px',
-    background: 'linear-gradient(90deg, #cc9042 60%, #b87333 100%)',
-    color: '#fff',
-    fontWeight: 700,
-    boxShadow: '0 4px 16px rgba(204,144,66,0.2)',
-    border: '1px solid rgba(255,255,255,0.2)',
-    backdropFilter: 'blur(10px)',
-    WebkitBackdropFilter: 'blur(10px)',
-  },
-  burgerDot: {
-    position: 'absolute',
-    top: 8,
-    right: 8,
-    width: 12,
-    height: 12,
-    borderRadius: '50%',
-    background: '#e53935',
-    boxShadow: '0 1px 4px rgba(204,144,66,0.10)',
-    zIndex: 10,
-    border: '2px solid #fff',
-    display: 'inline-block',
-    pointerEvents: 'none',
-  },
-  accentAbout: {
-    background: 'linear-gradient(90deg, #cc9042 60%, #b87333 100%)',
-    color: '#fff',
-    borderRadius: '22px',
-    padding: '0.5rem 1.5rem',
-    fontWeight: 700,
-    boxShadow: '0 2px 8px rgba(204,144,66,0.12)',
-    transition: 'box-shadow 0.22s, transform 0.22s',
-    border: '2px solid transparent',
-    margin: '0 0.25rem',
-  },
-  mobileAccentAbout: {
-    background: 'linear-gradient(90deg, #cc9042 60%, #b87333 100%)',
-    color: '#fff',
-    borderRadius: '18px',
-    fontWeight: 700,
-    boxShadow: '0 2px 8px rgba(204,144,66,0.12)',
-    border: '2px solid transparent',
-    margin: '0.5rem 0',
-  },
 };
 
 export default Header;
