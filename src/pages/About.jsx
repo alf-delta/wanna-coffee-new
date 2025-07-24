@@ -6,7 +6,6 @@ const About = () => {
   return (
     <div style={styles.pageBg}>
       <section style={styles.heroSection}>
-        <img src={logo} alt="Wanna Coffee Logo" style={styles.logo} />
         <h1 style={styles.heroTitle}>About</h1>
         <p style={styles.heroSubtitle}>Vision & Mission Focused</p>
       </section>
@@ -17,7 +16,18 @@ const About = () => {
           Below, you'll find a bit of early information — we can't reveal much just yet, but if you're eager to see us in action, subscribe at the bottom of this page.<br/>
           Whether you're a coffee enthusiast or a café owner, your support will help us move faster — and we hope to see you very soon.
         </p>
+        <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+          <div style={{ fontSize: '1.45rem', fontWeight: 800, color: '#b87333', marginBottom: '0.3em' }}>
+            Want to be the first to know when we launch?
+          </div>
+          <div style={{ fontSize: '1.45rem', fontWeight: 600, color: '#b87333', marginTop: '0.1em' }}>
+            Subscribe below and join the journey!
+          </div>
+        </div>
       </section>
+      <div style={{ margin: '0 auto 2.5rem auto', maxWidth: 520 }}>
+        <WaitlistTabs />
+      </div>
 
       <section style={{
         ...styles.glassSection,
@@ -78,15 +88,6 @@ const About = () => {
           We're starting this journey by listening, learning, and collaborating with the very people we aim to serve.
         </p>
       </section>
-
-      <section style={styles.ctaSection}>
-        <h2 style={styles.sectionTitle}>The Future of Coffee is Collaborative.</h2>
-        <p style={styles.sectionText}>
-          This is more than a platform—it's a movement to build a more sustainable, connected, and vibrant local coffee culture. And it's just getting started.<br/>
-          <b>Be the first to know what's brewing.</b>
-        </p>
-        <WaitlistTabs />
-      </section>
     </div>
   );
 };
@@ -106,8 +107,11 @@ const styles = {
     marginBottom: 32,
   },
   logo: {
-    width: 180,
+    width: 240,
     marginBottom: 16,
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   heroTitle: {
     fontSize: '2.8rem',
