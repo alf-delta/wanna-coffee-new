@@ -1,13 +1,21 @@
 export const filtersConfig = [
+  // Favorites filter
   {
-    key: 'wave',
-    title: 'Wave',
-    type: 'checkbox',
-    multi: true,
+    key: 'favoritesFilter',
+    title: 'Saved',
+    type: 'checkbox-single',
+    multi: false,
     options: [
-      { value: '2nd wave', label: '2nd Wave' },
-      { value: '3rd wave', label: '3rd Wave' },
-      { value: 'not defined', label: 'Not defined' },
+      { value: 'saved', label: 'Only saved' },
+    ],
+  },
+  {
+    key: 'favoritesFilterNot',
+    title: 'Others',
+    type: 'checkbox-single',
+    multi: false,
+    options: [
+      { value: 'not_saved', label: 'Only not saved' },
     ],
   },
 ]; 

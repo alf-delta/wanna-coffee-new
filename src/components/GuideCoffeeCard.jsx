@@ -3,6 +3,9 @@ import './GuideCoffeeCard.css';
 import WcImpressionLogo from '../assets/WC_IMPRESSION.svg';
 import BeansImage from '../assets/Beans.png';
 import Modal from './Modal.jsx';
+import FavoriteButton from './FavoriteButton.jsx';
+import { useAccount } from '../context/AccountContext';
+import SuggestionModal from './SuggestionModal.jsx';
 
 const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = false }) => {
   const [showWaveInfo, setShowWaveInfo] = useState(false);
@@ -74,6 +77,9 @@ const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = 
     </div>
   );
 
+  const { addSuggestion, profile } = useAccount();
+  const [suggestState, setSuggestState] = useState({ open: false, key: null });
+
   if (compact) {
     return (
       <div className="guide-coffee-card compact">
@@ -83,22 +89,28 @@ const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = 
             <p className="shop-address">{address}</p>
           </div>
         </div>
-        <div className="card-content compact-content-row" style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+        <div className="card-content compact-content-row" style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8}}>
           <div style={{display: 'flex', alignItems: 'center'}}>
           <div className={`open-status ${isOpen === false ? 'closed' : 'open'}`}>{isOpen === false ? 'Closed' : 'Open'}</div>
           </div>
-          <button className="route-btn" onClick={() => {
-            const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + address)}`;
-            window.open(url, '_blank');
-          }}>
-            <span className="route-pin-icon" style={{display: 'flex', alignItems: 'center', marginRight: 6}}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335"/>
-                <circle cx="12" cy="9" r="2.5" fill="#fff"/>
-              </svg>
-            </span>
-            Route
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <button
+              className="route-btn-compact"
+              onClick={() => {
+                const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + address)}`;
+                window.open(url, '_blank');
+              }}
+            >
+              <span style={{display: 'flex', alignItems: 'center', marginRight: 4}}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335"/>
+                  <circle cx="12" cy="9" r="2.5" fill="#fff"/>
+                </svg>
+              </span>
+              Route
+            </button>
+          <FavoriteButton entityId={coffeeShop.id} type="shop" />
+          </div>
         </div>
       </div>
     );
@@ -107,40 +119,13 @@ const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = 
   return (
     <div className="guide-coffee-card">
       <div className="card-header">
-        <div className="header-content" style={{ padding: '0 16px' }}>
+        <div className="header-content" style={{ padding: '0 16px', paddingRight: '80px' }}>
           <h2 className="shop-name">{name}</h2>
           <p className="shop-address">{address}</p>
-          {/* Бейдж wave и Route */}
-          {coffeeShop.wave && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <div className="tier-badge" style={{ backgroundColor: getWaveColor(coffeeShop.wave), display: 'flex', alignItems: 'center', height: 38, borderRadius: 19, fontWeight: 700, fontSize: '1.01rem', padding: '0 22px', letterSpacing: 0.5 }}>
-                {coffeeShop.wave}
-              </div>
-              {/* Кнопка с вопросительным знаком */}
-              <div 
-                style={{ 
-                  backgroundColor: 'rgba(245, 245, 245, 0.8)', 
-                  color: '#666',
-                  width: 32,
-                  height: 32,
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '16px',
-                  fontWeight: 'bold',
-                  cursor: 'pointer',
-                  border: '1px solid rgba(224, 224, 224, 0.8)',
-                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
-                  opacity: 0.8,
-                  marginLeft: 4,
-                }}
-                onClick={() => setShowWaveInfo(true)}
-              >
-                ?
-              </div>
-            </div>
-          )}
+          {/* Кнопка Save в виде сердечка */}
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: 8 }}>
+            <FavoriteButton entityId={coffeeShop.id} type="shop" />
+          </div>
         </div>
         {/* AI Guide бейдж */}
         <div style={{ position: 'absolute', top: 16, right: 16, zIndex: 2 }}>
@@ -161,8 +146,8 @@ const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = 
 
       <div className="card-content">
         {/* Location & Atmosphere */}
-        {descriptionBlocks?.['Location & Atmosphere'] && (
-          <div className="guide-section">
+          {descriptionBlocks?.['Location & Atmosphere'] && (
+          <div className="guide-section" style={{ position: 'relative', paddingBottom: 28 }}>
             <div className="section-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <div className="section-icon">📍</div>
@@ -170,31 +155,14 @@ const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = 
               </div>
               {/* Кнопка Route справа */}
               <button
-                className="route-btn"
-                style={{
-                  padding: '0 22px',
-                  height: 38,
-                  borderRadius: 19,
-                  border: 'none',
-                  background: '#fff',
-                  color: '#b87333',
-                  fontWeight: 700,
-                  fontSize: '1.01rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  boxShadow: '0 1px 4px rgba(0,0,0,0.07)',
-                  cursor: 'pointer',
-                  letterSpacing: 0.5,
-                  transition: 'box-shadow 0.18s',
-                  marginRight: 0,
-                }}
+                className="route-btn-compact"
                 onClick={() => {
                   const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + address)}`;
                   window.open(url, '_blank');
                 }}
               >
-                <span className="route-pin-icon" style={{display: 'flex', alignItems: 'center', marginRight: 8}}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <span style={{display: 'flex', alignItems: 'center', marginRight: 4}}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335"/>
                     <circle cx="12" cy="9" r="2.5" fill="#fff"/>
                   </svg>
@@ -203,44 +171,80 @@ const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = 
               </button>
             </div>
             <p>{descriptionBlocks['Location & Atmosphere']}</p>
+            <span
+              role="button"
+              tabIndex={0}
+              style={{ position: 'absolute', right: 12, bottom: 10, fontSize: '0.7rem', color: '#b87333', cursor: 'pointer', userSelect: 'none' }}
+              onClick={() => setSuggestState({ open: true, key: 'locationAtmosphere' })}
+              onKeyDown={(e) => { if (e.key === 'Enter') setSuggestState({ open: true, key: 'locationAtmosphere' }); }}
+            >
+              Update info
+            </span>
           </div>
         )}
 
         {/* Philosophy & Sourcing */}
-        {descriptionBlocks?.['Philosophy & Sourcing'] && (
-          <div className="guide-section">
+          {descriptionBlocks?.['Philosophy & Sourcing'] && (
+          <div className="guide-section" style={{ position: 'relative', paddingBottom: 28 }}>
             <div className="section-header">
               <div className="section-icon">🌱</div>
               <h3>Philosophy & Sourcing</h3>
             </div>
             <p>{descriptionBlocks['Philosophy & Sourcing']}</p>
+            <span
+              role="button"
+              tabIndex={0}
+              style={{ position: 'absolute', right: 12, bottom: 10, fontSize: '0.7rem', color: '#b87333', cursor: 'pointer', userSelect: 'none' }}
+              onClick={() => setSuggestState({ open: true, key: 'philosophySourcing' })}
+              onKeyDown={(e) => { if (e.key === 'Enter') setSuggestState({ open: true, key: 'philosophySourcing' }); }}
+            >
+              Update info
+            </span>
           </div>
         )}
 
         {/* Equipment & Technique */}
-        {descriptionBlocks?.['Equipment & Technique'] && (
-          <div className="guide-section">
+          {descriptionBlocks?.['Equipment & Technique'] && (
+          <div className="guide-section" style={{ position: 'relative', paddingBottom: 28 }}>
             <div className="section-header">
               <div className="section-icon">⚙️</div>
               <h3>Equipment & Technique</h3>
             </div>
             <p>{descriptionBlocks['Equipment & Technique']}</p>
+            <span
+              role="button"
+              tabIndex={0}
+              style={{ position: 'absolute', right: 12, bottom: 10, fontSize: '0.7rem', color: '#b87333', cursor: 'pointer', userSelect: 'none' }}
+              onClick={() => setSuggestState({ open: true, key: 'equipmentTechnique' })}
+              onKeyDown={(e) => { if (e.key === 'Enter') setSuggestState({ open: true, key: 'equipmentTechnique' }); }}
+            >
+              Update info
+            </span>
           </div>
         )}
 
         {/* Recommendation */}
-        {descriptionBlocks?.['Recommendation'] && (
-          <div className="guide-section recommendation">
+          {descriptionBlocks?.['Recommendation'] && (
+          <div className="guide-section recommendation" style={{ position: 'relative', paddingBottom: 28 }}>
             <div className="section-header">
               <div className="section-icon">💡</div>
               <h3>Our Recommendation</h3>
             </div>
             <p>{descriptionBlocks['Recommendation']}</p>
+            <span
+              role="button"
+              tabIndex={0}
+              style={{ position: 'absolute', right: 12, bottom: 10, fontSize: '0.7rem', color: '#b87333', cursor: 'pointer', userSelect: 'none' }}
+              onClick={() => setSuggestState({ open: true, key: 'recommendation' })}
+              onKeyDown={(e) => { if (e.key === 'Enter') setSuggestState({ open: true, key: 'recommendation' }); }}
+            >
+              Update info
+            </span>
           </div>
         )}
 
         {/* Working Hours */}
-        <div className="guide-section">
+        <div className="guide-section" style={{ position: 'relative', paddingBottom: 28 }}>
           <div className="section-header">
             <div className="section-icon">🕒</div>
             <h3>Working Hours</h3>
@@ -248,6 +252,15 @@ const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = 
           <div className="hours-container">
             {formatHours(workingHours)}
           </div>
+          <span
+            role="button"
+            tabIndex={0}
+            style={{ position: 'absolute', right: 12, bottom: 10, fontSize: '0.7rem', color: '#b87333', cursor: 'pointer', userSelect: 'none' }}
+            onClick={() => setSuggestState({ open: true, key: 'workingHours' })}
+            onKeyDown={(e) => { if (e.key === 'Enter') setSuggestState({ open: true, key: 'workingHours' }); }}
+          >
+            Update info
+          </span>
         </div>
 
         {/* Wanna Coffee Impression Logo */}
@@ -278,6 +291,15 @@ const GuideCoffeeCard = ({ coffeeShop, onClose, showTierBadge = true, compact = 
             {waveInfoText}
           </div>
         </Modal>
+      )}
+      {suggestState.open && (
+        <SuggestionModal
+          open={suggestState.open}
+          onClose={() => setSuggestState({ open: false, key: null })}
+          shop={coffeeShop}
+          initialSectionKey={suggestState.key}
+          onSubmit={(payload) => addSuggestion(payload)}
+        />
       )}
     </div>
   );

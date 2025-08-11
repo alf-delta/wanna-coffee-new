@@ -433,33 +433,26 @@
   display: none !important;
 }
 
-.route-btn {
-  font-size: 1rem;
+
+
+
+.route-btn-compact {
+  font-size: 0.9rem;
   font-weight: 600;
-  border-radius: 14px;
-  padding: 2px 12px;
+  border-radius: 12px;
+  padding: 1px 6px;
   background: #fff;
-  color: #111;
-  margin-right: 10px;
-  border: 1px solid #111;
-  min-width: 60px;
-  text-align: center;
+  color: #b87333;
+  margin-right: 0;
+  margin-left: 0;
+  border: none;
   box-shadow: none;
-  display: flex;
-  align-items: center;
+  min-width: 45px;
+  text-align: center;
+  transition: color 0.2s;
   cursor: pointer;
-  transition: color 0.2s, box-shadow 0.2s, background 0.2s, border 0.2s;
-}
-.route-btn .route-pin-icon {
-  margin-right: 6px;
   display: flex;
   align-items: center;
-}
-.route-btn:hover {
-  background: #f1f1f1;
-  color: #EA4335;
-  border: 1px solid #EA4335;
-  box-shadow: 0 2px 8px rgba(66,133,244,0.10);
 }
 
 @media (max-width: 600px) {
@@ -481,6 +474,29 @@
     height: 80px;
     margin-left: 0;
     margin-top: 0;
+  }
+}
+
+/* Mobile override for Route button to match "Open" badge size */
+@media (max-width: 768px) {
+  .route-btn-compact {
+    /* Cancel global tap-target min-size from global.css */
+    min-height: initial;
+    min-width: initial;
+    /* Match .open-status pill metrics */
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 14px;
+    padding: 2px 12px;
+    background: #fff;
+    color: #b87333;
+    border: none;
+    box-shadow: none;
+    text-align: center;
+    line-height: 1.6; /* match .open-status inherited line-height */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

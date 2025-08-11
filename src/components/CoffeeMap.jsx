@@ -4,6 +4,7 @@ import { MAPBOX_TOKEN } from '../assets/mapbox-token';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import * as turf from '@turf/turf';
 import GuideCoffeeCard from './GuideCoffeeCard.jsx';
+import { useAccount } from '../context/AccountContext';
 
 if (!MAPBOX_TOKEN) {
   console.error('Mapbox token is missing!');
@@ -78,6 +79,7 @@ const CoffeeMap = forwardRef(({
   setMapCenter,
   onCloseSelectedShop
 }, ref) => {
+  const { favorites, settings } = useAccount();
   const mapContainer = useRef(null);
   const map = useRef(null);
   const markers = useRef([]);
@@ -93,6 +95,7 @@ const CoffeeMap = forwardRef(({
   const MOBILE_VISUAL_OFFSET = [0, mobileOffsetY];
   const NO_OFFSET = [0, 0];
   const currentVisualOffset = IS_MOBILE ? MOBILE_VISUAL_OFFSET : NO_OFFSET;
+  const ALLOW_PIN_GROW = !IS_MOBILE; // на мобильных отключаем увеличение пина
 
   console.log('CoffeeMap: Render/Props Update', { 
     radiusCircle, 
@@ -147,20 +150,31 @@ const CoffeeMap = forwardRef(({
     // Маркеры кофеен
     markers.current.forEach(marker => marker.remove());
     markers.current = [];
-    coffeeShops.forEach(shop => {
-      const isHovered = hoveredShopId === shop.id;
+    // Применяем фильтр по favorites
+    const filtered = coffeeShops.filter(shop => {
+      const isFav = favorites?.shops?.some?.(id => String(id) === String(shop.id));
+      if (settings?.favoritesFilter === 'saved') return !!isFav;
+      if (settings?.favoritesFilter === 'not_saved') return !isFav;
+      return true;
+    });
+
+    filtered.forEach(shop => {
+      const isHovered = ALLOW_PIN_GROW && (hoveredShopId === shop.id);
+      const isFavorited = favorites?.shops?.some?.(id => String(id) === String(shop.id));
       // SVG-пин (размер зависит от isHovered)
       const pin = document.createElement('div');
       pin.className = 'coffee-marker';
+      const baseColor = isFavorited ? '#e74c3c' : '#d3914b';
+      const hoverColor = isFavorited ? '#c0392b' : '#a86c2a';
       pin.innerHTML = isHovered
         ? `<svg width="48" height="60" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="16" cy="15" rx="12" ry="12" fill="#a86c2a"/>
-            <path d="M16 40C16 40 28 24 28 15C28 6.71573 22.2843 1 16 1C9.71573 1 4 6.71573 4 15C4 24 16 40 16 40Z" fill="#a86c2a" stroke="#fff" stroke-width="2"/>
+            <ellipse cx="16" cy="15" rx="12" ry="12" fill="${hoverColor}"/>
+            <path d="M16 40C16 40 28 24 28 15C28 6.71573 22.2843 1 16 1C9.71573 1 4 6.71573 4 15C4 24 16 40 16 40Z" fill="${hoverColor}" stroke="#fff" stroke-width="2"/>
             <circle cx="16" cy="15" r="5" fill="#fff"/>
           </svg>`
         : `<svg width="32" height="40" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="16" cy="15" rx="12" ry="12" fill="#d3914b"/>
-            <path d="M16 40C16 40 28 24 28 15C28 6.71573 22.2843 1 16 1C9.71573 1 4 6.71573 4 15C4 24 16 40 16 40Z" fill="#d3914b" stroke="#fff" stroke-width="2"/>
+            <ellipse cx="16" cy="15" rx="12" ry="12" fill="${baseColor}"/>
+            <path d="M16 40C16 40 28 24 28 15C28 6.71573 22.2843 1 16 1C9.71573 1 4 6.71573 4 15C4 24 16 40 16 40Z" fill="${baseColor}" stroke="#fff" stroke-width="2"/>
             <circle cx="16" cy="15" r="5" fill="#fff"/>
           </svg>`;
       pin.style.width = isHovered ? '48px' : '32px';
@@ -317,31 +331,34 @@ const CoffeeMap = forwardRef(({
     if (isMapLoaded && layersCreated.current) {
       updateMapVisuals();
     }
-  }, [setMapCenter, radiusCircle, coffeeShops]);
+  }, [setMapCenter, radiusCircle, coffeeShops, favorites, settings]);
 
   // Обновление маркеров при изменении hoveredShopId
   useEffect(() => {
     if (!isMapLoaded || !layersCreated.current || !markers.current.length) return;
     markers.current.forEach(marker => {
       if (marker && marker._shopId) {
-        const isHovered = hoveredShopId === marker._shopId;
+        const isHovered = (!IS_MOBILE) && (hoveredShopId === marker._shopId);
+        const isFavorited = favorites?.shops?.some?.(id => String(id) === String(marker._shopId));
+        const baseColor = isFavorited ? '#e74c3c' : '#d3914b';
+        const hoverColor = isFavorited ? '#c0392b' : '#a86c2a';
         const markerElement = marker.getElement();
         markerElement.innerHTML = isHovered
           ? `<svg width="48" height="60" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <ellipse cx="16" cy="15" rx="12" ry="12" fill="#a86c2a"/>
-              <path d="M16 40C16 40 28 24 28 15C28 6.71573 22.2843 1 16 1C9.71573 1 4 6.71573 4 15C4 24 16 40 16 40Z" fill="#a86c2a" stroke="#fff" stroke-width="2"/>
+              <ellipse cx="16" cy="15" rx="12" ry="12" fill="${hoverColor}"/>
+              <path d="M16 40C16 40 28 24 28 15C28 6.71573 22.2843 1 16 1C9.71573 1 4 6.71573 4 15C4 24 16 40 16 40Z" fill="${hoverColor}" stroke="#fff" stroke-width="2"/>
               <circle cx="16" cy="15" r="5" fill="#fff"/>
             </svg>`
           : `<svg width="32" height="40" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <ellipse cx="16" cy="15" rx="12" ry="12" fill="#d3914b"/>
-              <path d="M16 40C16 40 28 24 28 15C28 6.71573 22.2843 1 16 1C9.71573 1 4 6.71573 4 15C4 24 16 40 16 40Z" fill="#d3914b" stroke="#fff" stroke-width="2"/>
+              <ellipse cx="16" cy="15" rx="12" ry="12" fill="${baseColor}"/>
+              <path d="M16 40C16 40 28 24 28 15C28 6.71573 22.2843 1 16 1C9.71573 1 4 6.71573 4 15C4 24 16 40 16 40Z" fill="${baseColor}" stroke="#fff" stroke-width="2"/>
               <circle cx="16" cy="15" r="5" fill="#fff"/>
             </svg>`;
         markerElement.style.width = isHovered ? '48px' : '32px';
         markerElement.style.height = isHovered ? '60px' : '40px';
       }
     });
-  }, [hoveredShopId, isMapLoaded]);
+  }, [hoveredShopId, isMapLoaded, favorites]);
 
   // Синхронизация центра при перемещении карты
   useEffect(() => {

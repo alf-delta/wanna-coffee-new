@@ -1,10 +1,10 @@
 import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
+import { useAccount } from '../context/AccountContext';
 import CoffeeMap from '../components/CoffeeMap';
-import FilterPanel, { CustomCheckbox } from '../components/FilterPanel';
+import { CustomCheckbox } from '../components/FilterPanel';
 import CoffeeList from '../components/CoffeeList';
 import { fetchCoffeeShops } from '../utils/coffeeShops';
 import * as turf from '@turf/turf';
-import { filtersConfig } from '../filtersConfig';
 import Modal from '../components/Modal';
 import SearchBar from '../components/SearchBar';
 
@@ -558,7 +558,8 @@ const Home = () => {
   const [error, setError] = useState(null);
   const [radiusIdx, setRadiusIdx] = useState(0); // минимальный радиус по умолчанию
   const [mapCenter, setMapCenter] = useState([-74.009, 40.707]); // Financial District, Manhattan
-  const [filters, setFilters] = useState({ openNow: false, wave: [] });
+  const [filters, setFilters] = useState({ openNow: false });
+  const { settings, setSettings, favorites } = useAccount();
   const [selectedShop, setSelectedShop] = useState(null);
   const [hoveredShopId, setHoveredShopId] = useState(null);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
@@ -605,7 +606,7 @@ const Home = () => {
     loadCoffeeShops();
   }, []);
 
-  // Фильтрация кофеен по радиусу и фильтру 'Open now'
+  // Фильтрация кофеен по радиусу, 'Open now' и режиму Saved/Others
   const filteredShops = useMemo(() => {
     if (!coffeeShopsData || coffeeShopsData.length === 0) {
       return [];
@@ -633,16 +634,15 @@ const Home = () => {
         return true;
       })
       .filter(shop => {
-        // Wave filter
-        if (filters.wave && Array.isArray(filters.wave) && filters.wave.length > 0) {
-          const shopWave = shop.wave || shop.ai_classification?.wave;
-          if (!shopWave) return false;
-          return filters.wave.includes(shopWave);
-        }
+        const mode = settings?.favoritesFilter || 'all';
+        const isFav = favorites?.shops?.some?.(id => String(id) === String(shop.id));
+        if (mode === 'saved') return !!isFav;
+        if (mode === 'not_saved') return !isFav;
         return true;
       })
+      // favorites filter applied inside CoffeeMap rendering; we keep list unchanged here
       .sort((a, b) => a.distance - b.distance);
-  }, [coffeeShopsData, visualCenter, radiusCircle, filters]);
+  }, [coffeeShopsData, visualCenter, radiusCircle, filters, settings, favorites]);
 
   const handleShopClick = useCallback((shop) => {
     setSelectedShop(shop);
@@ -657,56 +657,24 @@ const Home = () => {
   }, []);
 
   // --- СИНХРОНИЗАЦИЯ FILTERS <-> URL ---
-  // 1. При загрузке страницы и изменении URL — инициализируем filters из query
+  // Инициализируем только openNow из URL
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const newFilters = {};
-    filtersConfig.forEach(f => {
-      const val = params.get(f.key);
-      if (val) {
-        if (f.multi) newFilters[f.key] = val.split(',');
-        else if (f.type === 'checkbox') newFilters[f.key] = val === 'true' ? true : val;
-        else newFilters[f.key] = val;
-      } else if (f.default) {
-        newFilters[f.key] = f.default;
-      } else if (f.multi) {
-        newFilters[f.key] = [];
-      } else {
-        newFilters[f.key] = false;
-      }
-      if (f.nested) {
-        const nestedVal = params.get(f.nested.key);
-        newFilters[f.nested.key] = nestedVal || '';
-      }
-    });
-    // Read openNow from URL
     const openNow = params.get('openNow');
-    newFilters.openNow = openNow === 'true';
-    setFilters(newFilters);
+    setFilters(prev => ({ ...prev, openNow: openNow === 'true' }));
     // eslint-disable-next-line
   }, []);
 
-  // 2. При изменении filters сериализуем их в query-параметры
+  // 2. Сериализуем openNow и favoritesFilter в URL (для шаринга состояния)
   useEffect(() => {
     const params = new URLSearchParams();
-    filtersConfig.forEach(f => {
-      const val = filters[f.key];
-      if (f.multi && Array.isArray(val) && val.length > 0) {
-        params.set(f.key, val.join(','));
-      } else if (!f.multi && val) {
-        params.set(f.key, val === true ? 'true' : val);
-      }
-      if (f.nested && filters[f.nested.key]) {
-        params.set(f.nested.key, filters[f.nested.key]);
-      }
-    });
-    // Add openNow to URL
-    if (filters.openNow) {
-      params.set('openNow', 'true');
+    if (filters.openNow) params.set('openNow', 'true');
+    if (settings?.favoritesFilter && settings.favoritesFilter !== 'all') {
+      params.set('favorites', settings.favoritesFilter);
     }
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     window.history.replaceState({}, '', newUrl);
-  }, [filters]);
+  }, [filters, settings]);
 
   // Обработчик изменения размера окна
   useEffect(() => {
@@ -879,58 +847,22 @@ const Home = () => {
                     }}>
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 6 }}>
                         <span style={{ fontWeight: 600, fontSize: '1.05em', color: '#b87333', letterSpacing: 0.2 }}>
-                          Waves
+                          Favorites
                         </span>
-                        <button
-                          onClick={() => setShowWaveInfo(true)}
-                          style={{
-                            width: 15,
-                            height: 15,
-                            minWidth: 0,
-                            minHeight: 0,
-                            borderRadius: '50%',
-                            background: 'rgba(220,220,220,0.7)',
-                            color: '#666',
-                            border: '1px solid #e0e0e0',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontWeight: 700,
-                            fontSize: 11,
-                            lineHeight: 1,
-                            marginLeft: 2,
-                            boxShadow: '0 1px 4px rgba(0,0,0,0.07)',
-                            cursor: 'pointer',
-                            transition: 'background 0.18s',
-                            outline: 'none',
-                            padding: 0,
-                            boxSizing: 'border-box',
-                          }}
-                          onMouseOver={e => e.currentTarget.style.background = 'rgba(200,200,200,0.95)'}
-                          onMouseOut={e => e.currentTarget.style.background = 'rgba(220,220,220,0.7)'}
-                          aria-label="What are waves?"
-                        >
-                          ?
-                        </button>
                       </div>
-                      <div style={{ display: 'flex', flexDirection: 'row', gap: 6, justifyContent: 'center', alignItems: 'center' }}>
-                        {filtersConfig[0].options.map(opt => (
-                          <CustomCheckbox
-                            key={opt.value}
-                            id={`filter-wave-${opt.value}`}
-                            checked={Array.isArray(filters.wave) && filters.wave.includes(opt.value)}
-                            onChange={() => {
-                              const arr = Array.isArray(filters.wave) ? filters.wave : [];
-                              setFilters(f => ({
-                                ...f,
-                                wave: arr.includes(opt.value)
-                                  ? arr.filter(v => v !== opt.value)
-                                  : [...arr, opt.value],
-                              }));
-                            }}
-                            label={<span style={{ fontSize: '0.93em', whiteSpace: 'nowrap', lineHeight: 1 }}>{opt.label}</span>}
-                          />
-                        ))}
+                      <div style={{ display: 'flex', flexDirection: 'row', gap: 12, justifyContent: 'center', alignItems: 'center' }}>
+                        <CustomCheckbox
+                          id="favorites-saved-desktop"
+                          checked={settings?.favoritesFilter === 'saved'}
+                          onChange={() => setSettings(s => ({ ...s, favoritesFilter: s.favoritesFilter === 'saved' ? 'all' : 'saved' }))}
+                          label={<span style={{ fontSize: '0.93em', whiteSpace: 'nowrap', lineHeight: 1 }}>Only saved</span>}
+                        />
+                        <CustomCheckbox
+                          id="favorites-not-saved-desktop"
+                          checked={settings?.favoritesFilter === 'not_saved'}
+                          onChange={() => setSettings(s => ({ ...s, favoritesFilter: s.favoritesFilter === 'not_saved' ? 'all' : 'not_saved' }))}
+                          label={<span style={{ fontSize: '0.93em', whiteSpace: 'nowrap', lineHeight: 1 }}>Only not saved</span>}
+                        />
                       </div>
                     </div>
                   </div>
@@ -1140,58 +1072,24 @@ const Home = () => {
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 6 }}>
                     <span style={{ fontWeight: 600, fontSize: '1.05em', color: '#b87333', letterSpacing: 0.2 }}>
-                      Waves
+                      Favorites
                     </span>
-                    <button
-                      onClick={() => setShowWaveInfo(true)}
-                      style={{
-                        width: 15,
-                        height: 15,
-                        minWidth: 0,
-                        minHeight: 0,
-                        borderRadius: '50%',
-                        background: 'rgba(220,220,220,0.7)',
-                        color: '#666',
-                        border: '1px solid #e0e0e0',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontWeight: 700,
-                        fontSize: 11,
-                        lineHeight: 1,
-                        marginLeft: 2,
-                        boxShadow: '0 1px 4px rgba(0,0,0,0.07)',
-                        cursor: 'pointer',
-                        transition: 'background 0.18s',
-                        outline: 'none',
-                        padding: 0,
-                        boxSizing: 'border-box',
-                      }}
-                      onMouseOver={e => e.currentTarget.style.background = 'rgba(200,200,200,0.95)'}
-                      onMouseOut={e => e.currentTarget.style.background = 'rgba(220,220,220,0.7)'}
-                      aria-label="What are waves?"
-                    >
-                      ?
-                    </button>
                   </div>
-                  <div style={{ display: 'flex', flexDirection: 'row', gap: 6, justifyContent: 'center', alignItems: 'center' }}>
-                    {filtersConfig[0].options.map(opt => (
-                      <CustomCheckbox
-                        key={opt.value}
-                        id={`filter-wave-${opt.value}`}
-                        checked={Array.isArray(filters.wave) && filters.wave.includes(opt.value)}
-                        onChange={() => {
-                          const arr = Array.isArray(filters.wave) ? filters.wave : [];
-                          setFilters(f => ({
-                            ...f,
-                            wave: arr.includes(opt.value)
-                              ? arr.filter(v => v !== opt.value)
-                              : [...arr, opt.value],
-                          }));
-                        }}
-                        label={<span style={{ fontSize: '0.93em', whiteSpace: 'nowrap', lineHeight: 1 }}>{opt.label}</span>}
-                      />
-                    ))}
+                  <div style={{ display: 'flex', flexDirection: 'row', gap: 12, justifyContent: 'center', alignItems: 'center' }}>
+                    <CustomCheckbox
+                      key='mobile-fav-saved'
+                      id='mobile-favorites-saved'
+                      checked={settings?.favoritesFilter === 'saved'}
+                      onChange={() => setSettings(s => ({ ...s, favoritesFilter: s.favoritesFilter === 'saved' ? 'all' : 'saved' }))}
+                      label={<span style={{ fontSize: '0.93em', whiteSpace: 'nowrap', lineHeight: 1 }}>Only saved</span>}
+                    />
+                    <CustomCheckbox
+                      key='mobile-fav-not'
+                      id='mobile-favorites-not-saved'
+                      checked={settings?.favoritesFilter === 'not_saved'}
+                      onChange={() => setSettings(s => ({ ...s, favoritesFilter: s.favoritesFilter === 'not_saved' ? 'all' : 'not_saved' }))}
+                      label={<span style={{ fontSize: '0.93em', whiteSpace: 'nowrap', lineHeight: 1 }}>Only not saved</span>}
+                    />
                   </div>
                 </div>
               </>

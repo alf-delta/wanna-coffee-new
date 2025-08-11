@@ -1,4 +1,5 @@
 import React from 'react';
+import FavoriteButton from './FavoriteButton.jsx';
 
 const EventsList = ({ events, onHover, onClick, selectedEventId }) => (
   <div className="events-list" aria-label="List of events">
@@ -20,6 +21,9 @@ const EventsList = ({ events, onHover, onClick, selectedEventId }) => (
           {ev.price && <span>{ev.price} RUB</span>}
         </div>
         <div className="event-desc">{ev.description}</div>
+        <div style={{ marginTop: 6 }}>
+          <FavoriteButton entityId={ev.id} type="event" />
+        </div>
       </div>
     ))}
   </div>

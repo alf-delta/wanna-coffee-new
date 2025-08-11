@@ -9,10 +9,12 @@ import Events from './pages/Events';
 import CoffeeSubscription from './pages/CoffeeSubscription';
 import Foresight from './pages/Foresight';
 import GuideDemo from './pages/GuideDemo';
+import Account from './pages/Account';
+import { AccountProvider } from './context/AccountContext';
 
 const App = () => {
   return (
-    <>
+    <AccountProvider>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -22,8 +24,9 @@ const App = () => {
         <Route path="/subscription" element={<CoffeeSubscription />} />
         <Route path="/foresight" element={<Foresight />} />
         <Route path="/guide-demo" element={<GuideDemo />} />
+        <Route path="/account" element={<Account />} />
       </Routes>
-    </>
+    </AccountProvider>
   );
 };
 

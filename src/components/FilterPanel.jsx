@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAccount } from '../context/AccountContext';
 import PropTypes from 'prop-types';
 import { filtersConfig } from '../filtersConfig';
 
@@ -58,6 +59,7 @@ export const CustomCheckbox = ({ checked, onChange, label, id }) => (
 );
 
 const FilterPanel = ({ filters, setFilters }) => {
+  const { settings, setSettings } = useAccount();
   // Состояние: какие фильтры открыты
   const [openFilters, setOpenFilters] = useState(() => filtersConfig.map(f => f.key));
 
@@ -79,6 +81,14 @@ const FilterPanel = ({ filters, setFilters }) => {
           return { ...prev, [filterKey]: [...prevVal, value] };
         }
       } else {
+        // Взаимоисключение Saved / Others через общий ключ favoritesFilter
+        if (filterKey === 'favoritesFilter' || filterKey === 'favoritesFilterNot') {
+          const current = (settings?.favoritesFilter ?? prev.favoritesFilter) || 'all';
+          const newValue = current === value ? 'all' : value;
+          // синхронизируем в глобальные настройки
+          setSettings(s => ({ ...s, favoritesFilter: newValue }));
+          return { ...prev, favoritesFilter: newValue };
+        }
         return { ...prev, [filterKey]: prevVal === value ? false : value };
       }
     });
@@ -106,17 +116,25 @@ const FilterPanel = ({ filters, setFilters }) => {
             <div style={{ paddingLeft: 10 }}>
               {filter.type.startsWith('checkbox') && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                  {filter.options.map(opt => (
-                    <CustomCheckbox
-                      key={opt.value}
-                      id={`filter-${filter.key}-${opt.value}`}
-                        checked={Array.isArray(filters[filter.key])
-                          ? filters[filter.key].includes(opt.value)
-                          : filters[filter.key] === opt.value || filters[filter.key] === true}
+                  {filter.options.map(opt => {
+                    const effectiveKey = (filter.key === 'favoritesFilterNot') ? 'favoritesFilter' : filter.key;
+                    // Для favorites читаем из глобальных settings
+                    const currentVal = (effectiveKey === 'favoritesFilter')
+                      ? (settings?.favoritesFilter || 'all')
+                      : filters[effectiveKey];
+                    const checked = Array.isArray(currentVal)
+                      ? currentVal.includes(opt.value)
+                      : currentVal === opt.value || currentVal === true;
+                    return (
+                      <CustomCheckbox
+                        key={opt.value}
+                        id={`filter-${filter.key}-${opt.value}`}
+                        checked={checked}
                         onChange={() => handleCheckbox(filter.key, opt.value, filter.multi)}
-                      label={opt.label}
+                        label={opt.label}
                       />
-                  ))}
+                    );
+                  })}
                 </div>
               )}
               {/* Вложенный селект для roasting */}

@@ -33,7 +33,8 @@ const Modal = ({ children, onClose }) => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '0',
+    padding: isMobile ? '10px' : '24px',
+    overflowY: 'auto',
   };
 
   const modalStyles = {
@@ -44,6 +45,8 @@ const Modal = ({ children, onClose }) => {
     maxWidth: 420,
     width: isMobile ? '98vw' : '90vw',
     overflowY: 'auto',
+    maxHeight: isMobile ? '92vh' : '90vh',
+    boxSizing: 'border-box',
     boxShadow: '0 8px 32px rgba(0,0,0,0.18)',
     padding: isMobile ? '1rem 0.5rem' : '1.5rem 1rem 1rem 1rem',
     position: 'relative',
@@ -61,25 +64,19 @@ const Modal = ({ children, onClose }) => {
           aria-label="Close"
           style={{
             position: 'absolute',
-            top: isMobile ? 10 : 16,
-            right: isMobile ? 10 : 18,
-            background: 'rgba(255,255,255,0.85)',
+            top: isMobile ? -2 : 12,
+            right: isMobile ? 8 : 18,
+            background: 'none',
             border: 'none',
-            borderRadius: '50%',
-            width: isMobile ? 36 : 40,
-            height: isMobile ? 36 : 40,
-            fontSize: isMobile ? '1.7rem' : '2rem',
+            fontSize: isMobile ? '0.75rem' : '0.9rem',
             color: '#a97845',
             cursor: 'pointer',
-            boxShadow: '0 2px 8px rgba(204,144,66,0.10)',
             zIndex: 10,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: 'background 0.18s',
+            fontWeight: 700,
+            transition: 'color 0.18s',
           }}
         >
-          ×
+          Close
         </button>
         {children}
       </div>
