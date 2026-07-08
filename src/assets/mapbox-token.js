@@ -1,1 +1,7 @@
-export const MAPBOX_TOKEN = 'pk.eyJ1IjoiYWxmZGVsdGE3MjciLCJhIjoiY21iNWh2bjMwMDN1YzJpcTJ0OWFzZDQ5OSJ9.9nyaVfmWsNykrhdjIfULug';
+const token = import.meta.env.VITE_MAPBOX_TOKEN;
+
+if (!token) {
+  console.warn('Mapbox token not found. Set VITE_MAPBOX_TOKEN in your .env.local file.');
+}
+
+export const MAPBOX_TOKEN = token || '';
